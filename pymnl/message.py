@@ -97,3 +97,11 @@ class Payload:
             self._contents = contents
             self._format = repr(len(self._contents)) + "s"
 
+    def set(self, contents):
+        """ Set the payload contents.
+
+            contents - string representing the payload
+        """
+        self._contents = contents
+        self._format = repr(len(self.contents)) + "s"
+
