@@ -110,3 +110,8 @@ class Payload:
         """
         return self._contents
 
+    def size(self):
+        """ Get the size of the payload (in bytes).
+        """
+        return len(self._contents)
+
