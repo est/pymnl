@@ -19,3 +19,56 @@
 #  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
 #  USA
 #
+# Much of the method docstrings are from libmnl and are
+#      Copyright 2008-2010 by Pablo Neira Ayuso <pablo@netfilter.org>
+#
+
+from struct import calcsize, pack, unpack
+
+class Message:
+    header_format = "ihhii"
+
+    def __init__(self, buffer=None):
+        """ A netlink message.
+
+            Netlink message:
+
+            |<----------------- 4 bytes ------------------->|
+            |<----- 2 bytes ------>|<------- 2 bytes ------>|
+            |-----------------------------------------------|
+            |      Message length (including header)        |
+            |-----------------------------------------------|
+            |     Message type     |     Message flags      |
+            |-----------------------------------------------|
+            |           Message sequence number             |
+            |-----------------------------------------------|
+            |                 Netlink PortID                |
+            |-----------------------------------------------|
+            |                                               |
+            .                   Payload                     .
+            |_______________________________________________|
+
+            There is usually an extra header after the the Netlink header
+            (at the beginning of the payload). This extra header is specific
+            of the Netlink subsystem. After this extra header, it comes the
+            sequence of attributes that are expressed in
+            Type-Length-Value (TLV) format.
+        """
+        self.msg_length = 0
+        self.msg_type = 0
+        self.msg_flags = 0
+        self.msg_seq = 0
+        self.pid = 0
+        self.payload = None
+
+        if (buffer):
+            payload_size = len(buffer) - calcsize(Message.header_format)
+
+            (self.msg_length,
+            self.msg_type,
+            self.msg_flags,
+            self.msg_seq,
+            self.pid,
+            self.payload) = unpack(Message.header_format +
+                                    repr(payload_size) + "s", buffer)
+
