@@ -40,3 +40,20 @@ class Socket:
 
         self._socket = socket.socket(socket.AF_NETLINK, socket.SOCK_RAW, bus)
 
+    def bind(self, pid=None, groups=None):
+        """ Bind netlink socket.
+
+            pid - The port ID you want to use.  You can use
+                    MNL_SOCKET_AUTOPID (which is 0) for automatic port ID
+                    selection.
+
+            groups - the group of message you're interested in
+
+            Raises an exception on error.
+        """
+        if (pid):
+            self._pid = pid
+        if (groups):
+            self._groups = groups
+        self._socket.bind((self._pid, self._groups))
+
