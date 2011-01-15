@@ -105,3 +105,8 @@ class Payload:
         self._contents = contents
         self._format = repr(len(self.contents)) + "s"
 
+    def get(self):
+        """ Get the payload contents.
+        """
+        return self._contents
+
