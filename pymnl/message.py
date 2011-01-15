@@ -115,3 +115,10 @@ class Payload:
         """
         return len(self._contents)
 
+    def format(self):
+        """ Get the payload's struct format.
+        """
+        return self._format
+
+
+
