@@ -19,4 +19,24 @@
 #  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
 #  USA
 #
+# Much of the method docstrings are from libmnl and are
+#      Copyright 2008-2010 by Pablo Neira Ayuso <pablo@netfilter.org>
+#
+
+import socket
+
+class Socket:
+    def __init__(self, bus):
+        """ A netlink socket.
+
+            bus - the netlink socket bus ID
+                    (see NETLINK_* constants in linux/netlink.h)
+
+            Raises an exception on error.
+        """
+        self._bus = bus
+        self._pid = 0      # port ID
+        self._groups = 0   # multicast groups mask
+
+        self._socket = socket.socket(socket.AF_NETLINK, socket.SOCK_RAW, bus)
 
