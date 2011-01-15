@@ -70,3 +70,18 @@ class Socket:
         """
         return self._socket.send(nl_message.packed())
 
+    def recv(self, bufsize=pymnl.SOCKET_BUFFER_SIZE, flags=0):
+        """ Receive a netlink message.
+
+            bufsize - max data to receive
+                        Use SOCKET_BUFFER_SIZE (which is 8KB, see
+                        linux/netlink.h for more information). Using this
+                        buffer size ensures that your buffer is big enough
+                        to store the netlink message without truncating it.
+
+            Raises an exception on error.  Otherwise, it returns the
+            netlink message.
+        """
+        return Message(self._socket.recv(bufsize, flags))
+
+
