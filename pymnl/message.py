@@ -88,3 +88,12 @@ class Message:
                 self.pid,
                 self.payload)
 
+
+class Payload:
+    def __init__(self, contents=None):
+        """ The payload of a netlink message.
+        """
+        if (contents):
+            self._contents = contents
+            self._format = repr(len(self._contents)) + "s"
+
