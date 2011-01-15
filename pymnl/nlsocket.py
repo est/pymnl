@@ -25,6 +25,9 @@
 
 import socket
 
+import pymnl
+from pymnl.message import Message
+
 class Socket:
     def __init__(self, bus):
         """ A netlink socket.
@@ -56,4 +59,14 @@ class Socket:
         if (groups):
             self._groups = groups
         self._socket.bind((self._pid, self._groups))
+
+    def send(self, nl_message):
+        """ Send a netlink message.
+
+            nl_message - the netlink message to be sent
+
+            Raises an exception on error. Otherwise, it returns the number of
+            bytes sent.
+        """
+        return self._socket.send(nl_message.packed())
 
