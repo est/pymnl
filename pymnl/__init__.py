@@ -22,3 +22,5 @@
 
 from ctypes import *
 
+
+SOCKET_BUFFER_SIZE = 8192
