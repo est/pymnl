@@ -79,15 +79,15 @@ class Message:
         if (not self.payload):
             raise UnboundLocalError("payload")
 
-        self.msg_length = calcsize(Message.header_format) + len(self.payload)
+        self.msg_length = calcsize(Message.header_format) + self.payload.size()
 
-        return pack(Message.header_format + repr(len(self.payload)) + "s",
+        return pack(Message.header_format + self.payload.format(),
                 self.msg_length,
                 self.msg_type,
                 self.msg_flags,
                 self.msg_seq,
                 self.pid,
-                self.payload)
+                self.payload.get())
 
 
 class Payload:
