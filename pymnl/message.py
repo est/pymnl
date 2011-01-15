@@ -62,15 +62,16 @@ class Message:
         self.payload = None
 
         if (buffer):
-            payload_size = len(buffer) - calcsize(Message.header_format)
+            header_size = calcsize(Message.header_format)
+            header = buffer[:header_size]
 
             (self.msg_length,
             self.msg_type,
             self.msg_flags,
             self.msg_seq,
-            self.pid,
-            self.payload) = unpack(Message.header_format +
-                                    repr(payload_size) + "s", buffer)
+            self.pid) = unpack(Message.header_format, header)
+
+            self.payload = Payload(buffer[header_size:])
 
     def packed(self):
         """ Return a packed struct for sending to netlink socket.
