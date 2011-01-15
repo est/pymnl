@@ -43,6 +43,17 @@ class Socket:
 
         self._socket = socket.socket(socket.AF_NETLINK, socket.SOCK_RAW, bus)
 
+    def get_portid(self):
+        """ Obtain netlink PortID from netlink socket.
+
+            This method returns the netlink PortID of this netlink socket.
+            It's a common mistake to assume that this PortID equals the
+            process ID which is not always true. This is the case if you
+            open more than one socket that is binded to the same netlink
+            subsystem from the same process.
+        """
+        return self._pid;
+
     def bind(self, pid=None, groups=None):
         """ Bind netlink socket.
 
