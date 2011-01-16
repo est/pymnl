@@ -75,9 +75,9 @@ class Attr:
 
 
     def __len__(self):
-        """ Get the length of the attribute (in bytes).
+        """ Get the length of the packed attribute (in bytes).
         """
-        return calcsize(Attr.header_format) + len(self._value)
+        return calcsize(Attr.header_format) + self._size
 
     def set(self, type, value, size):
         """ Set the attribute type and value.
