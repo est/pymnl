@@ -59,14 +59,15 @@ class Attr:
                     - size of a strz is one byte per character
                         in string, plus for terminating zero
         """
-        self._type = type
-        self._value = value
         if (packed_data):
+            # process packed struct into Attr's fields
             (self._length,
              self._type) = unpack(Attr.header_format, packed_data[:4])
             self._value = packed_data[4:]
-        if (self._value):
-            self._value_format = repr(len(self._value)) + "s"
+            self._size = len(self._value)
+        else:
+            self.set(type, value, size)
+
 
     def __len__(self):
         """ Get the length of the attribute (in bytes).
