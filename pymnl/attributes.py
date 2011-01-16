@@ -157,6 +157,12 @@ class Attr:
             _value_format = "Q"
         return Attr.header_format + _value_format
 
+    def packed(self):
+        """ Return a packed struct to include in message payload.
+        """
+        return pack(self.format(), len(self), self._type, self._value)
+
+
 
 
 
