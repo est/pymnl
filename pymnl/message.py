@@ -26,6 +26,7 @@
 from struct import calcsize, pack, unpack
 
 import pymnl
+from pymnl.attributes import Attr
 
 class Message:
     # pack/unpack format for msg_length, msg_type, msg_flags, msg_seq, pid
@@ -104,6 +105,19 @@ class Payload:
         """ Get the length of the payload (in bytes).
         """
         return len(self._contents)
+
+    def _parse_contents(self):
+        """ Return list of attributes.
+        """
+        attributes = list()
+        index = 4
+        while (index < len(self)):
+            attr_length = unpack("h", self._contents[index:index+2])[0]
+            print "index:", index, "attr_length:", attr_length
+            one_attr = Attr(packed_data=self._contents[index:index+attr_length])
+            attributes.append(one_attr)
+            index = index + pymnl.align(attr_length)
+        return attributes
 
     def __iter__(self):
         """ Return an iterator object.
