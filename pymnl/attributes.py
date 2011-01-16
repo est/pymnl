@@ -42,6 +42,11 @@ class Attr:
     # pack/unpack format for type and length
     header_format = "hh"
 
+    # various data sizes
+    _u8 = 1
+    _u16 = 2
+    _u32 = 4
+    _u64 = 8
 
     def __init__(self, type=None, value=None, size=None, packed_data=None):
         """ Create a new Attr object.
