@@ -26,6 +26,7 @@
 from struct import calcsize, pack, unpack
 
 class Message:
+    # pack/unpack format for msg_length, msg_type, msg_flags, msg_seq, pid
     header_format = "ihhii"
 
     def __init__(self, buffer=None):
