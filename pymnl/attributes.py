@@ -42,9 +42,22 @@ class Attr:
     # pack/unpack format for type and length
     header_format = "hh"
 
-    def __init__(self, type=None, value=None, packed_data=None):
 
+    def __init__(self, type=None, value=None, size=None, packed_data=None):
+        """ Create a new Attr object.
 
+            type - attribute's type (see NLA_* constants in linux/netlink.h)
+
+            value - string or number representing the payload
+
+            size - the length (in bytes) of the value
+                    - size of a _u8 is one byte
+                    - size of a _u16 is two bytes
+                    - size of a _u32 is four bytes
+                    - size of a _u64 is eight bytes
+                    - size of a strnz is one byte per character in string
+                    - size of a strz is one byte per character
+                        in string, plus for terminating zero
         """
         self._type = type
         self._value = value
