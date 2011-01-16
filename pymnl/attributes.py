@@ -79,6 +79,12 @@ class Attr:
         """
         return calcsize(Attr.header_format) + self._size
 
+    @staticmethod
+    def new_u8(type, value):
+        """ Return a new one byte long Attr object.
+        """
+        return Attr(type=type, value=value, size=Attr._u8)
+
     def set(self, type, value, size):
         """ Set the attribute type and value.
 
