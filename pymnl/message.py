@@ -137,7 +137,7 @@ class PayloadIter:
         self._list = list
         self._index = 0
 
-    def __init__(self):
+    def __iter__(self):
         """ Iterator over Payload contents.
         """
         return self
