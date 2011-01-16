@@ -79,7 +79,7 @@ class Message:
         if (not self.payload):
             raise UnboundLocalError("payload")
 
-        self.msg_length = calcsize(Message.header_format) + self.payload.size()
+        self.msg_length = calcsize(Message.header_format) + len(self.payload)
 
         return pack(Message.header_format + self.payload.format(),
                 self.msg_length,
@@ -98,6 +98,11 @@ class Payload:
             self._contents = contents
             self._format = repr(len(self._contents)) + "s"
 
+    def __len__(self):
+        """ Get the length of the payload (in bytes).
+        """
+        return len(self._contents)
+
     def set(self, contents):
         """ Set the payload contents.
 
@@ -110,11 +115,6 @@ class Payload:
         """ Get the payload contents.
         """
         return self._contents
-
-    def size(self):
-        """ Get the size of the payload (in bytes).
-        """
-        return len(self._contents)
 
     def format(self):
         """ Get the payload's struct format.
