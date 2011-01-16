@@ -143,6 +143,13 @@ class Payload:
         """
         return self._format
 
+    def add_attr(self, attribute):
+        """ Add an Attr object to the payload.
+
+            attribute - an Attr object
+        """
+        self.set(self._contents + attribute.packed())
+
 
 class PayloadIter:
     def __init__(self, list):
