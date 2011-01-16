@@ -98,8 +98,7 @@ class Payload:
         """ The payload of a netlink message.
         """
         if (contents):
-            self._contents = contents
-            self._format = repr(len(self._contents)) + "s"
+            self.set(contents)
 
     def __len__(self):
         """ Get the length of the payload (in bytes).
