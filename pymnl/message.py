@@ -105,6 +105,12 @@ class Payload:
         """
         return len(self._contents)
 
+    def __iter__(self):
+        """ Return an iterator object.
+        """
+        attr_list = self._parse_contents()
+        return PayloadIter(attr_list)
+
     def set(self, contents):
         """ Set the payload contents.
 
