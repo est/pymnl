@@ -66,5 +66,10 @@ class Attr:
         self._value = value
         self._value_format = repr(len(self._value)) + "s"
 
+    def type(self):
+        """ Get the attribute's type.
+        """
+        return self._type & NLA_TYPE_MASK
+
 
 
