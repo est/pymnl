@@ -109,6 +109,16 @@ class Attr:
         """
         return Attr(type=type, value=value, size=len(value))
 
+    @staticmethod
+    def new_strz(type, value):
+        """ Return a new Attr object with a zero-terminated string.
+
+            This method will add the null termination.  Pass this
+            method a non-zero-terminated string.
+        """
+        zvalue = value + "\x00"
+        return Attr(type=type, value=zvalue, size=len(zvalue))
+
     def set(self, type, value, size):
         """ Set the attribute type and value.
 
