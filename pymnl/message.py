@@ -25,6 +25,8 @@
 
 from struct import calcsize, pack, unpack
 
+import pymnl
+
 class Message:
     # pack/unpack format for msg_length, msg_type, msg_flags, msg_seq, pid
     header_format = "ihhii"
@@ -71,7 +73,7 @@ class Message:
             self.msg_seq,
             self.pid) = unpack(Message.header_format, buffer[:header_size])
 
-            self.payload = Payload(buffer[header_size:])
+            self.payload = Payload(buffer[pymnl.align(header_size):])
 
     def packed(self):
         """ Return a packed struct for sending to netlink socket.
@@ -79,7 +81,8 @@ class Message:
         if (not self.payload):
             raise UnboundLocalError("payload")
 
-        self.msg_length = calcsize(Message.header_format) + len(self.payload)
+        self.msg_length = pymnl.align(calcsize(Message.header_format) +
+                                                len(self.payload))
 
         return pack(Message.header_format + self.payload.format(),
                 self.msg_length,
@@ -109,7 +112,7 @@ class Payload:
             contents - string representing the payload
         """
         self._contents = contents
-        self._format = repr(len(self.contents)) + "s"
+        self._format = repr(pymnl.align(len(self._contents))) + "s"
 
     def get(self):
         """ Get the payload contents.
