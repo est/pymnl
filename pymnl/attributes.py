@@ -76,5 +76,11 @@ class Attr:
         """
         return self._value
 
+    def format(self):
+        """ Get the attribute's struct format.
+        """
+        return Attr.header_format + self._value_format
+
+
 
 
