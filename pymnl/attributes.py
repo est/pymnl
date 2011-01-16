@@ -85,6 +85,12 @@ class Attr:
         """
         return Attr(type=type, value=value, size=Attr._u8)
 
+    @staticmethod
+    def new_u16(type, value):
+        """ Return a new two byte long Attr object.
+        """
+        return Attr(type=type, value=value, size=Attr._u16)
+
     def set(self, type, value, size):
         """ Set the attribute type and value.
 
