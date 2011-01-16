@@ -124,4 +124,25 @@ class Payload:
         return self._format
 
 
+class PayloadIter:
+    def __init__(self, list):
+        """ Iterator over Payload contents.
+        """
+        self._list = list
+        self._index = 0
+
+    def __init__(self):
+        """ Iterator over Payload contents.
+        """
+        return self
+
+    def __next__(self):
+        """ Return next element from Payload contents.
+        """
+        if self._index == len(self._list):
+            raise StopIteration
+        self._index = self._index + 1
+        return self._list[self._index]
+
+
 
