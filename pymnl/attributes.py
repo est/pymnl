@@ -28,20 +28,23 @@ from struct import calcsize, pack, unpack
 import pymnl
 
 class Attr:
+    """ Netlink Length-Type-Value (LTV) attribute:
+
+        |<-- 2 bytes -->|<-- 2 bytes -->|<-- variable -->|
+        -------------------------------------------------
+        |     length    |      type     |      value     |
+        -------------------------------------------------
+        |<--------- header ------------>|<-- payload --->|
+
+        The payload of the Netlink message contains sequences of
+        attributes that are expressed in LTV format.
+    """
     # pack/unpack format for type and length
     header_format = "hh"
 
     def __init__(self, type=None, value=None, packed_data=None):
-        """ Netlink Type-Length-Value (TLV) attribute:
 
-            |<-- 2 bytes -->|<-- 2 bytes -->|<-- variable -->|
-            -------------------------------------------------
-            |     length    |      type     |      value     |
-            -------------------------------------------------
-            |<--------- header ------------>|<-- payload --->|
 
-            The payload of the Netlink message contains sequences of
-            attributes that are expressed in TLV format.
         """
         self._type = type
         self._value = value
