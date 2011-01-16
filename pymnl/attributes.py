@@ -50,5 +50,10 @@ class Attr:
         if (self._value):
             self._value_format = repr(len(self._value)) + "s"
 
+    def __len__(self):
+        """ Get the length of the attribute (in bytes).
+        """
+        return calcsize(Attr.header_format) + len(self._value)
+
 
 
