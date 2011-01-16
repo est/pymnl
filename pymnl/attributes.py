@@ -103,6 +103,12 @@ class Attr:
         """
         return Attr(type=type, value=value, size=Attr._u64)
 
+    @staticmethod
+    def new_strnz(type, value):
+        """ Return a new Attr object with a non-zero-terminated string.
+        """
+        return Attr(type=type, value=value, size=len(value))
+
     def set(self, type, value, size):
         """ Set the attribute type and value.
 
