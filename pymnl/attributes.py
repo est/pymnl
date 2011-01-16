@@ -71,5 +71,10 @@ class Attr:
         """
         return self._type & NLA_TYPE_MASK
 
+    def value(self):
+        """ Get the attribute's value.
+        """
+        return self._value
+
 
 
