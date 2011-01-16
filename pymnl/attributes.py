@@ -25,6 +25,8 @@
 
 from struct import calcsize, pack, unpack
 
+import pymnl
+
 class Attr:
     # pack/unpack format for type and length
     header_format = "hh"
@@ -69,7 +71,7 @@ class Attr:
     def type(self):
         """ Get the attribute's type.
         """
-        return self._type & NLA_TYPE_MASK
+        return self._type & pymnl.NLA_TYPE_MASK
 
     def value(self):
         """ Get the attribute's value.
