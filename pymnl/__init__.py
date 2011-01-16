@@ -31,4 +31,12 @@ NETLINK_PKTINFO = 3
 NETLINK_BROADCAST_ERROR = 4
 NETLINK_NO_ENOBUFS = 5
 
+_ALIGNTO = 4
+def align(len):
+    """ Align to _ALIGNTO boundary.
+
+        Copied from libmnl.h.
+    """
+    return (((len) + _ALIGNTO - 1) & ~(_ALIGNTO - 1))
+
 
