@@ -145,8 +145,8 @@ class Attr:
     def format(self):
         """ Get the attribute's struct format.
         """
-        if (isinstance(self._value, String)):
-            _value_format = len(self._value) + "s"
+        if (isinstance(self._value, str)):
+            _value_format = repr(len(self._value)) + "s"
         elif (self._size == Attr._u8):
             _value_format = "B"
         elif (self._size == Attr._u16):
