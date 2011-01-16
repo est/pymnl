@@ -142,7 +142,7 @@ class PayloadIter:
         """
         return self
 
-    def __next__(self):
+    def next(self):
         """ Return next element from Payload contents.
         """
         if self._index == len(self._list):
