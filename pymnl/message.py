@@ -106,15 +106,15 @@ class Payload:
         """
         return len(self._contents)
 
-    def _parse_contents(self):
+    def _parse_contents(self, data):
         """ Return list of attributes.
         """
         attributes = list()
         index = 4
         while (index < len(self)):
-            attr_length = unpack("h", self._contents[index:index+2])[0]
+            attr_length = unpack("h", data[index:index+2])[0]
             print "index:", index, "attr_length:", attr_length
-            one_attr = Attr(packed_data=self._contents[index:index+attr_length])
+            one_attr = Attr(packed_data=data[index:index+attr_length])
             attributes.append(one_attr)
             index = index + pymnl.align(attr_length)
         return attributes
@@ -122,7 +122,7 @@ class Payload:
     def __iter__(self):
         """ Return an iterator object.
         """
-        attr_list = self._parse_contents()
+        attr_list = self._parse_contents(self._contents)
         return PayloadIter(attr_list)
 
     def set(self, contents):
