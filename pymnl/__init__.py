@@ -31,6 +31,22 @@ NETLINK_PKTINFO = 3
 NETLINK_BROADCAST_ERROR = 4
 NETLINK_NO_ENOBUFS = 5
 
+# netlink attribute types
+NLA_UNSPEC = 0    # Unspecified type
+NLA_U8 = 1        # 8bit integer
+NLA_U16 = 2       # 16bit integer
+NLA_U32 = 3       # 32bit integer
+NLA_U64 = 4       # 64bit integer
+NLA_STRING = 5    # character string
+NLA_FLAG = 6      # flag
+NLA_MSECS = 7     # micro seconds (64bit)
+NLA_NESTED = 8    # nested attributes
+NLA_TYPE_MAX = 9  # always keep last
+
+NLA_F_NESTED = (1 << 15)
+NLA_F_NET_BYTEORDER = (1 << 14)
+NLA_TYPE_MASK = ~(NLA_F_NESTED | NLA_F_NET_BYTEORDER)
+
 _ALIGNTO = 4
 def align(len):
     """ Align to _ALIGNTO boundary.
