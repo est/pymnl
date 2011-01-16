@@ -64,13 +64,12 @@ class Message:
 
         if (buffer):
             header_size = calcsize(Message.header_format)
-            header = buffer[:header_size]
 
             (self.msg_length,
             self.msg_type,
             self.msg_flags,
             self.msg_seq,
-            self.pid) = unpack(Message.header_format, header)
+            self.pid) = unpack(Message.header_format, buffer[:header_size])
 
             self.payload = Payload(buffer[header_size:])
 
