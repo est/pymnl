@@ -73,16 +73,18 @@ class Attr:
         """
         return calcsize(Attr.header_format) + len(self._value)
 
-    def set(self, type, value):
+    def set(self, type, value, size):
         """ Set the attribute type and value.
 
             type - attribute's type (see NLA_* constants in linux/netlink.h)
 
             value - string representing the payload
+
+            size - the length (in bytes) of the value (see __init__())
         """
         self._type = type
         self._value = value
-        self._value_format = repr(len(self._value)) + "s"
+        self._size = size
 
     def type(self):
         """ Get the attribute's type.
