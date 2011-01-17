@@ -74,7 +74,7 @@ class Message:
             self.msg_seq,
             self.pid) = unpack(Message.header_format, buffer[:header_size])
 
-            self.payload = Payload(buffer[pymnl.align(header_size):])
+            self.payload = Payload(buffer[pymnl.NLMSG_ALIGN(header_size):])
 
     def packed(self):
         """ Return a packed struct for sending to netlink socket.
@@ -82,7 +82,7 @@ class Message:
         if (not self.payload):
             raise UnboundLocalError("payload")
 
-        self.msg_length = pymnl.align(calcsize(Message.header_format) +
+        self.msg_length = pymnl.NLMSG_ALIGN(calcsize(Message.header_format) +
                                                 len(self.payload))
 
         return pack(Message.header_format,
@@ -121,7 +121,7 @@ class Payload:
             contents - string representing the payload
         """
         self._contents = contents
-        self._format = repr(pymnl.align(len(self._contents))) + "s"
+        self._format = repr(pymnl.NLMSG_ALIGN(len(self._contents))) + "s"
 
     def format(self):
         """ Get the payload's struct format.

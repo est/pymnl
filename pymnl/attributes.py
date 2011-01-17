@@ -213,7 +213,7 @@ class AttrParser:
             except:
                 break
             one_attr = Attr(packed_data=data[index:index+attr_length])
-            index = index + pymnl.align(attr_length)
+            index = index + pymnl.NLA_ALIGN(attr_length)
             yield one_attr
 
     def parse(self, data):
