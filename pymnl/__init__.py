@@ -22,6 +22,12 @@
 
 from ctypes import *
 
+def PYMNL_ALIGN(align_size):
+    """ Return a function to calculate alignment.
+    """
+    return lambda len: (((len) + align_size - 1) & ~(align_size - 1))
+
+
 SOCKET_BUFFER_SIZE = 8192
 
 # define netlink-specific flags
@@ -47,12 +53,6 @@ NLA_F_NESTED = (1 << 15)
 NLA_F_NET_BYTEORDER = (1 << 14)
 NLA_TYPE_MASK = ~(NLA_F_NESTED | NLA_F_NET_BYTEORDER)
 
-_ALIGNTO = 4
-def align(len):
-    """ Align to _ALIGNTO boundary.
 
-        Copied from libmnl.h.
-    """
-    return (((len) + _ALIGNTO - 1) & ~(_ALIGNTO - 1))
 
 
