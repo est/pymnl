@@ -173,6 +173,29 @@ class AttrParser:
         However, AttrParser will handle simple attribute data.  And return
         a list of the attributes found.
     """
+    def parse_string(self, data, offset=4):
+        """ Process the attributes.
+
+            data - raw data to parse
+
+            offset - offset into data at which to start
+
+            This method takes care of the low-level detail of finding
+            attributes in a data string and returns individual
+            attributes one at a time (parse_string() is a generator).
+
+            Subclasses can override parse() and still use parse_string()
+            to retrieve individual attributes from the data.
+        """
+        index = offset
+        while (index < len(data)):
+            try:
+                attr_length = unpack("h", data[index:index+2])[0]
+            except:
+                break
+            one_attr = Attr(packed_data=data[index:index+attr_length])
+            index = index + pymnl.align(attr_length)
+            yield one_attr
 
 
 

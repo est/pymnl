@@ -106,18 +106,6 @@ class Payload:
         """
         return len(self._contents)
 
-    def _parse_contents(self, data):
-        """ Return list of attributes.
-        """
-        attributes = list()
-        index = 4
-        while (index < len(self)):
-            attr_length = unpack("h", data[index:index+2])[0]
-            print "index:", index, "attr_length:", attr_length
-            one_attr = Attr(packed_data=data[index:index+attr_length])
-            attributes.append(one_attr)
-            index = index + pymnl.align(attr_length)
-        return attributes
     def set(self, contents):
         """ Set the payload contents.
 
