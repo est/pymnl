@@ -106,6 +106,11 @@ class Payload:
         """
         return len(self._contents)
 
+    def __getdata__(self):
+        """ Return the non-header data string.
+        """
+        return self._contents
+
     def __repr__(self):
         """ Return escaped data string.
         """
@@ -118,11 +123,6 @@ class Payload:
         """
         self._contents = contents
         self._format = repr(pymnl.align(len(self._contents))) + "s"
-
-    def get(self):
-        """ Get the payload contents.
-        """
-        return self._contents
 
     def format(self):
         """ Get the payload's struct format.
