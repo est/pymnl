@@ -106,6 +106,11 @@ class Payload:
         """
         return len(self._contents)
 
+    def __repr__(self):
+        """ Return escaped data string.
+        """
+        return repr(self._contents)
+
     def set(self, contents):
         """ Set the payload contents.
 
