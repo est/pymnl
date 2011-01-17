@@ -205,6 +205,20 @@ class AttrParser:
             index = index + pymnl.align(attr_length)
             yield one_attr
 
+    def parse(self, data):
+        """ Process the attributes.
+
+            data - raw data to parse
+        """
+        for one_attr in self.parse_string(data):
+            try:
+                self._cb[one_attr.type()](one_attr)
+            except KeyError:
+                self._attributes.append(one_attr)
+
+        if (len(self._attributes) > 0):
+            return self._attributes
+
 
 
 
