@@ -225,6 +225,14 @@ class AttrParser:
         if (len(self._attributes) > 0):
             return self._attributes
 
+    def get_attrs(self):
+        """ Return list of attributes parsed from data string.
+
+              If the data string is passed on object creation, and no
+              callback methods have been assigned, this method can be
+              used to get the list of attributes.
+        """
+        return self._attributes
 
 
 
