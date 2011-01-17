@@ -114,6 +114,8 @@ NLA_ALIGN = PYMNL_ALIGN(NLA_ALIGNTO)
 # libmnl.h
 #
 
+SOCKET_AUTOPID = 0
+
 # minimal netlink attribute types
 TYPE_UNSPEC = 0    # Unspecified type
 TYPE_U8 = 1        # 8bit integer
