@@ -79,6 +79,11 @@ class Attr:
         """
         return calcsize(Attr.header_format) + self._size
 
+    def __getdata__(self):
+        """ Return the non-header data string.
+        """
+        return self._value
+
     @staticmethod
     def new_u8(type, value):
         """ Return a new one byte long Attr object.
