@@ -181,7 +181,7 @@ class AttrParser:
     def __init__(self, data=None):
         """ Parse a string for netlink attributes.
 
-            data - optional string with attributes
+            data - optional object with attributes
                     The attribute string can be passed here, or sent to
                     the parse() method after initialization.
         """
@@ -219,9 +219,9 @@ class AttrParser:
     def parse(self, data):
         """ Process the attributes.
 
-            data - raw data to parse
+            data - object with attributes
         """
-        for one_attr in self.parse_string(data):
+        for one_attr in self.parse_string(data.__getdata__()):
             try:
                 self._cb[one_attr.type()](one_attr)
             except KeyError:
