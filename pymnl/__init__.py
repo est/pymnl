@@ -72,6 +72,9 @@ NLM_F_EXCL = 0x200      # Do not touch, if it exists
 NLM_F_CREATE = 0x400    # Create, if it does not exist
 NLM_F_APPEND = 0x800    # Add to end of list
 
+NLMSG_ALIGNTO = 4
+NLMSG_ALIGN = PYMNL_ALIGN(NLMSG_ALIGNTO)
+
 SOCKET_BUFFER_SIZE = 8192
 
 # define netlink-specific flags
