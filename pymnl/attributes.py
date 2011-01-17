@@ -163,6 +163,16 @@ class Attr:
         return pack(self.format(), len(self), self._type, self._value)
 
 
+class AttrParser:
+    """ Base class for attribute parsers.
+
+        This class provides the most basic parsing capability.  In most
+        cases, you should use a subclass with callback methods or even
+        replace the parse() method.
+
+        However, AttrParser will handle simple attribute data.  And return
+        a list of the attributes found.
+    """
 
 
 
