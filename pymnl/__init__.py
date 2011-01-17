@@ -83,7 +83,6 @@ NLMSG_OVERRUN = 0x4     # Data lost
 NLMSG_MIN_TYPE = 0x10   # < 0x10: reserved control messages
 SOCKET_BUFFER_SIZE = 8192
 
-# define netlink-specific flags
 NETLINK_ADD_MEMBERSHIP = 1
 NETLINK_DROP_MEMBERSHIP = 2
 NETLINK_PKTINFO = 3
