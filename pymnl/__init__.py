@@ -89,6 +89,7 @@ NETLINK_PKTINFO = 3
 NETLINK_BROADCAST_ERROR = 4
 NETLINK_NO_ENOBUFS = 5
 
+NET_MAJOR = 36          # Major 36 is reserved for networking
 
 NLA_F_NESTED = (1 << 15)
 NLA_F_NET_BYTEORDER = (1 << 14)
