@@ -118,13 +118,6 @@ class Payload:
             attributes.append(one_attr)
             index = index + pymnl.align(attr_length)
         return attributes
-
-    def __iter__(self):
-        """ Return an iterator object.
-        """
-        attr_list = self._parse_contents(self._contents)
-        return PayloadIter(attr_list)
-
     def set(self, contents):
         """ Set the payload contents.
 
@@ -151,26 +144,12 @@ class Payload:
         self.set(self._contents + attribute.packed())
 
 
-class PayloadIter:
-    def __init__(self, list):
-        """ Iterator over Payload contents.
-        """
-        self._list = list
-        self._index = 0
 
-    def __iter__(self):
-        """ Iterator over Payload contents.
-        """
-        return self
 
-    def next(self):
-        """ Return next element from Payload contents.
-        """
-        if self._index == len(self._list):
-            raise StopIteration
-        attribute = self._list[self._index]
-        self._index = self._index + 1
-        return attribute
+
+
+
+
 
 
 
