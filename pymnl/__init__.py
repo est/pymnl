@@ -54,6 +54,23 @@ NETLINK_ECRYPTFS = 19
 
 MAX_LINKS = 32
 
+# Flags values
+NLM_F_REQUEST = 1       # It is a request message.
+NLM_F_MULTI = 2         # Multipart message, terminated by NLMSG_DONE
+NLM_F_ACK = 4           # Reply with ack, with zero or error code
+NLM_F_ECHO = 8          # Echo this request
+
+# Modifiers to GET request
+NLM_F_ROOT = 0x100      # specify tree root
+NLM_F_MATCH = 0x200     # return all matching
+NLM_F_ATOMIC = 0x400    # atomic GET
+NLM_F_DUMP = (NLM_F_ROOT|NLM_F_MATCH)
+
+# Modifiers to NEW request
+NLM_F_REPLACE = 0x100   # Override existing
+NLM_F_EXCL = 0x200      # Do not touch, if it exists
+NLM_F_CREATE = 0x400    # Create, if it does not exist
+NLM_F_APPEND = 0x800    # Add to end of list
 
 SOCKET_BUFFER_SIZE = 8192
 
