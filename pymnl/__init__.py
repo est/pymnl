@@ -21,6 +21,7 @@
 # pymnl does not use libmnl.
 
 from ctypes import *
+from resource import getpagesize
 
 def PYMNL_ALIGN(align_size):
     """ Return a function to calculate alignment.
@@ -81,7 +82,6 @@ NLMSG_DONE = 0x3        # End of a dump
 NLMSG_OVERRUN = 0x4     # Data lost
 
 NLMSG_MIN_TYPE = 0x10   # < 0x10: reserved control messages
-SOCKET_BUFFER_SIZE = 8192
 
 NETLINK_ADD_MEMBERSHIP = 1
 NETLINK_DROP_MEMBERSHIP = 2
@@ -115,6 +115,10 @@ NLA_ALIGN = PYMNL_ALIGN(NLA_ALIGNTO)
 #
 
 SOCKET_AUTOPID = 0
+
+SOCKET_BUFFER_SIZE = 8192L
+if (getpagesize() < 8192L):
+    SOCKET_BUFFER_SIZE = getpagesize()
 
 # minimal netlink attribute types
 TYPE_UNSPEC = 0    # Unspecified type
