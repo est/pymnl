@@ -75,6 +75,12 @@ NLM_F_APPEND = 0x800    # Add to end of list
 NLMSG_ALIGNTO = 4
 NLMSG_ALIGN = PYMNL_ALIGN(NLMSG_ALIGNTO)
 
+NLMSG_NOOP = 0x1        # Nothing.
+NLMSG_ERROR = 0x2       # Error
+NLMSG_DONE = 0x3        # End of a dump
+NLMSG_OVERRUN = 0x4     # Data lost
+
+NLMSG_MIN_TYPE = 0x10   # < 0x10: reserved control messages
 SOCKET_BUFFER_SIZE = 8192
 
 # define netlink-specific flags
