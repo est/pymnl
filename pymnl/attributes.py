@@ -62,7 +62,7 @@ class Attr:
                     - size of a _u64 is eight bytes
                     - size of a strnz is one byte per character in string
                     - size of a strz is one byte per character
-                        in string, plus for terminating zero
+                        in string, plus one for terminating zero
         """
         if (packed_data):
             # process packed struct into Attr's fields
