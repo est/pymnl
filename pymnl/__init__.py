@@ -91,6 +91,17 @@ NETLINK_NO_ENOBUFS = 5
 
 NET_MAJOR = 36          # Major 36 is reserved for networking
 
+# netlink attributes
+#
+#  nla_type(16bits)
+#  +---+---+-------------------------------+
+#  |N|O|AttributeType|
+#  +---+---+-------------------------------+
+#  N:=Carriesnestedattributes
+#  O:=Payloadstoredinnetworkbyteorder
+#
+#  Note:The N and O flag are mutually exclusive.
+#
 NLA_F_NESTED = (1 << 15)
 NLA_F_NET_BYTEORDER = (1 << 14)
 NLA_TYPE_MASK = ~(NLA_F_NESTED | NLA_F_NET_BYTEORDER)
