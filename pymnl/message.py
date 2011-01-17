@@ -85,13 +85,12 @@ class Message:
         self.msg_length = pymnl.align(calcsize(Message.header_format) +
                                                 len(self.payload))
 
-        return pack(Message.header_format + self.payload.format(),
+        return pack(Message.header_format,
                 self.msg_length,
                 self.msg_type,
                 self.msg_flags,
                 self.msg_seq,
-                self.pid,
-                self.payload.get())
+                self.pid) + self.payload.__getdata__()
 
 
 class Payload:
