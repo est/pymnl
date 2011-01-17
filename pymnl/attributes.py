@@ -173,6 +173,14 @@ class AttrParser:
         However, AttrParser will handle simple attribute data.  And return
         a list of the attributes found.
     """
+    def __init__(self):
+        """ Parse a string for netlink attributes.
+        """
+        # list to hold attributes if no callbacks are assigned
+        self._attributes = []
+        # dict to hold attribute type to callback method mapping
+        self._cb = {}
+
     def parse_string(self, data, offset=4):
         """ Process the attributes.
 
