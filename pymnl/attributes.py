@@ -38,6 +38,11 @@ class Attr:
 
         The payload of the Netlink message contains sequences of
         attributes that are expressed in LTV format.
+
+        Attr stores the value in packed format, internally.  The value
+        is immediately packed when an Attr is created via non-packed data.
+        It will be unpacked, as needed, when called for through the
+        get_*() methods.
     """
     # pack/unpack format for type and length
     header_format = "hh"
