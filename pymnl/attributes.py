@@ -142,11 +142,30 @@ class Attr:
         """
         return self._type & pymnl.NLA_TYPE_MASK
 
-    def value(self):
-        """ Get the attribute's value.
+    def get_u8(self):
+        """ Return value as a one byte integer.
         """
-        return self._value
+        return unpack("B", self._value)[0]
 
+    def get_u16(self):
+        """ Return value as a two byte integer.
+        """
+        return unpack("H", self._value)[0]
+
+    def get_u32(self):
+        """ Return value as a four byte integer.
+        """
+        return unpack("I", self._value)[0]
+
+    def get_u64(self):
+        """ Return value as an eight byte integer.
+        """
+        return unpack("Q", self._value)[0]
+
+    def get_str(self):
+        """ Return value as a string.
+        """
+        return unpack(repr(len(self._value)) + "s", self._value)[0]
     def format(self):
         """ Get the attribute's struct format.
         """
