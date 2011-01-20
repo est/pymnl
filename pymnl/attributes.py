@@ -171,20 +171,6 @@ class Attr:
         """ Return value as a string.
         """
         return unpack(repr(len(self._value)) + "s", self._value)[0]
-    def format(self):
-        """ Get the attribute's struct format.
-        """
-        if (isinstance(self._value, str)):
-            _value_format = repr(len(self._value)) + "s"
-        elif (self._size == Attr._u8):
-            _value_format = "B"
-        elif (self._size == Attr._u16):
-            _value_format = "H"
-        elif (self._size == Attr._u32):
-            _value_format = "I"
-        elif (self._size == Attr._u64):
-            _value_format = "Q"
-        return Attr.header_format + _value_format
 
     def packed(self):
         """ Return a packed struct to include in message payload.
