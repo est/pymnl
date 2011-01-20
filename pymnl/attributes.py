@@ -189,7 +189,7 @@ class Attr:
     def packed(self):
         """ Return a packed struct to include in message payload.
         """
-        return pack(self.format(), len(self), self._type, self._value)
+        return pack(Attr.header_format, len(self), self._type) + self._value
 
 
 class AttrParser:
