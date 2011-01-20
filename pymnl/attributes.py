@@ -53,36 +53,26 @@ class Attr:
     _u32 = 4
     _u64 = 8
 
-    def __init__(self, type=None, value=None, size=None, packed_data=None):
+    def __init__(self, type=None, value=None, packed_data=None):
         """ Create a new Attr object.
 
             type - attribute's type (see NLA_* constants in linux/netlink.h)
 
             value - string or number representing the payload
-
-            size - the length (in bytes) of the value
-                    - size of a _u8 is one byte
-                    - size of a _u16 is two bytes
-                    - size of a _u32 is four bytes
-                    - size of a _u64 is eight bytes
-                    - size of a strnz is one byte per character in string
-                    - size of a strz is one byte per character
-                        in string, plus one for terminating zero
         """
         if (packed_data):
             # process packed struct into Attr's fields
             (self._length,
              self._type) = unpack(Attr.header_format, packed_data[:4])
             self._value = packed_data[4:]
-            self._size = len(self._value)
         else:
-            self.set(type, value, size)
+            self.set(type, value)
 
 
     def __len__(self):
         """ Get the length of the packed attribute (in bytes).
         """
-        return calcsize(Attr.header_format) + self._size
+        return calcsize(Attr.header_format) + len(self._value)
 
     def __getdata__(self):
         """ Return the non-header data string.
@@ -129,18 +119,15 @@ class Attr:
         value = value + "\x00"
         return Attr.new_strnz(type=type, value=value)
 
-    def set(self, type, value, size):
+    def set(self, type, value):
         """ Set the attribute type and value.
 
             type - attribute's type (see NLA_* constants in linux/netlink.h)
 
             value - string representing the payload
-
-            size - the length (in bytes) of the value (see __init__())
         """
         self._type = type
         self._value = value
-        self._size = size
 
     def type(self):
         """ Get the attribute's type.
