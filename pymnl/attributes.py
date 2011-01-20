@@ -88,31 +88,31 @@ class Attr:
     def new_u8(type, value):
         """ Return a new one byte long Attr object.
         """
-        return Attr(type=type, value=value, size=Attr._u8)
+        return Attr(type=type, value=pack("B", value))
 
     @staticmethod
     def new_u16(type, value):
         """ Return a new two byte long Attr object.
         """
-        return Attr(type=type, value=value, size=Attr._u16)
+        return Attr(type=type, value=pack("H", value))
 
     @staticmethod
     def new_u32(type, value):
         """ Return a new four byte long Attr object.
         """
-        return Attr(type=type, value=value, size=Attr._u32)
+        return Attr(type=type, value=pack("I", value))
 
     @staticmethod
     def new_u64(type, value):
         """ Return a new eight byte long Attr object.
         """
-        return Attr(type=type, value=value, size=Attr._u64)
+        return Attr(type=type, value=pack("Q", value))
 
     @staticmethod
     def new_strnz(type, value):
         """ Return a new Attr object with a non-zero-terminated string.
         """
-        return Attr(type=type, value=value, size=len(value))
+        return Attr(type=type, value=pack(repr(len(value)) + "s", value))
 
     @staticmethod
     def new_strz(type, value):
@@ -121,8 +121,8 @@ class Attr:
             This method will add the null termination.  Pass this
             method a non-zero-terminated string.
         """
-        zvalue = value + "\x00"
-        return Attr(type=type, value=zvalue, size=len(zvalue))
+        value = value + "\x00"
+        return Attr.new_strnz(type=type, value=value)
 
     def set(self, type, value, size):
         """ Set the attribute type and value.
