@@ -21,6 +21,7 @@
 #
 
 import pymnl
+import pymnl.message
 from pymnl.attributes import AttrParser
 
 #
@@ -28,7 +29,7 @@ from pymnl.attributes import AttrParser
 #
 GENL_NAMSIZ = 16     # length of family name
 
-GENL_MIN_ID = pymnl.NLMSG_MIN_TYPE
+GENL_MIN_ID = pymnl.message.NLMSG_MIN_TYPE
 GENL_MAX_ID = 1023
 
 GENL_ADMIN_PERM = 0x01
@@ -38,7 +39,7 @@ GENL_CMD_CAP_HASPOL = 0x08
 
 # List of reserved static generic netlink identifiers:
 GENL_ID_GENERATE = 0
-GENL_ID_CTRL = pymnl.NLMSG_MIN_TYPE
+GENL_ID_CTRL = pymnl.message.NLMSG_MIN_TYPE
 
 # controller commands
 CTRL_CMD_UNSPEC = 0

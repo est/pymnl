@@ -28,6 +28,34 @@ from struct import calcsize, pack, unpack
 import pymnl
 from pymnl.attributes import Attr
 
+# Flags values
+NLM_F_REQUEST = 1       # It is a request message.
+NLM_F_MULTI = 2         # Multipart message, terminated by NLMSG_DONE
+NLM_F_ACK = 4           # Reply with ack, with zero or error code
+NLM_F_ECHO = 8          # Echo this request
+
+# Modifiers to GET request
+NLM_F_ROOT = 0x100      # specify tree root
+NLM_F_MATCH = 0x200     # return all matching
+NLM_F_ATOMIC = 0x400    # atomic GET
+NLM_F_DUMP = (NLM_F_ROOT|NLM_F_MATCH)
+
+# Modifiers to NEW request
+NLM_F_REPLACE = 0x100   # Override existing
+NLM_F_EXCL = 0x200      # Do not touch, if it exists
+NLM_F_CREATE = 0x400    # Create, if it does not exist
+NLM_F_APPEND = 0x800    # Add to end of list
+
+NLMSG_ALIGNTO = 4
+NLMSG_ALIGN = pymnl.PYMNL_ALIGN(NLMSG_ALIGNTO)
+
+NLMSG_NOOP = 0x1        # Nothing.
+NLMSG_ERROR = 0x2       # Error
+NLMSG_DONE = 0x3        # End of a dump
+NLMSG_OVERRUN = 0x4     # Data lost
+
+NLMSG_MIN_TYPE = 0x10   # < 0x10: reserved control messages
+
 class Message:
     # pack/unpack format for msg_length, msg_type, msg_flags, msg_seq, pid
     header_format = "ihhii"
@@ -74,7 +102,7 @@ class Message:
             self.msg_seq,
             self.pid) = unpack(Message.header_format, buffer[:header_size])
 
-            self.payload = Payload(buffer[pymnl.NLMSG_ALIGN(header_size):])
+            self.payload = Payload(buffer[NLMSG_ALIGN(header_size):])
 
     def packed(self):
         """ Return a packed struct for sending to netlink socket.
@@ -82,7 +110,7 @@ class Message:
         if (not self.payload):
             raise UnboundLocalError("payload")
 
-        self.msg_length = pymnl.NLMSG_ALIGN(calcsize(Message.header_format) +
+        self.msg_length = NLMSG_ALIGN(calcsize(Message.header_format) +
                                                 len(self.payload))
 
         return pack(Message.header_format,
@@ -121,7 +149,7 @@ class Payload:
             contents - string representing the payload
         """
         self._contents = contents
-        self._format = repr(pymnl.NLMSG_ALIGN(len(self._contents))) + "s"
+        self._format = repr(NLMSG_ALIGN(len(self._contents))) + "s"
 
     def format(self):
         """ Get the payload's struct format.
