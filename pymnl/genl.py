@@ -90,6 +90,11 @@ class GenlAttrOpParser(AttrParser):
         # list to hold attributes without an assigned callback
         self._attributes = []
 
+        self._cb = {CTRL_ATTR_OP_ID : self.ctrl_attr_op_id}
+
+    def ctrl_attr_op_id(self, attr):
+        self._attributes.append(attr.get_u32())
+
 
 class GenlAttrGroupParser(AttrParser):
     """ Parser for generic netlink nested group attributes.
