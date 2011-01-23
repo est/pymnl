@@ -27,6 +27,24 @@ from struct import calcsize, pack, unpack
 
 import pymnl
 
+# netlink attributes
+#
+#  nla_type(16bits)
+#  +---+---+-------------------------------+
+#  |N|O|AttributeType|
+#  +---+---+-------------------------------+
+#  N:=Carriesnestedattributes
+#  O:=Payloadstoredinnetworkbyteorder
+#
+#  Note:The N and O flag are mutually exclusive.
+#
+NLA_F_NESTED = (1 << 15)
+NLA_F_NET_BYTEORDER = (1 << 14)
+NLA_TYPE_MASK = ~(NLA_F_NESTED | NLA_F_NET_BYTEORDER)
+
+NLA_ALIGNTO = 4
+NLA_ALIGN = pymnl.PYMNL_ALIGN(NLA_ALIGNTO)
+
 class Attr:
     """ Netlink Length-Type-Value (LTV) attribute:
 
@@ -72,7 +90,7 @@ class Attr:
     def __len__(self):
         """ Get the length of the packed attribute (in bytes).
         """
-        return calcsize(Attr.header_format) + pymnl.NLA_ALIGN(len(self._value))
+        return calcsize(Attr.header_format) + NLA_ALIGN(len(self._value))
 
     def __getdata__(self):
         """ Return the non-header data string.
@@ -132,7 +150,7 @@ class Attr:
     def type(self):
         """ Get the attribute's type.
         """
-        return self._type & pymnl.NLA_TYPE_MASK
+        return self._type & NLA_TYPE_MASK
 
     def get_u8(self):
         """ Return value as a one byte integer.
@@ -173,7 +191,7 @@ class Attr:
         # prepare the header info
         header = pack(Attr.header_format, len(self), self._type)
         # prepare the null padding
-        pad = (pymnl.NLA_ALIGN(len(self._value)) - len(self._value)) * "\x00"
+        pad = (NLA_ALIGN(len(self._value)) - len(self._value)) * "\x00"
         # push the whole package out
         return header + self._value + pad
 
@@ -223,7 +241,7 @@ class AttrParser:
             except:
                 break
             one_attr = Attr(packed_data=data[index:index+attr_length])
-            index = index + pymnl.NLA_ALIGN(attr_length)
+            index = index + NLA_ALIGN(attr_length)
             yield one_attr
 
     def parse(self, data):
