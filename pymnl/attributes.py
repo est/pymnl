@@ -166,8 +166,16 @@ class Attr:
 
     def packed(self):
         """ Return a packed struct to include in message payload.
+
+            Adds null-bytes to end to pad attribute's length to
+            a multiple of NLA_ALIGNTO.
         """
-        return pack(Attr.header_format, len(self), self._type) + self._value
+        # prepare the header info
+        header = pack(Attr.header_format, len(self), self._type)
+        # prepare the null padding
+        pad = ((len(self) - len(self._value)) * "\x00")
+        # push the whole package out
+        return header + self._value + pad
 
 
 class AttrParser:
