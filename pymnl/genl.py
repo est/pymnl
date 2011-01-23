@@ -85,7 +85,8 @@ class GenlAttrParser(AttrParser):
         self._cb = {CTRL_ATTR_FAMILY_ID : self.ctrl_attr_family_id,
                     CTRL_ATTR_FAMILY_NAME : self.ctrl_attr_family_name,
                     CTRL_ATTR_VERSION : self.ctrl_attr_version,
-                    CTRL_ATTR_OPS : self.ctrl_attr_ops}
+                    CTRL_ATTR_OPS : self.ctrl_attr_ops,
+                    CTRL_ATTR_MCAST_GROUPS : self.ctrl_attr_mcast_groups}
 
     def ctrl_attr_family_id(self, attr):
         """ Print family id.
@@ -121,6 +122,20 @@ class GenlAttrParser(AttrParser):
             # save nested attributes to 'ops' dictionary
             self._attributes['ops'][nested_attrs[0].get_u32()] = \
                                                 nested_attrs[1].get_u32()
+
+    def ctrl_attr_mcast_groups(self, attr):
+        """ Print attribute type and parse nested attributes.
+
+            attr - Attr object
+        """
+        self._attributes['groups'] = {}
+        # process a list of nested attributes
+        for one_attr in GenlAttrGroupParser().parse_nested(attr):
+            # get list of nested nested attributes  <-- not a typo
+            nested_attrs = GenlAttrGroupParser().parse_nested(one_attr)
+            # save nested attributes to 'groups' dictionary
+            self._attributes['groups'][nested_attrs[0].get_u32()] = \
+                                        nested_attrs[1].get_str_stripped()
 
     def parse(self, data):
         """ Process the attributes.
