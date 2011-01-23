@@ -240,6 +240,17 @@ class AttrParser:
         if (len(self._attributes) > 0):
             return self._attributes
 
+    def parse_nested(self, data):
+        """ Process nested attributes.
+
+            data - object with attributes
+        """
+        for one_attr in self.parse_string(data.__getdata__(), 0):
+            self._attributes.append(one_attr)
+
+        if (len(self._attributes) > 0):
+            return self._attributes
+
     def get_attrs(self):
         """ Return list of attributes parsed from data string.
 
