@@ -103,4 +103,8 @@ class GenlAttrGroupParser(AttrParser):
         # list to hold attributes without an assigned callback
         self._attributes = []
 
+        self._cb = {CTRL_ATTR_MCAST_GRP_ID : self.ctrl_attr_mcast_group_id}
+
+    def ctrl_attr_mcast_group_id(self, attr):
+        self._attributes.append(attr.get_u32())
 
