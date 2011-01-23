@@ -82,7 +82,8 @@ class GenlAttrParser(AttrParser):
         # dict to hold attributes without an assigned callback
         self._attributes = { 'extras': [] }
 
-        self._cb = {CTRL_ATTR_FAMILY_ID : self.ctrl_attr_family_id}
+        self._cb = {CTRL_ATTR_FAMILY_ID : self.ctrl_attr_family_id,
+                    CTRL_ATTR_FAMILY_NAME : self.ctrl_attr_family_name}
 
     def ctrl_attr_family_id(self, attr):
         """ Print family id.
@@ -90,6 +91,13 @@ class GenlAttrParser(AttrParser):
             attr - Attr object
         """
         self._attributes['id'] = attr.get_u16()
+
+    def ctrl_attr_family_name(self, attr):
+        """ Print family name.
+
+            attr - Attr object
+        """
+        self._attributes['name'] = attr.get_str()
 
 
 class GenlAttrOpParser(AttrParser):
