@@ -173,7 +173,7 @@ class Attr:
         # prepare the header info
         header = pack(Attr.header_format, len(self), self._type)
         # prepare the null padding
-        pad = ((len(self) - len(self._value)) * "\x00")
+        pad = (pymnl.NLA_ALIGN(len(self._value)) - len(self._value)) * "\x00"
         # push the whole package out
         return header + self._value + pad
 
