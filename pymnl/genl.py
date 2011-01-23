@@ -107,6 +107,19 @@ class GenlAttrParser(AttrParser):
         """
         self._attributes['version'] = attr.get_u32()
 
+    def parse(self, data):
+        """ Process the attributes.
+
+            data - object with attributes
+        """
+        for one_attr in self.parse_string(data.__getdata__()):
+            try:
+                self._cb[one_attr.type()](one_attr)
+            except KeyError:
+                self._attributes['extras'].append(one_attr)
+
+        return self._attributes
+
 
 class GenlAttrOpParser(AttrParser):
     """ Parser for generic netlink nested op attributes.
