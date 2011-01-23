@@ -82,6 +82,15 @@ class GenlAttrParser(AttrParser):
         # dict to hold attributes without an assigned callback
         self._attributes = { 'extras': [] }
 
+        self._cb = {CTRL_ATTR_FAMILY_ID : self.ctrl_attr_family_id}
+
+    def ctrl_attr_family_id(self, attr):
+        """ Print family id.
+
+            attr - Attr object
+        """
+        self._attributes['id'] = attr.get_u16()
+
 
 class GenlAttrOpParser(AttrParser):
     """ Parser for generic netlink nested op attributes.
