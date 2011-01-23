@@ -159,6 +159,11 @@ class Attr:
         """
         return unpack(repr(len(self._value)) + "s", self._value)[0]
 
+    def get_str_stripped(self):
+        """ Return value as a string, without zero terminator.
+        """
+        return self.get_str()[:-1]
+
     def packed(self):
         """ Return a packed struct to include in message payload.
         """
