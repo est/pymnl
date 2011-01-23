@@ -83,7 +83,8 @@ class GenlAttrParser(AttrParser):
         self._attributes = { 'extras': [] }
 
         self._cb = {CTRL_ATTR_FAMILY_ID : self.ctrl_attr_family_id,
-                    CTRL_ATTR_FAMILY_NAME : self.ctrl_attr_family_name}
+                    CTRL_ATTR_FAMILY_NAME : self.ctrl_attr_family_name,
+                    CTRL_ATTR_VERSION : self.ctrl_attr_version}
 
     def ctrl_attr_family_id(self, attr):
         """ Print family id.
@@ -98,6 +99,13 @@ class GenlAttrParser(AttrParser):
             attr - Attr object
         """
         self._attributes['name'] = attr.get_str()
+
+    def ctrl_attr_version(self, attr):
+        """ Print version.
+
+            attr - Attr object
+        """
+        self._attributes['version'] = attr.get_u32()
 
 
 class GenlAttrOpParser(AttrParser):
