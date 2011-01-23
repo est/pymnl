@@ -72,7 +72,7 @@ class Attr:
     def __len__(self):
         """ Get the length of the packed attribute (in bytes).
         """
-        return calcsize(Attr.header_format) + len(self._value)
+        return calcsize(Attr.header_format) + pymnl.NLA_ALIGN(len(self._value))
 
     def __getdata__(self):
         """ Return the non-header data string.
