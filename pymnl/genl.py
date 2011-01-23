@@ -21,6 +21,7 @@
 #
 
 import pymnl
+from pymnl.attributes import AttrParser
 
 #
 # linux/genetlink.h
@@ -72,5 +73,29 @@ CTRL_ATTR_MCAST_GRP_UNSPEC = 0
 CTRL_ATTR_MCAST_GRP_NAME = 1
 CTRL_ATTR_MCAST_GRP_ID = 2
 CTRL_ATTR_MCAST_GRP_MAX = 3
+
+
+class GenlAttrParser(AttrParser):
+    """ Parser for generic netlink attributes.
+    """
+    def __init__(self):
+        # dict to hold attributes without an assigned callback
+        self._attributes = { 'extras': [] }
+
+
+class GenlAttrOpParser(AttrParser):
+    """ Parser for generic netlink nested op attributes.
+    """
+    def __init__(self):
+        # list to hold attributes without an assigned callback
+        self._attributes = []
+
+
+class GenlAttrGroupParser(AttrParser):
+    """ Parser for generic netlink nested group attributes.
+    """
+    def __init__(self):
+        # list to hold attributes without an assigned callback
+        self._attributes = []
 
 
