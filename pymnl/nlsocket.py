@@ -38,7 +38,6 @@ class Socket:
             Raises an exception on error.
         """
         self._bus = bus
-        self._pid = 0      # port ID
         self._groups = 0   # multicast groups mask
 
         self._socket = socket.socket(socket.AF_NETLINK, socket.SOCK_RAW, bus)
@@ -52,7 +51,7 @@ class Socket:
             open more than one socket that is binded to the same netlink
             subsystem from the same process.
         """
-        return self._pid;
+        return self._socket.getsockname()[0]
 
     def bind(self, pid=None, groups=None):
         """ Bind netlink socket.
