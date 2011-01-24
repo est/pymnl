@@ -33,3 +33,9 @@ class TestSocket(unittest.TestCase):
 
     def tearDown(self):
         self.nl_socket.close()
+
+    @staticmethod
+    def suite():
+        return unittest.TestLoader().loadTestsFromTestCase(TestSocket)
+
+
