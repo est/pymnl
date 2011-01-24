@@ -147,7 +147,7 @@ class Attr:
         self._type = type
         self._value = value
 
-    def type(self):
+    def get_type(self):
         """ Get the attribute's type.
         """
         return self._type & NLA_TYPE_MASK
