@@ -97,6 +97,11 @@ class Attr:
         """
         return self._value
 
+    def get_value_len(self):
+        """ Return the length of the data payload.
+        """
+        return len(self._value)
+
     @staticmethod
     def new_u8(type, value):
         """ Return a new one byte long Attr object.

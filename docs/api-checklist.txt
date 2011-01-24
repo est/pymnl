@@ -49,7 +49,7 @@ accounted for every function in libmnl.
                         ----------
 01) mnl_attr_get_len                01) Attr.__len__
 02) mnl_attr_get_payload            02) Attr.get_*
-03) mnl_attr_get_payload_len        03) ** missing
+03) mnl_attr_get_payload_len        03) Attr.get_value_len
 04) mnl_attr_get_type               04) Attr.get_type
 05) mnl_attr_get_u8                 05) Attr.get_u8
 06) mnl_attr_get_u16                06) Attr.get_u16
