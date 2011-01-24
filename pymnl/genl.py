@@ -81,7 +81,7 @@ class GenlAttrParser(AttrParser):
     """
     def __init__(self):
         # dict to hold attributes without an assigned callback
-        self._attributes = { 'extras': [] }
+        self._attributes = { 'unmatched': [] }
 
         self._cb = {CTRL_ATTR_FAMILY_ID : self.ctrl_attr_family_id,
                     CTRL_ATTR_FAMILY_NAME : self.ctrl_attr_family_name,
@@ -147,7 +147,7 @@ class GenlAttrParser(AttrParser):
             try:
                 self._cb[one_attr.get_type()](one_attr)
             except KeyError:
-                self._attributes['extras'].append(one_attr)
+                self._attributes['unmatched'].append(one_attr)
 
         return self._attributes
 
