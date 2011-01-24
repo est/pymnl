@@ -53,6 +53,17 @@ class Socket:
         """
         return self._socket.getsockname()[0]
 
+    def get_groups(self):
+        """ Obtain netlink groups from netlink socket.
+
+            This method returns the netlink PortID of this netlink socket.
+            It's a common mistake to assume that this PortID equals the
+            process ID which is not always true. This is the case if you
+            open more than one socket that is binded to the same netlink
+            subsystem from the same process.
+        """
+        return self._socket.getsockname()[1]
+
     def bind(self, pid=None, groups=None):
         """ Bind netlink socket.
 
