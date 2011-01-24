@@ -21,6 +21,7 @@
 #  USA
 #
 
+import random
 import unittest
 
 import pymnl
@@ -30,9 +31,18 @@ class TestSocket(unittest.TestCase):
 
     def setUp(self):
         self.nl_socket = Socket(pymnl.NETLINK_GENERIC)
+        self._pid = random.randint(1024, 32768)
+        self._groups = 0
+        self.nl_socket.bind(self._pid, self._groups)
 
     def test_bus(self):
         self.assertEqual(self.nl_socket._bus, pymnl.NETLINK_GENERIC)
+
+    def test_pid(self):
+        self.assertEqual(self.nl_socket.get_portid(), self._pid)
+
+    def test_groups(self):
+        self.assertEqual(self.nl_socket.get_groups(), self._groups)
 
     def tearDown(self):
         self.nl_socket.close()
