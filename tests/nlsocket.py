@@ -31,6 +31,9 @@ class TestSocket(unittest.TestCase):
     def setUp(self):
         self.nl_socket = Socket(pymnl.NETLINK_GENERIC)
 
+    def test_bus(self):
+        self.assertEqual(self.nl_socket._bus, pymnl.NETLINK_GENERIC)
+
     def tearDown(self):
         self.nl_socket.close()
 
