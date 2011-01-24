@@ -64,7 +64,7 @@ class Socket:
         """
         return self._socket.getsockname()[1]
 
-    def bind(self, pid=None, groups=None):
+    def bind(self, pid=pymnl.MNL_SOCKET_AUTOPID, groups=0):
         """ Bind netlink socket.
 
             pid - The port ID you want to use.  You can use
@@ -75,11 +75,8 @@ class Socket:
 
             Raises an exception on error.
         """
-        if (pid):
-            self._pid = pid
-        if (groups):
-            self._groups = groups
-        self._socket.bind((self._pid, self._groups))
+        self._socket.bind((pid, groups))
+
 
     def send(self, nl_message):
         """ Send a netlink message.
