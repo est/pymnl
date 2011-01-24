@@ -145,7 +145,7 @@ class GenlAttrParser(AttrParser):
         """
         for one_attr in self.parse_string(data.__getdata__()):
             try:
-                self._cb[one_attr.type()](one_attr)
+                self._cb[one_attr.get_type()](one_attr)
             except KeyError:
                 self._attributes['extras'].append(one_attr)
 
