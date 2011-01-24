@@ -1,0 +1,96 @@
+libmnl to pymnl checklist
+-------------------------
+
+
+This document compares the libmnl and pymnl API to make sure I have
+accounted for every function in libmnl.
+
+    libmnl                              pymnl
+    ------                              -----
+                        socket
+                        ------
+01) mnl_socket_get_fd               01) not applicable
+02) mnl_socket_get_portid           02) Socket.get_portid
+03) mnl_socket_open                 03) Socket.__init__
+04) mnl_socket_bind                 04) Socket.bind
+05) mnl_socket_close                05) Socket.close
+06) mnl_socket_recvfrom             06) Socket.send
+07) mnl_socket_sendto               07) Socket.recv
+08) mnl_socket_setsockopt           08) ** missing
+09) mnl_socket_getsockopt           09) ** missing
+
+                        nlmsg
+                        -----
+01) mnl_nlmsg_size                  01) ** missing
+02) mnl_nlmsg_get_payload           02) ** missing
+03) mnl_nlmsg_get_payload_len       03) Payload.__len__
+04) mnl_nlmsg_get_payload_offset    04) not applicable
+05) mnl_nlmsg_get_payload_tail      05) not applicable
+06) mnl_nlmsg_put_header            06) not applicable
+07) mnl_nlmsg_put_extra_header      07) Payload.__init__
+08) mnl_nlmsg_next                  08) ** missing
+09) mnl_nlmsg_ok                    09) ** missing
+10) mnl_nlmsg_seq_ok                10) ** missing
+11) mnl_nlmsg_portid_ok             11) ** missing
+12) mnl_nlmsg_fprintf_header        12) ** missing
+13) mnl_nlmsg_fprintf_payload       13) ** missing
+14) mnl_nlmsg_fprintf               14) ** missing
+15) mnl_nlmsg_batch_start           15) ** missing
+16) mnl_nlmsg_batch_stop            16) ** missing
+17) mnl_nlmsg_batch_next            17) ** missing
+18) mnl_nlmsg_batch_reset           18) ** missing
+19) mnl_nlmsg_batch_size            19) ** missing
+20) mnl_nlmsg_batch_head            20) ** missing
+21) mnl_nlmsg_batch_current         21) ** missing
+22) mnl_nlmsg_batch_is_empty        22) ** missing
+
+
+                        attributes
+                        ----------
+01) mnl_attr_get_len                01) Attr.__len__
+02) mnl_attr_get_payload            02) Attr.get_*
+03) mnl_attr_get_payload_len        03) ** missing
+04) mnl_attr_get_type               04) Attr.get_type
+05) mnl_attr_get_u8                 05) Attr.get_u8
+06) mnl_attr_get_u16                06) Attr.get_u16
+07) mnl_attr_get_u32                07) Attr.get_u32
+08) mnl_attr_get_u64                08) Attr.get_u64
+09) mnl_attr_get_str                09) Attr.get_str
+                                        Attr.get_str_stripped
+10) mnl_attr_nest_end               10) ** missing
+11) mnl_attr_nest_start             11) ** missing
+12) mnl_attr_nest_start_check       12) ** missing
+13) mnl_attr_nest_cancel            13) ** missing
+14) mnl_attr_next                   14) not applicable
+15) mnl_attr_ok                     15) ** missing
+16) mnl_attr_parse                  16) AttrParser.parse
+17) mnl_attr_parse_nested           17) AttrParser.parse_nested
+18) mnl_attr_put                    18) Payload.add_attr
+19) mnl_attr_put_u8                 19) Payload.add_attr(Attr.new_u8)
+20) mnl_attr_put_u16                20) Payload.add_attr(Attr.new_u16)
+21) mnl_attr_put_u32                21) Payload.add_attr(Attr.new_u32)
+22) mnl_attr_put_u64                22) Payload.add_attr(Attr.new_u64)
+23) mnl_attr_put_str                23) Payload.add_attr(Attr.new_strnz)
+24) mnl_attr_put_strz               24) Payload.add_attr(Attr.new_strz)
+25) mnl_attr_put_check              25) ** missing
+26) mnl_attr_put_u8_check           26) ** missing
+27) mnl_attr_put_u16_check          27) ** missing
+28) mnl_attr_put_u32_check          28) ** missing
+29) mnl_attr_put_u64_check          29) ** missing
+30) mnl_attr_put_str_check          30) ** missing
+31) mnl_attr_put_strz_check         31) ** missing
+32) mnl_attr_type_valid             32) ** missing
+33) mnl_attr_validate               33) ** missing
+34) mnl_attr_validate2              34) ** missing
+
+                        callback
+                        --------
+01) mnl_cb_run                      01) AttrParser
+                                        missing for messages
+02) mnl_cb_run2                     02) subclass AttrParser
+                                        missing for messages
+
+
+
+
+
