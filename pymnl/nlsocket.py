@@ -64,11 +64,11 @@ class Socket:
         """
         return self._socket.getsockname()[1]
 
-    def bind(self, pid=pymnl.MNL_SOCKET_AUTOPID, groups=0):
+    def bind(self, pid=pymnl.SOCKET_AUTOPID, groups=0):
         """ Bind netlink socket.
 
             pid - The port ID you want to use.  You can use
-                    MNL_SOCKET_AUTOPID (which is 0) for automatic port ID
+                    SOCKET_AUTOPID (which is 0) for automatic port ID
                     selection.
 
             groups - the group of message you're interested in
