@@ -90,21 +90,21 @@ class GenlAttrParser(AttrParser):
                     CTRL_ATTR_MCAST_GROUPS : self.ctrl_attr_mcast_groups}
 
     def ctrl_attr_family_id(self, attr):
-        """ Print family id.
+        """ Save family id.
 
             attr - Attr object
         """
         self._attributes['id'] = attr.get_u16()
 
     def ctrl_attr_family_name(self, attr):
-        """ Print family name.
+        """ Save family name.
 
             attr - Attr object
         """
         self._attributes['name'] = attr.get_str()
 
     def ctrl_attr_version(self, attr):
-        """ Print version.
+        """ Save version.
 
             attr - Attr object
         """
