@@ -87,6 +87,7 @@ class GenlAttrParser(AttrParser):
                     CTRL_ATTR_FAMILY_NAME : self.ctrl_attr_family_name,
                     CTRL_ATTR_VERSION : self.ctrl_attr_version,
                     CTRL_ATTR_HDRSIZE : self.ctrl_attr_hdrsize,
+                    CTRL_ATTR_MAXATTR : self.ctrl_attr_maxattr,
                     CTRL_ATTR_OPS : self.ctrl_attr_ops,
                     CTRL_ATTR_MCAST_GROUPS : self.ctrl_attr_mcast_groups}
 
@@ -117,6 +118,13 @@ class GenlAttrParser(AttrParser):
             attr - Attr object
         """
         self._attributes['hdrsize'] = attr.get_u32()
+
+    def ctrl_attr_maxattr(self, attr):
+        """ Save maximum attribute number.
+
+            attr - Attr object
+        """
+        self._attributes['maxattr'] = attr.get_u32()
 
     def ctrl_attr_ops(self, attr):
         """ Print attribute type and parse nested attributes.
