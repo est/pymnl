@@ -109,6 +109,11 @@ class Message:
         """
         return calcsize(Message.header_format) + len(self._payload)
 
+    def get_payload(self):
+        """ Return the payload object contained in the message.
+        """
+        return self._payload
+
     def packed(self):
         """ Return a packed struct for sending to netlink socket.
         """

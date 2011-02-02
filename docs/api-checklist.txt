@@ -22,7 +22,7 @@ accounted for every function in libmnl.
                         nlmsg
                         -----
 01) mnl_nlmsg_size                  01) Message.__len__
-02) mnl_nlmsg_get_payload           02) ** missing
+02) mnl_nlmsg_get_payload           02) Message.get_payload
 03) mnl_nlmsg_get_payload_len       03) Payload.__len__
 04) mnl_nlmsg_get_payload_offset    04) not applicable
 05) mnl_nlmsg_get_payload_tail      05) not applicable
