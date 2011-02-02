@@ -114,6 +114,16 @@ class Message:
         """
         return self._payload
 
+    def add_payload(self, data):
+        """ Add payload to the message.
+
+            data - Payload or string
+        """
+        if (isinstance(data, Payload)):
+            self._payload = data
+        else:
+            self._payload = Payload(data)
+
     def packed(self):
         """ Return a packed struct for sending to netlink socket.
         """
