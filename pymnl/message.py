@@ -86,39 +86,39 @@ class Message:
             sequence of attributes that are expressed in
             Type-Length-Value (TLV) format.
         """
-        self.msg_length = 0
-        self.msg_type = 0
-        self.msg_flags = 0
-        self.msg_seq = 0
-        self.pid = 0
-        self.payload = None
+        self._msg_length = 0
+        self._msg_type = 0
+        self._msg_flags = 0
+        self._msg_seq = 0
+        self._pid = 0
+        self._payload = None
 
         if (buffer):
             header_size = calcsize(Message.header_format)
 
-            (self.msg_length,
-            self.msg_type,
-            self.msg_flags,
-            self.msg_seq,
-            self.pid) = unpack(Message.header_format, buffer[:header_size])
+            (self._msg_length,
+             self._msg_type,
+             self._msg_flags,
+             self._msg_seq,
+             self._pid) = unpack(Message.header_format, buffer[:header_size])
 
-            self.payload = Payload(buffer[NLMSG_ALIGN(header_size):])
+            self._payload = Payload(buffer[NLMSG_ALIGN(header_size):])
 
     def packed(self):
         """ Return a packed struct for sending to netlink socket.
         """
-        if (not self.payload):
+        if (not self._payload):
             raise UnboundLocalError("payload")
 
-        self.msg_length = NLMSG_ALIGN(calcsize(Message.header_format) +
-                                                len(self.payload))
+        self._msg_length = NLMSG_ALIGN(calcsize(Message.header_format) +
+                                                len(self._payload))
 
         return pack(Message.header_format,
-                self.msg_length,
-                self.msg_type,
-                self.msg_flags,
-                self.msg_seq,
-                self.pid) + self.payload.__getdata__()
+                self._msg_length,
+                self._msg_type,
+                self._msg_flags,
+                self._msg_seq,
+                self._pid) + self._payload.__getdata__()
 
 
 class Payload:
