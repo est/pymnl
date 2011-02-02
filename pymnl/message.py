@@ -104,6 +104,11 @@ class Message:
 
             self._payload = Payload(buffer[NLMSG_ALIGN(header_size):])
 
+    def __len__(self):
+        """ Get the unaligned length of the message (in bytes).
+        """
+        return calcsize(Message.header_format) + len(self._payload)
+
     def packed(self):
         """ Return a packed struct for sending to netlink socket.
         """
