@@ -45,6 +45,9 @@ NLA_TYPE_MASK = ~(NLA_F_NESTED | NLA_F_NET_BYTEORDER)
 NLA_ALIGNTO = 4
 NLA_ALIGN = pymnl.PYMNL_ALIGN(NLA_ALIGNTO)
 
+# pack/unpack format for type and length
+header_format = "hh"
+
 # minimal netlink attribute types
 TYPE_UNSPEC = 0         # Unspecified type
 TYPE_U8 = 1             # 8bit integer
@@ -84,9 +87,6 @@ class Attr:
         It will be unpacked, as needed, when called for through the
         get_*() methods.
     """
-    # pack/unpack format for type and length
-    header_format = "hh"
-
     def __init__(self, type=None, value=None, packed_data=None):
         """ Create a new Attr object.
 
@@ -97,7 +97,7 @@ class Attr:
         if (packed_data):
             # process packed struct into Attr's fields
             (self._length,
-             self._type) = unpack(Attr.header_format, packed_data[:4])
+             self._type) = unpack(header_format, packed_data[:4])
             self._value = packed_data[4:]
         else:
             self.set(type, value)
@@ -210,7 +210,7 @@ class Attr:
             a multiple of NLA_ALIGNTO.
         """
         # prepare the header info
-        header = pack(Attr.header_format, len(self), self._type)
+        header = pack(header_format, len(self), self._type)
         # prepare the null padding
         pad = (NLA_ALIGN(len(self._value)) - len(self._value)) * "\x00"
         # push the whole package out
