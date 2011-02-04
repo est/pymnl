@@ -46,16 +46,19 @@ NLA_ALIGNTO = 4
 NLA_ALIGN = pymnl.PYMNL_ALIGN(NLA_ALIGNTO)
 
 # minimal netlink attribute types
-TYPE_UNSPEC = 0    # Unspecified type
-TYPE_U8 = 1        # 8bit integer
-TYPE_U16 = 2       # 16bit integer
-TYPE_U32 = 3       # 32bit integer
-TYPE_U64 = 4       # 64bit integer
-TYPE_STRING = 5    # character string
-TYPE_FLAG = 6      # flag
-TYPE_MSECS = 7     # micro seconds (64bit)
-TYPE_NESTED = 8    # nested attributes
-TYPE_MAX = 9       # always keep last
+TYPE_UNSPEC = 0         # Unspecified type
+TYPE_U8 = 1             # 8bit integer
+TYPE_U16 = 2            # 16bit integer
+TYPE_U32 = 3            # 32bit integer
+TYPE_U64 = 4            # 64bit integer
+TYPE_STRING = 5         # character string
+TYPE_FLAG = 6           # flag
+TYPE_MSECS = 7          # micro seconds (64bit)
+TYPE_NESTED = 8         # nested attributes
+TYPE_NESTED_COMPAT = 9
+TYPE_NUL_STRING = 10    # null-terminated character string
+TYPE_BINARY = 11
+TYPE_MAX = 12           # always keep last
 
 class Attr:
     """ Netlink Length-Type-Value (LTV) attribute:
