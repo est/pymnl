@@ -73,16 +73,3 @@ SOCKET_BUFFER_SIZE = 8192L
 if (getpagesize() < 8192L):
     SOCKET_BUFFER_SIZE = getpagesize()
 
-# minimal netlink attribute types
-TYPE_UNSPEC = 0    # Unspecified type
-TYPE_U8 = 1        # 8bit integer
-TYPE_U16 = 2       # 16bit integer
-TYPE_U32 = 3       # 32bit integer
-TYPE_U64 = 4       # 64bit integer
-TYPE_STRING = 5    # character string
-TYPE_FLAG = 6      # flag
-TYPE_MSECS = 7     # micro seconds (64bit)
-TYPE_NESTED = 8    # nested attributes
-TYPE_TYPE_MAX = 9  # always keep last
-
-
