@@ -60,6 +60,13 @@ TYPE_NUL_STRING = 10    # null-terminated character string
 TYPE_BINARY = 11
 TYPE_MAX = 12           # always keep last
 
+# various data type sizes
+_u8 = calcsize("B")
+_u16 = calcsize("H")
+_u32 = calcsize("I")
+_u64 = calcsize("Q")
+
+
 class Attr:
     """ Netlink Length-Type-Value (LTV) attribute:
 
@@ -79,12 +86,6 @@ class Attr:
     """
     # pack/unpack format for type and length
     header_format = "hh"
-
-    # various data sizes
-    _u8 = 1
-    _u16 = 2
-    _u32 = 4
-    _u64 = 8
 
     def __init__(self, type=None, value=None, packed_data=None):
         """ Create a new Attr object.
