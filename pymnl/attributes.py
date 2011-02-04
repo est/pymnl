@@ -177,6 +177,9 @@ class Attr:
 
     def get_u8(self):
         """ Return value as a one byte integer.
+
+            Raises TypeError if the data length does not match
+            the length expected for the type.
         """
         if (self.get_type() == TYPE_U8 and self.get_value_len() != _u8):
             raise TypeError("Integer attribute is too short")
@@ -184,6 +187,9 @@ class Attr:
 
     def get_u16(self):
         """ Return value as a two byte integer.
+
+            Raises TypeError if the data length does not match
+            the length expected for the type.
         """
         if (self.get_type() == TYPE_U16 and self.get_value_len() != _u16):
             raise TypeError("Integer attribute is too short")
@@ -191,6 +197,9 @@ class Attr:
 
     def get_u32(self):
         """ Return value as a four byte integer.
+
+            Raises TypeError if the data length does not match
+            the length expected for the type.
         """
         if (self.get_type() == TYPE_U32 and self.get_value_len() != _u32):
             raise TypeError("Integer attribute is too short")
@@ -198,6 +207,9 @@ class Attr:
 
     def get_u64(self):
         """ Return value as an eight byte integer.
+
+            Raises TypeError if the data length does not match
+            the length expected for the type.
         """
         if (self.get_type() == TYPE_U64 and self.get_value_len() != _u64):
             raise TypeError("Integer attribute is too short")
@@ -205,6 +217,11 @@ class Attr:
 
     def get_str(self):
         """ Return value as a string.
+
+            Raises TypeError if the data length is zero or is
+            not null-terminated.  A null-terminated string
+            should have a non-zero length and a null termination
+            or something went wrong.
         """
         if (type == TYPE_NUL_STRING):
             if (self.get_value_len() == 0):
@@ -216,6 +233,9 @@ class Attr:
 
     def get_str_stripped(self):
         """ Return value as a string, without zero terminator.
+
+            Raises TypeError if the data length is zero.
+            A string should have a non-zero length or something went wrong.
         """
         if (type == TYPE_STRING and self.get_value_len() == 0):
             raise TypeError("String attribute is too short")
