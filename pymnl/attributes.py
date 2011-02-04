@@ -178,31 +178,47 @@ class Attr:
     def get_u8(self):
         """ Return value as a one byte integer.
         """
+        if (self.get_type() == TYPE_U8 and self.get_value_len() != _u8):
+            raise TypeError("Integer attribute is too short")
         return unpack("B", self._value)[0]
 
     def get_u16(self):
         """ Return value as a two byte integer.
         """
+        if (self.get_type() == TYPE_U16 and self.get_value_len() != _u16):
+            raise TypeError("Integer attribute is too short")
         return unpack("H", self._value)[0]
 
     def get_u32(self):
         """ Return value as a four byte integer.
         """
+        if (self.get_type() == TYPE_U32 and self.get_value_len() != _u32):
+            raise TypeError("Integer attribute is too short")
         return unpack("I", self._value)[0]
 
     def get_u64(self):
         """ Return value as an eight byte integer.
         """
+        if (self.get_type() == TYPE_U64 and self.get_value_len() != _u64):
+            raise TypeError("Integer attribute is too short")
         return unpack("Q", self._value)[0]
 
     def get_str(self):
         """ Return value as a string.
         """
+        if (type == TYPE_NUL_STRING):
+            if (self.get_value_len() == 0):
+                raise TypeError("String attribute is too short")
+            if (self._value[-1:] != 0):
+                raise TypeError("This attribute is not null-terminated," +
+                                "as it claims to be")
         return unpack(repr(len(self._value)) + "s", self._value)[0]
 
     def get_str_stripped(self):
         """ Return value as a string, without zero terminator.
         """
+        if (type == TYPE_STRING and self.get_value_len() == 0):
+            raise TypeError("String attribute is too short")
         return self.get_str()[:-1]
 
     def packed(self):

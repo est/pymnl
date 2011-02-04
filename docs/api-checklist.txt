@@ -80,8 +80,9 @@ accounted for every function in libmnl.
 30) mnl_attr_put_str_check          30) ** missing
 31) mnl_attr_put_strz_check         31) ** missing
 32) mnl_attr_type_valid             32) ** missing
-33) mnl_attr_validate               33) ** missing
-34) mnl_attr_validate2              34) ** missing
+33) __mnl_attr_validate             33) Attr.get_*
+34) mnl_attr_validate               34) Attr.get_*
+35) mnl_attr_validate2              34) Attr.get_*
 
                         callback
                         --------
