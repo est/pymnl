@@ -48,6 +48,8 @@ NLA_ALIGN = pymnl.PYMNL_ALIGN(NLA_ALIGNTO)
 # pack/unpack format for type and length
 header_format = "hh"
 
+ATTR_HDRLEN = NLA_ALIGN(calcsize(header_format))
+
 # minimal netlink attribute types
 TYPE_UNSPEC = 0         # Unspecified type
 TYPE_U8 = 1             # 8bit integer
@@ -106,7 +108,7 @@ class Attr:
     def __len__(self):
         """ Get the length of the packed attribute (in bytes).
         """
-        return calcsize(Attr.header_format) + NLA_ALIGN(len(self._value))
+        return ATTR_HDRLEN + NLA_ALIGN(len(self._value))
 
     def __getdata__(self):
         """ Return the non-header data string.
