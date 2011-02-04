@@ -175,6 +175,12 @@ class Attr:
         """
         return self._type & NLA_TYPE_MASK
 
+    def type_valid(self):
+        """ Raises TypeError if the type is not known.
+        """
+        if (self.get_type() > TYPE_MAX):
+            raise TypeError("This attribute's type is not supported")
+
     def get_u8(self):
         """ Return value as a one byte integer.
 
