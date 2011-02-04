@@ -72,13 +72,13 @@ accounted for every function in libmnl.
 22) mnl_attr_put_u64                22) Payload.add_attr(Attr.new_u64)
 23) mnl_attr_put_str                23) Payload.add_attr(Attr.new_strnz)
 24) mnl_attr_put_strz               24) Payload.add_attr(Attr.new_strz)
-25) mnl_attr_put_check              25) ** missing
-26) mnl_attr_put_u8_check           26) ** missing
-27) mnl_attr_put_u16_check          27) ** missing
-28) mnl_attr_put_u32_check          28) ** missing
-29) mnl_attr_put_u64_check          29) ** missing
-30) mnl_attr_put_str_check          30) ** missing
-31) mnl_attr_put_strz_check         31) ** missing
+25) mnl_attr_put_check              25) not applicable
+26) mnl_attr_put_u8_check           26) not applicable
+27) mnl_attr_put_u16_check          27) not applicable
+28) mnl_attr_put_u32_check          28) not applicable
+29) mnl_attr_put_u64_check          29) not applicable
+30) mnl_attr_put_str_check          30) not applicable
+31) mnl_attr_put_strz_check         31) not applicable
 32) mnl_attr_type_valid             32) Attr.type_valid
 33) __mnl_attr_validate             33) Attr.get_*
 34) mnl_attr_validate               34) Attr.get_*
