@@ -265,6 +265,11 @@ class Attr:
         """
         self._type = self._type ^ NLA_F_NESTED
 
+    def is_nested(self):
+        """ Return True if the nested flag is set, else return False.
+        """
+        return self._type & NLA_F_NESTED
+
 
 class AttrParser:
     """ Base class for attribute parsers.
