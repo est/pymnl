@@ -62,7 +62,7 @@ accounted for every function in libmnl.
 12) mnl_attr_nest_start_check       12) ** missing
 13) mnl_attr_nest_cancel            13) ** missing
 14) mnl_attr_next                   14) not applicable
-15) mnl_attr_ok                     15) ** missing
+15) mnl_attr_ok                     15) not applicable
 16) mnl_attr_parse                  16) AttrParser.parse
 17) mnl_attr_parse_nested           17) AttrParser.parse_nested
 18) mnl_attr_put                    18) Payload.add_attr
