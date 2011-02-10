@@ -56,10 +56,10 @@ NLMSG_OVERRUN = 0x4     # Data lost
 
 NLMSG_MIN_TYPE = 0x10   # < 0x10: reserved control messages
 
-class Message:
-    # pack/unpack format for msg_length, msg_type, msg_flags, msg_seq, pid
-    header_format = "ihhii"
+# pack/unpack format for msg_length, msg_type, msg_flags, msg_seq, pid
+header_format = "ihhii"
 
+class Message:
     def __init__(self, buffer=None):
         """ A netlink message.
 
@@ -94,20 +94,20 @@ class Message:
         self._payload = None
 
         if (buffer):
-            header_size = calcsize(Message.header_format)
+            header_size = calcsize(header_format)
 
             (self._msg_length,
              self._msg_type,
              self._msg_flags,
              self._msg_seq,
-             self._pid) = unpack(Message.header_format, buffer[:header_size])
+             self._pid) = unpack(header_format, buffer[:header_size])
 
             self._payload = Payload(buffer[NLMSG_ALIGN(header_size):])
 
     def __len__(self):
         """ Get the unaligned length of the message (in bytes).
         """
-        return calcsize(Message.header_format) + len(self._payload)
+        return calcsize(header_format) + len(self._payload)
 
     def get_payload(self):
         """ Return the payload object contained in the message.
@@ -130,15 +130,15 @@ class Message:
         if (not self._payload):
             raise UnboundLocalError("payload")
 
-        self._msg_length = NLMSG_ALIGN(calcsize(Message.header_format) +
+        self._msg_length = NLMSG_ALIGN(calcsize(header_format) +
                                                 len(self._payload))
 
-        return pack(Message.header_format,
-                self._msg_length,
-                self._msg_type,
-                self._msg_flags,
-                self._msg_seq,
-                self._pid) + self._payload.__getdata__()
+        return pack(header_format,
+                    self._msg_length,
+                    self._msg_type,
+                    self._msg_flags,
+                    self._msg_seq,
+                    self._pid) + self._payload.__getdata__()
 
 
 class Payload:
