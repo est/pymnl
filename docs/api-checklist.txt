@@ -57,10 +57,10 @@ accounted for every function in libmnl.
 08) mnl_attr_get_u64                08) Attr.get_u64
 09) mnl_attr_get_str                09) Attr.get_str
                                         Attr.get_str_stripped
-10) mnl_attr_nest_end               10) ** missing
-11) mnl_attr_nest_start             11) ** missing
-12) mnl_attr_nest_start_check       12) ** missing
-13) mnl_attr_nest_cancel            13) ** missing
+10) mnl_attr_nest_end               10) not applicable
+11) mnl_attr_nest_start             11) Attr.toggle_nested
+12) mnl_attr_nest_start_check       12) not applicable
+13) mnl_attr_nest_cancel            13) Attr.toggle_nested
 14) mnl_attr_next                   14) not applicable
 15) mnl_attr_ok                     15) not applicable
 16) mnl_attr_parse                  16) AttrParser.parse

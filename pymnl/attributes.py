@@ -260,6 +260,11 @@ class Attr:
         # push the whole package out
         return header + self._value + pad
 
+    def toggle_nested(self):
+        """ Toggle the nested flag on and off for the Attr object.
+        """
+        self._type = self._type ^ NLA_F_NESTED
+
 
 class AttrParser:
     """ Base class for attribute parsers.
