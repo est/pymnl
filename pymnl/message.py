@@ -84,9 +84,9 @@ class Message:
 
             There is usually an extra header after the the Netlink header
             (at the beginning of the payload). This extra header is specific
-            of the Netlink subsystem. After this extra header, it comes the
+            of the Netlink subsystem. After this extra header, comes the
             sequence of attributes that are expressed in
-            Type-Length-Value (TLV) format.
+            Length-Type-Value (LTV) format.
         """
         self._msg_length = 0
         self._msg_type = 0
