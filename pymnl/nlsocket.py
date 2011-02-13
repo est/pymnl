@@ -23,10 +23,22 @@
 #      Copyright 2008-2010 by Pablo Neira Ayuso <pablo@netfilter.org>
 #
 
+from resource import getpagesize
 import socket
 
 import pymnl
 from pymnl.message import MessageList
+
+#
+# libmnl.h
+#
+
+SOCKET_AUTOPID = 0
+
+SOCKET_BUFFER_SIZE = 8192L
+if (getpagesize() < 8192L):
+    SOCKET_BUFFER_SIZE = getpagesize()
+
 
 class Socket:
     def __init__(self, bus):
@@ -64,7 +76,7 @@ class Socket:
         """
         return self._socket.getsockname()[1]
 
-    def bind(self, pid=pymnl.SOCKET_AUTOPID, groups=0):
+    def bind(self, pid=SOCKET_AUTOPID, groups=0):
         """ Bind netlink socket.
 
             pid - The port ID you want to use.  You can use
@@ -93,7 +105,7 @@ class Socket:
         """
         return self._socket.send(nl_message.packed())
 
-    def recv(self, bufsize=pymnl.SOCKET_BUFFER_SIZE, flags=0):
+    def recv(self, bufsize=SOCKET_BUFFER_SIZE, flags=0):
         """ Receive a netlink message.
 
             bufsize - max data to receive

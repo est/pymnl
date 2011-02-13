@@ -21,7 +21,6 @@
 # pymnl does not use libmnl.
 
 from ctypes import *
-from resource import getpagesize
 
 def PYMNL_ALIGN(align_size):
     """ Return a function to calculate alignment.
@@ -62,14 +61,4 @@ NETLINK_BROADCAST_ERROR = 4
 NETLINK_NO_ENOBUFS = 5
 
 NET_MAJOR = 36          # Major 36 is reserved for networking
-
-#
-# libmnl.h
-#
-
-SOCKET_AUTOPID = 0
-
-SOCKET_BUFFER_SIZE = 8192L
-if (getpagesize() < 8192L):
-    SOCKET_BUFFER_SIZE = getpagesize()
 
