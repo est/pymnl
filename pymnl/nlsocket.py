@@ -26,7 +26,7 @@
 import socket
 
 import pymnl
-from pymnl.message import Message
+from pymnl.message import MessageList
 
 class Socket:
     def __init__(self, bus):
@@ -102,9 +102,9 @@ class Socket:
                         buffer size ensures that your buffer is big enough
                         to store the netlink message without truncating it.
 
-            Raises an exception on error.  Otherwise, it returns the
-            netlink message.
+            Raises an exception on error.  Otherwise, it returns a
+            MessageList.
         """
-        return Message(self._socket.recv(bufsize, flags))
+        return MessageList(self._socket.recv(bufsize, flags))
 
 
