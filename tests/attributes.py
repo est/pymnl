@@ -28,3 +28,7 @@ from pymnl.attributes import Attr
 
 class TestAttributes(unittest.TestCase):
 
+    @staticmethod
+    def suite():
+        return unittest.TestLoader().loadTestsFromTestCase(TestAttributes)
+
