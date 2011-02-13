@@ -152,6 +152,26 @@ class Message:
             match = (self._msg_seq == seq)
         return (self._msg_seq and match)
 
+    def portid_ok(self, portid):
+        """ Perform portID origin check.
+
+            portid - netlink portid that we want to check
+
+            This method returns true if the origin is fulfilled, otherwise
+            false is returned. We skip the tracking for netlink message
+            whose portID is zero since it is reserved for event-based
+            kernel notifications. On the other hand, if portid is set but
+            the message PortID is not (i.e. this is an event message coming
+            from kernel-space), then we also skip the tracking. This
+            approach is good if we use the same socket to send commands to
+            kernel-space (that we want to track) and to listen to events
+            (that we do not track).
+        """
+        match = True
+        if (portid):
+            match = (self._pid == portid)
+        return (self._pid and match)
+
     def packed(self):
         """ Return a packed struct for sending to netlink socket.
         """

@@ -31,7 +31,7 @@ accounted for every function in libmnl.
 08) mnl_nlmsg_next                  08) MessageList
 09) mnl_nlmsg_ok                    09) Message.ok
 10) mnl_nlmsg_seq_ok                10) Message.seq_ok
-11) mnl_nlmsg_portid_ok             11) ** missing
+11) mnl_nlmsg_portid_ok             11) Message.portid_ok
 12) mnl_nlmsg_fprintf_header        12) ** missing
 13) mnl_nlmsg_fprintf_payload       13) ** missing
 14) mnl_nlmsg_fprintf               14) ** missing
