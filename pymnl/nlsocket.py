@@ -89,12 +89,6 @@ class Socket:
         """
         self._socket.bind((pid, groups))
 
-    def close(self):
-        """ Close the socket.
-        """
-        self._socket.close()
-        self._bus = None
-
     def send(self, nl_message):
         """ Send a netlink message.
 
@@ -118,5 +112,11 @@ class Socket:
             MessageList.
         """
         return MessageList(self._socket.recv(bufsize, flags))
+
+    def close(self):
+        """ Close the socket.
+        """
+        self._socket.close()
+        self._bus = None
 
 
