@@ -54,6 +54,13 @@ class Socket:
 
         self._socket = socket.socket(socket.AF_NETLINK, socket.SOCK_RAW, bus)
 
+    def get_sock(self):
+        """ Get the underlying socket object.
+
+            This is useful if you need to set non-netlink socket options.
+        """
+        return self._socket
+
     def get_portid(self):
         """ Obtain netlink PortID from netlink socket.
 

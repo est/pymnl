@@ -9,7 +9,7 @@ accounted for every function in libmnl.
     ------                              -----
                         socket
                         ------
-01) mnl_socket_get_fd               01) not applicable
+01) mnl_socket_get_fd               01) Socket.get_sock
 02) mnl_socket_get_portid           02) Socket.get_portid
 03) mnl_socket_open                 03) Socket.__init__
 04) mnl_socket_bind                 04) Socket.bind
