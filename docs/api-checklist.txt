@@ -28,21 +28,21 @@ accounted for every function in libmnl.
 05) mnl_nlmsg_get_payload_tail      05) not applicable
 06) mnl_nlmsg_put_header            06) not applicable
 07) mnl_nlmsg_put_extra_header      07) Payload.__init__
-08) mnl_nlmsg_next                  08) ** missing
+08) mnl_nlmsg_next                  08) MessageList
 09) mnl_nlmsg_ok                    09) ** missing
 10) mnl_nlmsg_seq_ok                10) ** missing
 11) mnl_nlmsg_portid_ok             11) ** missing
 12) mnl_nlmsg_fprintf_header        12) ** missing
 13) mnl_nlmsg_fprintf_payload       13) ** missing
 14) mnl_nlmsg_fprintf               14) ** missing
-15) mnl_nlmsg_batch_start           15) ** missing
-16) mnl_nlmsg_batch_stop            16) ** missing
-17) mnl_nlmsg_batch_next            17) ** missing
-18) mnl_nlmsg_batch_reset           18) ** missing
+15) mnl_nlmsg_batch_start           15) not applicable
+16) mnl_nlmsg_batch_stop            16) not applicable
+17) mnl_nlmsg_batch_next            17) MessageList
+18) mnl_nlmsg_batch_reset           18) MessageList
 19) mnl_nlmsg_batch_size            19) ** missing
-20) mnl_nlmsg_batch_head            20) ** missing
-21) mnl_nlmsg_batch_current         21) ** missing
-22) mnl_nlmsg_batch_is_empty        22) ** missing
+20) mnl_nlmsg_batch_head            20) MessageList
+21) mnl_nlmsg_batch_current         21) MessageList
+22) mnl_nlmsg_batch_is_empty        22) MessageList
 
 
                         attributes
