@@ -195,6 +195,26 @@ class MessageList(list):
         if (msg):
             if (isinstance(msg, Message)):
                 self.append(msg)
+            elif (isinstance(msg, str)):
+                self.split(msg)
+            else:
+                raise TypeError("MessageList only accepts Messages " +
+                                "or a packed string")
+
+    def split(self, msg):
+        """ Split multipart message into its component messages.
+        """
+        while (msg):
+            one_msg = Message(msg)
+            # is more data than message header calls for available
+            if (len(one_msg) > one_msg._msg_length):
+                # make a Message from the right amount of data
+                self.append(Message(msg[:one_msg._msg_length]))
+                # strip off the data used to make previous Message
+                msg = msg[one_msg._msg_length:]
+            else:
+                self.append(one_msg)
+                msg = None
 
 
 
