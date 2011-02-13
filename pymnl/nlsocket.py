@@ -128,4 +128,12 @@ class Socket:
         self._socket.close()
         self._bus = None
 
+    def getsockopt(self, optname, buflen=None):
+        """ Get a Netlink socket option.
+
+            optname - the option to get
+
+            buflen - optional (see Python's socket module)
+        """
+        self._socket.getsockopt(SOL_NETLINK, optname, buflen)
 
