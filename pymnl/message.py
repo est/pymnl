@@ -131,6 +131,27 @@ class Message:
         return ((self._msg_length == len(self)) and
                 (self._msg_length >= MSG_HDRLEN))
 
+    def seq_ok(self, seq):
+        """ Perform sequence tracking.
+
+            seq - last sequence number used to send a message
+
+            This method returns true if the sequence tracking is
+            fulfilled, otherwise false is returned. We skip the tracking
+            for netlink messages whose sequence number is zero since it is
+            usually reserved for event-based kernel notifications. On the
+            other hand, if seq is set but the message sequence number is
+            not set (i.e. this is an event message coming from
+            kernel-space), then we also skip the tracking. This approach is
+            good if we use the same socket to send commands to kernel-space
+            (that we want to track) and to listen to events (that we do not
+            track).
+        """
+        match = True
+        if (seq):
+            match = (self._msg_seq == seq)
+        return (self._msg_seq and match)
+
     def packed(self):
         """ Return a packed struct for sending to netlink socket.
         """
