@@ -128,6 +128,38 @@ class Socket:
         self._socket.close()
         self._bus = None
 
+    def setsockopt(self, optname, value):
+        """ Set Netlink socket option.
+
+            optname - option to set
+
+            value - value to set for the option
+
+            This method allows you to set some Netlink socket options. As
+            of this writing (see linux/netlink.h), the existing options are:
+
+                - NETLINK_ADD_MEMBERSHIP
+
+                - NETLINK_DROP_MEMBERSHIP
+
+                - NETLINK_PKTINFO
+
+                - NETLINK_BROADCAST_ERROR
+
+                - NETLINK_NO_ENOBUFS
+
+            In the early days, Netlink only supported 32 groups expressed
+            in a 32-bits mask. However, since 2.6.14, Netlink may have up
+            to 2^32 multicast groups but you have to use setsockopt() with
+            NETLINK_ADD_MEMBERSHIP to join a given multicast group. This
+            method internally calls setsockopt() to join a given netlink
+            multicast group. You can still use Socket.bind() and the 32-bit
+            mask to join a set of Netlink multicast groups.
+
+            See Python's socket module for more information about value.
+        """
+        self._socket.setsockopt(SOL_NETLINK, optname, value)
+
     def getsockopt(self, optname, buflen=None):
         """ Get a Netlink socket option.
 

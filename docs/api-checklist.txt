@@ -16,7 +16,7 @@ accounted for every function in libmnl.
 05) mnl_socket_recvfrom             05) Socket.send
 06) mnl_socket_sendto               06) Socket.recv
 07) mnl_socket_close                07) Socket.close
-08) mnl_socket_setsockopt           08) ** missing
+08) mnl_socket_setsockopt           08) Socket.setsockopt
 09) mnl_socket_getsockopt           09) Socket.getsockopt
 
                         nlmsg
