@@ -188,8 +188,13 @@ class Payload:
         self.set(self._contents + attribute.packed())
 
 
-
-
+class MessageList(list):
+    def __init__(self, msg):
+        """ Holds the Message objects making up a multipart message.
+        """
+        if (msg):
+            if (isinstance(msg, Message)):
+                self.append(msg)
 
 
 
