@@ -124,6 +124,13 @@ class Message:
         else:
             self._payload = Payload(data)
 
+    def ok(self):
+        """ Check that Message is internally consistent. (i.e. verify that
+            a netlink message is not malformed nor truncated.
+        """
+        return ((self._msg_length == len(self)) and
+                (self._msg_length >= MSG_HDRLEN))
+
     def packed(self):
         """ Return a packed struct for sending to netlink socket.
         """
