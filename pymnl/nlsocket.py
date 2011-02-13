@@ -29,9 +29,17 @@ import socket
 import pymnl
 from pymnl.message import MessageList
 
+NETLINK_ADD_MEMBERSHIP = 1
+NETLINK_DROP_MEMBERSHIP = 2
+NETLINK_PKTINFO = 3
+NETLINK_BROADCAST_ERROR = 4
+NETLINK_NO_ENOBUFS = 5
+
 #
 # libmnl.h
 #
+
+SOL_NETLINK = 270
 
 SOCKET_AUTOPID = 0
 
