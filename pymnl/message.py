@@ -201,6 +201,14 @@ class MessageList(list):
                 raise TypeError("MessageList only accepts Messages " +
                                 "or a packed string")
 
+    def __len__(self):
+        """ Return the length (in bytes) of the total MessageList.
+        """
+        length = 0
+        for msg in self:
+            length = length + len(msg)
+        return length
+
     def split(self, msg):
         """ Split multipart message into its component messages.
         """

@@ -39,7 +39,7 @@ accounted for every function in libmnl.
 16) mnl_nlmsg_batch_stop            16) not applicable
 17) mnl_nlmsg_batch_next            17) MessageList
 18) mnl_nlmsg_batch_reset           18) MessageList
-19) mnl_nlmsg_batch_size            19) ** missing
+19) mnl_nlmsg_batch_size            19) MessageList.__len__
 20) mnl_nlmsg_batch_head            20) MessageList
 21) mnl_nlmsg_batch_current         21) MessageList
 22) mnl_nlmsg_batch_is_empty        22) MessageList
