@@ -156,6 +156,8 @@ class Attr:
     def new_strnz(type, value):
         """ Return a new Attr object with a non-zero-terminated string.
         """
+        if (not isinstance(value, str)):
+            raise TypeError
         return Attr(type=type, value=pack(repr(len(value)) + "s", value))
 
     @staticmethod
@@ -165,6 +167,8 @@ class Attr:
             This method will add the null termination.  Pass this
             method a non-zero-terminated string.
         """
+        if (not isinstance(value, str)):
+            raise TypeError
         value = value + "\x00"
         return Attr.new_strnz(type=type, value=value)
 
