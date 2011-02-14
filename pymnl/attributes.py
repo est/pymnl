@@ -124,24 +124,32 @@ class Attr:
     def new_u8(type, value):
         """ Return a new one byte long Attr object.
         """
+        if ((value < 0) or (value > pow(2, 8))):
+            raise TypeError
         return Attr(type=type, value=pack("B", value))
 
     @staticmethod
     def new_u16(type, value):
         """ Return a new two byte long Attr object.
         """
+        if ((value < 0) or (value > pow(2, 16))):
+            raise TypeError
         return Attr(type=type, value=pack("H", value))
 
     @staticmethod
     def new_u32(type, value):
         """ Return a new four byte long Attr object.
         """
+        if ((value < 0) or (value > pow(2, 32))):
+            raise TypeError
         return Attr(type=type, value=pack("I", value))
 
     @staticmethod
     def new_u64(type, value):
         """ Return a new eight byte long Attr object.
         """
+        if ((value < 0) or (value > pow(2, 64))):
+            raise TypeError
         return Attr(type=type, value=pack("Q", value))
 
     @staticmethod
