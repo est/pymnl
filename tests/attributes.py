@@ -24,7 +24,7 @@
 import unittest
 
 import pymnl
-from pymnl.attributes import Attr
+from pymnl.attributes import *
 
 class TestAttributes(unittest.TestCase):
 
