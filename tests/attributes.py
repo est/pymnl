@@ -21,12 +21,28 @@
 #  USA
 #
 
+from random import randint
 import unittest
 
 import pymnl
 from pymnl.attributes import *
 
 class TestAttributes(unittest.TestCase):
+
+    def _test_integer_constructor(self, bit_depth_, method_):
+        """ Test the specified integer constructor.
+        """
+        max_value_ = pow(2, bit_depth_) - 1
+        for type_ in (TYPE_U8, TYPE_U16, TYPE_U32, TYPE_U64):
+            # valid values
+            random_ = randint(1, max_value_ - 1)
+            for value_ in (0, random_, max_value_):
+                self.assertTrue(isinstance(method_(type_, value_), Attr),
+                                        "test value did not make an Attr")
+            # invalid values
+            random_ = randint(-1 * (max_value_ - 1), -2)
+            for value_ in (-1, random_, -1 * max_value_):
+                self.assertRaises(TypeError, method_, type_, value_)
 
     @staticmethod
     def suite():
