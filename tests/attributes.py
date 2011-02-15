@@ -41,7 +41,7 @@ class TestAttributes(unittest.TestCase):
                                         "test value did not make an Attr")
             # invalid values
             random_ = randint(-1 * (max_value_ - 1), -2)
-            for value_ in (-1, random_, -1 * max_value_):
+            for value_ in (-1, random_, -1 * max_value_, "test string"):
                 self.assertRaises(TypeError, method_, type_, value_)
 
     def test_new_u8(self):
