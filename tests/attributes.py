@@ -44,6 +44,26 @@ class TestAttributes(unittest.TestCase):
             for value_ in (-1, random_, -1 * max_value_):
                 self.assertRaises(TypeError, method_, type_, value_)
 
+    def test_new_u8(self):
+        """ Test new_u8() constructor.
+        """
+        self._test_integer_constructor(8, Attr.new_u8)
+
+    def test_new_u16(self):
+        """ Test new_u16() constructor.
+        """
+        self._test_integer_constructor(16, Attr.new_u16)
+
+    def test_new_u32(self):
+        """ Test new_u32() constructor.
+        """
+        self._test_integer_constructor(32, Attr.new_u32)
+
+    def test_new_u64(self):
+        """ Test new_u64() constructor.
+        """
+        self._test_integer_constructor(64, Attr.new_u64)
+
     @staticmethod
     def suite():
         return unittest.TestLoader().loadTestsFromTestCase(TestAttributes)
