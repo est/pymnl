@@ -29,10 +29,13 @@ from pymnl.attributes import *
 
 class TestAttributes(unittest.TestCase):
 
-    def _test_integer_constructor(self, bit_depth_, method_):
+    def _test_integer_constructor(self, method_, max_value_):
         """ Test the specified integer constructor.
+
+            method_ - Attr constructor to test
+
+            max_value_ - maximum value the integer can hold
         """
-        max_value_ = pow(2, bit_depth_) - 1
         for type_ in (TYPE_U8, TYPE_U16, TYPE_U32, TYPE_U64):
             # valid values
             random_ = randint(1, max_value_ - 1)
@@ -48,25 +51,25 @@ class TestAttributes(unittest.TestCase):
         """ Test new_u8() constructor.
         """
         max_value_ = pow(2, 8) - 1
-        self._test_integer_constructor(8, Attr.new_u8)
+        self._test_integer_constructor(Attr.new_u8, max_value_)
 
     def test_new_u16(self):
         """ Test new_u16() constructor.
         """
         max_value_ = pow(2, 16) - 1
-        self._test_integer_constructor(16, Attr.new_u16)
+        self._test_integer_constructor(Attr.new_u16, max_value_)
 
     def test_new_u32(self):
         """ Test new_u32() constructor.
         """
         max_value_ = pow(2, 32) - 1
-        self._test_integer_constructor(32, Attr.new_u32)
+        self._test_integer_constructor(Attr.new_u32, max_value_)
 
     def test_new_u64(self):
         """ Test new_u64() constructor.
         """
         max_value_ = pow(2, 64) - 1
-        self._test_integer_constructor(64, Attr.new_u64)
+        self._test_integer_constructor(Attr.new_u64, max_value_)
 
     @staticmethod
     def suite():
