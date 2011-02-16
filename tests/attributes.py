@@ -47,21 +47,25 @@ class TestAttributes(unittest.TestCase):
     def test_new_u8(self):
         """ Test new_u8() constructor.
         """
+        max_value_ = pow(2, 8) - 1
         self._test_integer_constructor(8, Attr.new_u8)
 
     def test_new_u16(self):
         """ Test new_u16() constructor.
         """
+        max_value_ = pow(2, 16) - 1
         self._test_integer_constructor(16, Attr.new_u16)
 
     def test_new_u32(self):
         """ Test new_u32() constructor.
         """
+        max_value_ = pow(2, 32) - 1
         self._test_integer_constructor(32, Attr.new_u32)
 
     def test_new_u64(self):
         """ Test new_u64() constructor.
         """
+        max_value_ = pow(2, 64) - 1
         self._test_integer_constructor(64, Attr.new_u64)
 
     @staticmethod
