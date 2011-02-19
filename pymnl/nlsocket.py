@@ -43,8 +43,8 @@ SOL_NETLINK = 270
 
 SOCKET_AUTOPID = 0
 
-SOCKET_BUFFER_SIZE = 8192L
-if (getpagesize() < 8192L):
+SOCKET_BUFFER_SIZE = 8192
+if (getpagesize() < 8192):
     SOCKET_BUFFER_SIZE = getpagesize()
 
 
