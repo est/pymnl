@@ -268,7 +268,7 @@ class Attr:
         # prepare the header info
         header = pack(header_format, len(self), self._type)
         # prepare the null padding
-        pad = (NLA_ALIGN(len(self._value)) - len(self._value)) * "\x00"
+        pad = (NLA_ALIGN(len(self._value)) - len(self._value)) * b'\x00'
         # push the whole package out
         return header + self._value + pad
 
