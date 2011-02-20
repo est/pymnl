@@ -266,7 +266,8 @@ class Attr:
         if (type == TYPE_STRING and self.get_value_len() == 0):
             raise TypeError("String attribute is too short")
         string_ = self.get_str()
-        if (string_[-1] == b'\x00'):
+        if ((string_[-1] == b'\x00') or (string_[-1] == 0)):
+            # b'\x00' works in Py2, but 0 works in Py3, gah!
             string_ = string_[:-1]
         return string_
 
