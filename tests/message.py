@@ -21,3 +21,7 @@
 #  USA
 #
 
+import unittest
+
+import pymnl
+from pymnl.message import *
