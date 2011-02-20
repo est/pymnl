@@ -50,7 +50,7 @@ class TestAttributes(unittest.TestCase):
     def _test_integer_length(self, method_, max_value_, aligned_len_):
         """ Test the specified integer length.
 
-            method_ - Attr constructor to test
+            method_ - Attr constructor
 
             max_value_ - maximum value the integer can hold
 
@@ -83,7 +83,7 @@ class TestAttributes(unittest.TestCase):
                                     "returned type did not match")
 
     def test_u8(self):
-        """ Test new_u8() constructor and expected length.
+        """ Test one byte long Attr objects.
         """
         max_value_ = pow(2, 8) - 1
         self._test_integer_constructor(Attr.new_u8, max_value_)
@@ -91,7 +91,7 @@ class TestAttributes(unittest.TestCase):
         self._test_type(Attr.new_u8, 0)
 
     def test_u16(self):
-        """ Test new_u16() constructor and expected length.
+        """ Test two byte long Attr objects.
         """
         max_value_ = pow(2, 16) - 1
         self._test_integer_constructor(Attr.new_u16, max_value_)
@@ -99,7 +99,7 @@ class TestAttributes(unittest.TestCase):
         self._test_type(Attr.new_u16, 0)
 
     def test_u32(self):
-        """ Test new_u32() constructor and expected length.
+        """ Test four byte long Attr objects.
         """
         max_value_ = pow(2, 32) - 1
         self._test_integer_constructor(Attr.new_u32, max_value_)
@@ -107,7 +107,7 @@ class TestAttributes(unittest.TestCase):
         self._test_type(Attr.new_u32, 0)
 
     def test_u64(self):
-        """ Test new_u64() constructor and expected length.
+        """ Test eight byte long Attr objects.
         """
         max_value_ = pow(2, 64) - 1
         self._test_integer_constructor(Attr.new_u64, max_value_)
@@ -115,7 +115,7 @@ class TestAttributes(unittest.TestCase):
         self._test_type(Attr.new_u64, 0)
 
     def test_strnz(self):
-        """ Test new_strnz() constructor and expected length.
+        """ Test string value Attr objects.
         """
         for type_ in (TYPE_U8, TYPE_STRING):
             # valid values
@@ -135,7 +135,7 @@ class TestAttributes(unittest.TestCase):
         self._test_type(Attr.new_strnz, "test")
 
     def test_strz(self):
-        """ Test new_strz() constructor and expected length.
+        """ Test null-terminated string value Attr objects.
         """
         for type_ in (TYPE_U8, TYPE_NUL_STRING):
             # valid values
