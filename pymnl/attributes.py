@@ -265,7 +265,10 @@ class Attr:
         """
         if (type == TYPE_STRING and self.get_value_len() == 0):
             raise TypeError("String attribute is too short")
-        return self.get_str()[:-1]
+        string_ = self.get_str()
+        if (string_[-1] == b'\x00'):
+            string_ = string_[:-1]
+        return string_
 
     def packed(self):
         """ Return a packed struct to include in message payload.
