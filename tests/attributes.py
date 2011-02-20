@@ -88,6 +88,7 @@ class TestAttributes(unittest.TestCase):
         max_value_ = pow(2, 8) - 1
         self._test_integer_constructor(Attr.new_u8, max_value_)
         self._test_integer_length(Attr.new_u8, max_value_, 4)
+        self._test_type(Attr.new_u8, 0)
 
     def test_u16(self):
         """ Test new_u16() constructor and expected length.
@@ -95,6 +96,7 @@ class TestAttributes(unittest.TestCase):
         max_value_ = pow(2, 16) - 1
         self._test_integer_constructor(Attr.new_u16, max_value_)
         self._test_integer_length(Attr.new_u16, max_value_, 4)
+        self._test_type(Attr.new_u16, 0)
 
     def test_u32(self):
         """ Test new_u32() constructor and expected length.
@@ -102,6 +104,7 @@ class TestAttributes(unittest.TestCase):
         max_value_ = pow(2, 32) - 1
         self._test_integer_constructor(Attr.new_u32, max_value_)
         self._test_integer_length(Attr.new_u32, max_value_, 4)
+        self._test_type(Attr.new_u32, 0)
 
     def test_u64(self):
         """ Test new_u64() constructor and expected length.
@@ -109,6 +112,7 @@ class TestAttributes(unittest.TestCase):
         max_value_ = pow(2, 64) - 1
         self._test_integer_constructor(Attr.new_u64, max_value_)
         self._test_integer_length(Attr.new_u64, max_value_, 8)
+        self._test_type(Attr.new_u64, 0)
 
     def test_strnz(self):
         """ Test new_strnz() constructor and expected length.
@@ -127,6 +131,8 @@ class TestAttributes(unittest.TestCase):
             for i_ in range(3): random_ints_.append(randint(-1000, 1000))
             for value_ in (random_ints_):
                 self.assertRaises(TypeError, Attr.new_strnz, type_, value_)
+        # other tests
+        self._test_type(Attr.new_strnz, "test")
 
     def test_strz(self):
         """ Test new_strz() constructor and expected length.
@@ -145,6 +151,8 @@ class TestAttributes(unittest.TestCase):
             for i_ in range(3): random_ints_.append(randint(-1000, 1000))
             for value_ in (random_ints_):
                 self.assertRaises(TypeError, Attr.new_strz, type_, value_)
+        # other tests
+        self._test_type(Attr.new_strz, "test")
 
     @staticmethod
     def suite():
