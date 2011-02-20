@@ -97,6 +97,24 @@ class TestAttributes(unittest.TestCase):
         self._test_integer_constructor(Attr.new_u64, max_value_)
         self._test_integer_length(Attr.new_u64, max_value_, 8)
 
+    def test_strnz(self):
+        """ Test new_strnz() constructor and expected length.
+        """
+        for type_ in (TYPE_U8, TYPE_STRING):
+            # valid values
+            for test_string_ in ("test string", "nl80211", "spam"):
+                aligned_len_ = NLA_ALIGN(len(test_string_))
+                strnz_ = Attr.new_strnz(type_, test_string_)
+                self.assertTrue(isinstance(strnz_, Attr),
+                                        "test string did not make an Attr")
+                self.assertEqual(len(strnz_), (ATTR_HDRLEN + aligned_len_),
+                                        "test string is wrong length")
+            # invalid values
+            random_ints_ = []
+            for i_ in range(3): random_ints_.append(randint(-1000, 1000))
+            for value_ in (random_ints_):
+                self.assertRaises(TypeError, Attr.new_strnz, type_, value_)
+
     @staticmethod
     def suite():
         return unittest.TestLoader().loadTestsFromTestCase(TestAttributes)
