@@ -113,6 +113,8 @@ class TestAttributes(unittest.TestCase):
         self._test_integer_length(Attr.new_u8, max_value_, 4)
         self._test_type(Attr.new_u8, 0)
         self._test_integer_return(Attr.new_u8, Attr.get_u8, max_value_)
+        self._test_packed(Attr.new_u8, TYPE_U8, max_value_,
+                                b'\x08\x00\x01\x00\xff\x00\x00\x00')
 
     def test_u16(self):
         """ Test two byte long Attr objects.
@@ -122,6 +124,8 @@ class TestAttributes(unittest.TestCase):
         self._test_integer_length(Attr.new_u16, max_value_, 4)
         self._test_type(Attr.new_u16, 0)
         self._test_integer_return(Attr.new_u16, Attr.get_u16, max_value_)
+        self._test_packed(Attr.new_u16, TYPE_U16, max_value_,
+                                b'\x08\x00\x02\x00\xff\xff\x00\x00')
 
     def test_u32(self):
         """ Test four byte long Attr objects.
@@ -131,6 +135,8 @@ class TestAttributes(unittest.TestCase):
         self._test_integer_length(Attr.new_u32, max_value_, 4)
         self._test_type(Attr.new_u32, 0)
         self._test_integer_return(Attr.new_u32, Attr.get_u32, max_value_)
+        self._test_packed(Attr.new_u32, TYPE_U32, max_value_,
+                                b'\x08\x00\x03\x00\xff\xff\xff\xff')
 
     def test_u64(self):
         """ Test eight byte long Attr objects.
@@ -140,6 +146,8 @@ class TestAttributes(unittest.TestCase):
         self._test_integer_length(Attr.new_u64, max_value_, 8)
         self._test_type(Attr.new_u64, 0)
         self._test_integer_return(Attr.new_u64, Attr.get_u64, max_value_)
+        self._test_packed(Attr.new_u64, TYPE_U64, max_value_,
+                        b'\x0c\x00\x04\x00\xff\xff\xff\xff\xff\xff\xff\xff')
 
     def test_strnz(self):
         """ Test string value Attr objects.
@@ -164,6 +172,8 @@ class TestAttributes(unittest.TestCase):
                 self.assertRaises(TypeError, Attr.new_strnz, type_, value_)
         # other tests
         self._test_type(Attr.new_strnz, b'test')
+        self._test_packed(Attr.new_strnz, TYPE_STRING, b'spam',
+                                                b'\x08\x00\x05\x00spam')
 
     def test_strz(self):
         """ Test null-terminated string value Attr objects.
@@ -188,6 +198,8 @@ class TestAttributes(unittest.TestCase):
                 self.assertRaises(TypeError, Attr.new_strz, type_, value_)
         # other tests
         self._test_type(Attr.new_strz, b'test')
+        self._test_packed(Attr.new_strz, TYPE_NUL_STRING, b'spam',
+                                b'\x0c\x00\n\x00spam\x00\x00\x00\x00')
 
     @staticmethod
     def suite():
