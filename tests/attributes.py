@@ -87,6 +87,17 @@ class TestAttributes(unittest.TestCase):
         one_attr = method_(TYPE_MAX + 1, value_)
         self.assertFalse(one_attr.type_valid(), "unexpectedly valid type")
 
+    def _test_integer_return(self, const_, get_method_, max_value_):
+        """ Test an Attr.get_*() method.
+        """
+        for type_ in (TYPE_U8, TYPE_U16, TYPE_U32, TYPE_U64):
+            # valid values
+            random_ = randint(1, max_value_ - 1)
+            for value_ in (0, random_, max_value_):
+                one_attr = const_(type_, value_)
+                self.assertEqual(get_method_(one_attr), value_,
+                            "returned value does not match entered value")
+
     def test_u8(self):
         """ Test one byte long Attr objects.
         """
