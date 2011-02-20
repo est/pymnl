@@ -201,6 +201,19 @@ class TestAttributes(unittest.TestCase):
         self._test_packed(Attr.new_strz, TYPE_NUL_STRING, b'spam',
                                 b'\x0c\x00\n\x00spam\x00\x00\x00\x00')
 
+    def test_nested(self):
+        """
+        """
+        one_attr = Attr.new_u8(TYPE_U8, 0)
+        self.assertFalse(one_attr.is_nested(),
+                    "nested flag should not be set in new Attr objects")
+        one_attr.toggle_nested()
+        self.assertTrue(one_attr.is_nested(),
+                                            "nested flag should be set")
+        one_attr.toggle_nested()
+        self.assertFalse(one_attr.is_nested(),
+                                        "nested flag should not be set")
+
     @staticmethod
     def suite():
         return unittest.TestLoader().loadTestsFromTestCase(TestAttributes)
