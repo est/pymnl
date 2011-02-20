@@ -148,6 +148,8 @@ class TestAttributes(unittest.TestCase):
                                         "test string is wrong length")
                 self.assertEqual(strnz_.get_str(), test_string_,
                             "returned value does not match entered value")
+                self.assertEqual(strnz_.get_str_stripped(), test_string_,
+                            "returned value does not match entered value")
             # invalid values
             random_ints_ = []
             for i_ in range(3): random_ints_.append(randint(-1000, 1000))
@@ -169,6 +171,8 @@ class TestAttributes(unittest.TestCase):
                 self.assertEqual(len(strz_), (ATTR_HDRLEN + aligned_len_),
                                         "test string is wrong length")
                 self.assertEqual(strz_.get_str(), test_string_ + b'\x00',
+                            "returned value does not match entered value")
+                self.assertEqual(strz_.get_str_stripped(), test_string_,
                             "returned value does not match entered value")
             # invalid values
             random_ints_ = []
