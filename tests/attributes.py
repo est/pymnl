@@ -29,10 +29,10 @@ from pymnl.attributes import *
 
 class TestAttributes(unittest.TestCase):
 
-    def _test_integer_constructor(self, method_, max_value_):
+    def _test_integer_constructor(self, const_, max_value_):
         """ Test the specified integer constructor.
 
-            method_ - Attr constructor to test
+            const_ - Attr constructor to test
 
             max_value_ - maximum value the integer can hold
         """
@@ -40,17 +40,17 @@ class TestAttributes(unittest.TestCase):
             # valid values
             random_ = randint(1, max_value_ - 1)
             for value_ in (0, random_, max_value_):
-                self.assertTrue(isinstance(method_(type_, value_), Attr),
+                self.assertTrue(isinstance(const_(type_, value_), Attr),
                                         "test value did not make an Attr")
             # invalid values
             random_ = randint(-1 * (max_value_ - 1), -2)
             for value_ in (-1, random_, -1 * max_value_, "test string"):
-                self.assertRaises(TypeError, method_, type_, value_)
+                self.assertRaises(TypeError, const_, type_, value_)
 
-    def _test_integer_length(self, method_, max_value_, aligned_len_):
+    def _test_integer_length(self, const_, max_value_, aligned_len_):
         """ Test the specified integer length.
 
-            method_ - Attr constructor
+            const_ - Attr constructor
 
             max_value_ - maximum value the integer can hold
 
@@ -60,31 +60,31 @@ class TestAttributes(unittest.TestCase):
         for type_ in (TYPE_U8, TYPE_U16, TYPE_U32, TYPE_U64):
             random_ = randint(1, max_value_ - 1)
             for value_ in (0, random_, max_value_):
-                one_attr = method_(type_, value_)
+                one_attr = const_(type_, value_)
                 # valid values
                 self.assertEqual(len(one_attr), ATTR_HDRLEN + aligned_len_,
                             "length does not match expected Attr length")
                 # invalid values
-                self.assertNotEqual(len(method_(type_, value_)),
+                self.assertNotEqual(len(const_(type_, value_)),
                             ATTR_HDRLEN + randint(0, aligned_len_ - 1),
                             "length unexpectedly matches")
 
-    def _test_type(self, method_, value_):
+    def _test_type(self, const_, value_):
         """ Test the Attr type.
 
-            method_ - Attr constructor
+            const_ - Attr constructor
 
             value_ - value for the Attr
         """
         # valid values
         for type_ in (TYPE_U8, TYPE_U16, TYPE_U32, TYPE_U64,
                                          TYPE_STRING, TYPE_NUL_STRING):
-            one_attr = method_(type_, value_)
+            one_attr = const_(type_, value_)
             self.assertEqual(one_attr.get_type(), type_,
                                     "returned type did not match")
             self.assertTrue(one_attr.type_valid(), "invalid type")
         # invalid values
-        one_attr = method_(TYPE_MAX + 1, value_)
+        one_attr = const_(TYPE_MAX + 1, value_)
         self.assertFalse(one_attr.type_valid(), "unexpectedly valid type")
 
     def _test_integer_return(self, const_, get_method_, max_value_):
