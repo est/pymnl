@@ -25,3 +25,10 @@ import unittest
 
 import pymnl
 from pymnl.message import *
+
+class TestMessages(unittest.TestCase):
+
+    @staticmethod
+    def suite():
+        return unittest.TestLoader().loadTestsFromTestCase(TestMessages)
+
