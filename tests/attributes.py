@@ -69,6 +69,19 @@ class TestAttributes(unittest.TestCase):
                             ATTR_HDRLEN + randint(0, aligned_len_ - 1),
                             "length unexpectedly matches")
 
+    def _test_type(self, method_, value_):
+        """ Test the Attr type.
+
+            method_ - Attr constructor
+
+            value_ - value for the Attr
+        """
+        for type_ in (TYPE_U8, TYPE_U16, TYPE_U32, TYPE_U64,
+                                         TYPE_STRING, TYPE_NUL_STRING):
+            one_attr = method_(type_, value_)
+            self.assertEqual(one_attr.get_type(), type_,
+                                    "returned type did not match")
+
     def test_u8(self):
         """ Test new_u8() constructor and expected length.
         """
