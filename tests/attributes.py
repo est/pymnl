@@ -98,6 +98,13 @@ class TestAttributes(unittest.TestCase):
                 self.assertEqual(get_method_(one_attr), value_,
                             "returned value does not match entered value")
 
+    def _test_packed(self, const_, type_, value_, expected_value_):
+        """ Test Attr.packed() method.
+        """
+        one_attr = const_(type_, value_)
+        self.assertEqual(one_attr.packed(), expected_value_,
+                    "packed value does not match expected value")
+
     def test_u8(self):
         """ Test one byte long Attr objects.
         """
