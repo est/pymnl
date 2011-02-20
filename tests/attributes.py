@@ -139,7 +139,7 @@ class TestAttributes(unittest.TestCase):
         """
         for type_ in (TYPE_U8, TYPE_STRING):
             # valid values
-            for test_string_ in ("test string", "nl80211", "spam"):
+            for test_string_ in (b'test string', b'nl80211', b'spam'):
                 aligned_len_ = NLA_ALIGN(len(test_string_))
                 strnz_ = Attr.new_strnz(type_, test_string_)
                 self.assertTrue(isinstance(strnz_, Attr),
@@ -152,14 +152,14 @@ class TestAttributes(unittest.TestCase):
             for value_ in (random_ints_):
                 self.assertRaises(TypeError, Attr.new_strnz, type_, value_)
         # other tests
-        self._test_type(Attr.new_strnz, "test")
+        self._test_type(Attr.new_strnz, b'test')
 
     def test_strz(self):
         """ Test null-terminated string value Attr objects.
         """
         for type_ in (TYPE_U8, TYPE_NUL_STRING):
             # valid values
-            for test_string_ in ("test string", "nl80211", "spam"):
+            for test_string_ in (b'test string', b'nl80211', b'spam'):
                 aligned_len_ = NLA_ALIGN(len(test_string_) + 1)
                 strz_ = Attr.new_strz(type_, test_string_)
                 self.assertTrue(isinstance(strz_, Attr),
@@ -172,7 +172,7 @@ class TestAttributes(unittest.TestCase):
             for value_ in (random_ints_):
                 self.assertRaises(TypeError, Attr.new_strz, type_, value_)
         # other tests
-        self._test_type(Attr.new_strz, "test")
+        self._test_type(Attr.new_strz, b'test')
 
     @staticmethod
     def suite():
