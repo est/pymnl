@@ -105,6 +105,7 @@ class TestAttributes(unittest.TestCase):
         self._test_integer_constructor(Attr.new_u8, max_value_)
         self._test_integer_length(Attr.new_u8, max_value_, 4)
         self._test_type(Attr.new_u8, 0)
+        self._test_integer_return(Attr.new_u8, Attr.get_u8, max_value_)
 
     def test_u16(self):
         """ Test two byte long Attr objects.
@@ -113,6 +114,7 @@ class TestAttributes(unittest.TestCase):
         self._test_integer_constructor(Attr.new_u16, max_value_)
         self._test_integer_length(Attr.new_u16, max_value_, 4)
         self._test_type(Attr.new_u16, 0)
+        self._test_integer_return(Attr.new_u16, Attr.get_u16, max_value_)
 
     def test_u32(self):
         """ Test four byte long Attr objects.
@@ -121,6 +123,7 @@ class TestAttributes(unittest.TestCase):
         self._test_integer_constructor(Attr.new_u32, max_value_)
         self._test_integer_length(Attr.new_u32, max_value_, 4)
         self._test_type(Attr.new_u32, 0)
+        self._test_integer_return(Attr.new_u32, Attr.get_u32, max_value_)
 
     def test_u64(self):
         """ Test eight byte long Attr objects.
@@ -129,6 +132,7 @@ class TestAttributes(unittest.TestCase):
         self._test_integer_constructor(Attr.new_u64, max_value_)
         self._test_integer_length(Attr.new_u64, max_value_, 8)
         self._test_type(Attr.new_u64, 0)
+        self._test_integer_return(Attr.new_u64, Attr.get_u64, max_value_)
 
     def test_strnz(self):
         """ Test string value Attr objects.
