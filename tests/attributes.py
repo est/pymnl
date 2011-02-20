@@ -76,11 +76,16 @@ class TestAttributes(unittest.TestCase):
 
             value_ - value for the Attr
         """
+        # valid values
         for type_ in (TYPE_U8, TYPE_U16, TYPE_U32, TYPE_U64,
                                          TYPE_STRING, TYPE_NUL_STRING):
             one_attr = method_(type_, value_)
             self.assertEqual(one_attr.get_type(), type_,
                                     "returned type did not match")
+            self.assertTrue(one_attr.type_valid(), "invalid type")
+        # invalid values
+        one_attr = method_(TYPE_MAX + 1, value_)
+        self.assertFalse(one_attr.type_valid(), "unexpectedly valid type")
 
     def test_u8(self):
         """ Test one byte long Attr objects.
