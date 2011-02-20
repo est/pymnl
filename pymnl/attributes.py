@@ -27,6 +27,13 @@ from struct import calcsize, pack, unpack
 
 import pymnl
 
+# Forward compatibility with Py3k
+try:
+    bytes
+except NameError:
+    bytes = str
+
+
 # netlink attributes
 #
 #  nla_type(16bits)
@@ -156,7 +163,7 @@ class Attr:
     def new_strnz(type, value):
         """ Return a new Attr object with a non-zero-terminated string.
         """
-        if (not isinstance(value, str)):
+        if (not isinstance(value, bytes)):
             raise TypeError
         return Attr(type=type, value=pack(repr(len(value)) + "s", value))
 
@@ -167,9 +174,9 @@ class Attr:
             This method will add the null termination.  Pass this
             method a non-zero-terminated string.
         """
-        if (not isinstance(value, str)):
+        if (not isinstance(value, bytes)):
             raise TypeError
-        value = value + "\x00"
+        value = value + b'\x00'
         return Attr.new_strnz(type=type, value=value)
 
     def set(self, type, value):
