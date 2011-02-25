@@ -76,6 +76,46 @@ CTRL_ATTR_MCAST_GRP_ID = 2
 CTRL_ATTR_MCAST_GRP_MAX = 3
 
 
+class GenlMessageHeader:
+    def __init__(self, command=None, version=None):
+        """ An extra header for the message.
+
+            command - genl command to issue
+
+            version - genl protocol version
+
+            Implements genlmsghdr in a Pythonesque form.
+        """
+        self._format = 'HHI'
+        self._command = command
+        self._version = version
+        self._reserved = 0
+
+    def set_command(self, command):
+        """ Set the header command.
+
+            command - genl command to issue
+        """
+        self._command = command
+
+    def set_version(self, version):
+        """ Set the header command.
+
+            version - genl protocol version
+        """
+        self._version = version
+
+    def get_binary(self):
+        """ Return a packed struct suitable for sending through a
+            netlink socket.
+
+            Raises an exception if command and version have not been set
+            before calling get_binary().
+        """
+        return pack(self._format,
+                        self._command, self._version, self._reserved)
+
+
 class GenlAttrParser(AttrParser):
     """ Parser for generic netlink attributes.
     """
