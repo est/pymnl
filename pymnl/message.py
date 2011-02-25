@@ -109,6 +109,17 @@ class Message:
         """
         return MSG_HDRLEN + len(self._payload)
 
+    def put_extra_header(self, header):
+        """ Add a header before the Payload.
+
+            header - The object which contains the extra header.  This
+                        object must provide a get_binary() method which
+                        returns a binary string/bytes with the netlink
+                        data, like Payload or GenlMessageHeader.
+        """
+        self._payload = Payload(header.get_binary() +
+                                    self._payload.get_binary())
+
     def get_payload(self):
         """ Return the payload object contained in the message.
         """

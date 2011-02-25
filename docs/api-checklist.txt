@@ -27,7 +27,7 @@ accounted for every function in libmnl.
 04) mnl_nlmsg_get_payload_offset    04) not applicable
 05) mnl_nlmsg_get_payload_tail      05) not applicable
 06) mnl_nlmsg_put_header            06) not applicable
-07) mnl_nlmsg_put_extra_header      07) Payload.__init__
+07) mnl_nlmsg_put_extra_header      07) Message.put_extra_header
 08) mnl_nlmsg_next                  08) MessageList
 09) mnl_nlmsg_ok                    09) Message.ok
 10) mnl_nlmsg_seq_ok                10) Message.seq_ok
