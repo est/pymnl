@@ -252,9 +252,10 @@ class Payload:
         return self._contents + pad
 
     def get_data(self):
-        """ Return the non-header data string.
+        """ Return the non-header data string.  This is the non-aligned
+            version of get_binary().
         """
-        return self._value
+        return self._contents
 
 
 class MessageList(list):
