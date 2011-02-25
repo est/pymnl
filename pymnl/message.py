@@ -172,8 +172,9 @@ class Message:
             match = (self._pid == portid)
         return (self._pid and match)
 
-    def packed(self):
-        """ Return a packed struct for sending to netlink socket.
+    def get_binary(self):
+        """ Return a packed struct suitable for sending through a
+            netlink socket.
         """
         if (not self._payload):
             raise UnboundLocalError("payload")
@@ -185,7 +186,7 @@ class Message:
                     self._msg_type,
                     self._msg_flags,
                     self._msg_seq,
-                    self._pid) + self._payload.__getdata__()
+                    self._pid) + self._payload.get_binary()
 
 
 class Payload:
@@ -233,7 +234,16 @@ class Payload:
 
             attribute - an Attr object
         """
-        self.set(self._contents + attribute.packed())
+        self.set(self._contents + attribute.get_binary())
+
+    def get_binary(self):
+        """ Return a packed struct suitable for sending through a
+            netlink socket.
+        """
+        # prepare the null padding
+        pad = (NLMSG_ALIGN(len(self)) - len(self)) * b'\x00'
+        # push the whole package out
+        return self._contents + pad
 
 
 class MessageList(list):

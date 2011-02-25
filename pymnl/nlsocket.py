@@ -106,7 +106,7 @@ class Socket:
             Raises an exception on error. Otherwise, it returns the number of
             bytes sent.
         """
-        return self._socket.send(nl_message.packed())
+        return self._socket.send(nl_message.get_binary())
 
     def recv(self, bufsize=SOCKET_BUFFER_SIZE, flags=0):
         """ Receive a netlink message.

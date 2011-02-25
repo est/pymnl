@@ -271,7 +271,7 @@ class Attr:
             string_ = string_[:-1]
         return string_
 
-    def packed(self):
+    def get_binary(self):
         """ Return a packed struct to include in message payload.
 
             Adds null-bytes to end to pad attribute's length to
