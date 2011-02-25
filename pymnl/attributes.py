@@ -117,11 +117,6 @@ class Attr:
         """
         return ATTR_HDRLEN + NLA_ALIGN(self.get_value_len())
 
-    def __getdata__(self):
-        """ Return the non-header data string.
-        """
-        return self._value
-
     def get_value_len(self):
         """ Return the length of the data payload.
         """
@@ -284,6 +279,11 @@ class Attr:
         # push the whole package out
         return header + self._value + pad
 
+    def get_data(self):
+        """ Return the non-header data string.
+        """
+        return self._value
+
     def toggle_nested(self):
         """ Toggle the nested flag on and off for the Attr object.
         """
@@ -348,7 +348,7 @@ class AttrParser:
 
             data - object with attributes
         """
-        for one_attr in self.parse_string(data.__getdata__()):
+        for one_attr in self.parse_string(data.get_data()):
             try:
                 self._cb[one_attr.get_type()](one_attr)
             except KeyError:
@@ -362,7 +362,7 @@ class AttrParser:
 
             data - object with attributes
         """
-        for one_attr in self.parse_string(data.__getdata__(), 0):
+        for one_attr in self.parse_string(data.get_data(), 0):
             self._attributes.append(one_attr)
 
         if (len(self._attributes) > 0):

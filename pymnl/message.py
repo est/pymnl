@@ -201,11 +201,6 @@ class Payload:
         """
         return len(self._contents)
 
-    def __getdata__(self):
-        """ Return the non-header data string.
-        """
-        return self._contents
-
     def __getitem__(self, index):
         """ Return the value at index.
         """
@@ -244,6 +239,11 @@ class Payload:
         pad = (NLMSG_ALIGN(len(self)) - len(self)) * b'\x00'
         # push the whole package out
         return self._contents + pad
+
+    def get_data(self):
+        """ Return the non-header data string.
+        """
+        return self._value
 
 
 class MessageList(list):
