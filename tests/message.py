@@ -27,7 +27,7 @@ import unittest
 import pymnl
 from pymnl.message import *
 
-class TestMessages(unittest.TestCase):
+class TestMessage(unittest.TestCase):
 
     @staticmethod
     def suite():
