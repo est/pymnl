@@ -39,7 +39,7 @@ class TestPayload(unittest.TestCase):
     def _test_init(self):
         """ Test init of a Payload.
         """
-        self.payload = Payload("\x03\x01\x00\x00")
+        self.payload = Payload(pack("BBH", 3, 1, 0))
         self.binary = pack("ssss", "\x03", "\x01", "\x00", "\x00")
         self.assertEqual(self.payload.get_binary(), self.binary)
 
@@ -53,7 +53,7 @@ class TestPayload(unittest.TestCase):
                                             "\x10", "\x00", "\x00", "\x00")
         self.assertEqual(self.payload.get_binary(), self.binary)
 
-        self.family_name = Attr.new_strz(2, "nl80211")
+        self.family_name = Attr.new_strz(2, b'nl80211')
         self.payload.add_attr(self.family_name)
         self.binary = self.binary + pack("ssssssssssss",
                                             "\x0c", "\x00", "\x02", "\x00",
