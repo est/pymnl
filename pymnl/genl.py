@@ -93,6 +93,11 @@ class GenlMessageHeader:
         self._version = version
         self._reserved = 0
 
+    def __len__(self):
+        """ Calculate and return genlmsghdr length.
+        """
+        return calcsize(self._format)
+
     def set_command(self, command):
         """ Set the header command.
 
