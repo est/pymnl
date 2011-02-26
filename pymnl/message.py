@@ -145,8 +145,7 @@ class Message:
         """ Check that Message is internally consistent. (i.e. verify that
             a netlink message is not malformed nor truncated.
         """
-        return ((self._msg_length == len(self)) and
-                (self._msg_length >= MSG_HDRLEN))
+        return len(self) >= MSG_HDRLEN
 
     def seq_ok(self, seq):
         """ Perform sequence tracking.
