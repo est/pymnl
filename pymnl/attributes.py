@@ -28,6 +28,7 @@ from struct import calcsize, pack, unpack
 import pymnl
 
 # Forward compatibility with Py3k
+# copied from http://wiki.python.org/moin/PortingPythonToPy3k
 try:
     bytes
 except NameError:
