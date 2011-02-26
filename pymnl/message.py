@@ -107,7 +107,10 @@ class Message:
     def __len__(self):
         """ Get the unaligned length of the message (in bytes).
         """
-        return MSG_HDRLEN + len(self._payload)
+        if (self._payload):
+            return MSG_HDRLEN + len(self._payload)
+        else:
+            return MSG_HDRLEN
 
     def put_extra_header(self, header):
         """ Add a header before the Payload.
