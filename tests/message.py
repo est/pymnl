@@ -21,18 +21,12 @@
 #  USA
 #
 
+from random import randint
 from struct import pack
 import unittest
 
 import pymnl
 from pymnl.message import *
-
-class TestMessage(unittest.TestCase):
-
-    @staticmethod
-    def suite():
-        return unittest.TestLoader().loadTestsFromTestCase(TestMessages)
-
 
 class TestPayload(unittest.TestCase):
 
@@ -76,4 +70,81 @@ class TestPayload(unittest.TestCase):
     def suite():
         return unittest.TestLoader().loadTestsFromTestCase(TestPayload)
 
+
+class TestMessage(unittest.TestCase):
+
+    def setUp(self):
+        """
+        """
+        self.msg = Message()
+        self.msg._msg_type = 16  # GENL_ID_CTRL
+        self.msg._msg_flags = 5  # NLM_F_REQUEST | NLM_F_ACK
+
+        self.seq = randint(0, pow(2, 31))
+        self.msg._msg_seq = self.seq
+
+        self.pid = randint(0, pow(2, 31))
+        self.msg._pid = self.pid
+
+        self.msg_length = 16
+        self.msg_header = pack("HHII", self.msg._msg_type,
+                                       self.msg._msg_flags,
+                                       self.seq, self.pid)
+
+    def test_put_extra_header(self):
+        """
+        """
+        # add a four byte header object
+        extra_header = Payload(pack("BBH", 3, 1, 0))
+        self.msg.put_extra_header(extra_header)
+        self.msg_length = self.msg_length + 4
+        self.binary = (pack("I", self.msg_length) + self.msg_header +
+                        extra_header.get_binary())
+        self.assertEqual(self.msg.get_binary(), self.binary)
+
+    def test_add_payload(self):
+        """
+        """
+        payload = Payload(pack("BBH", 3, 1, 0))
+        self.msg.add_payload(payload)
+        self.msg_length = self.msg_length + 4
+        self.binary = (pack("I", self.msg_length) + self.msg_header +
+                        payload.get_binary())
+        self.assertEqual(self.msg.get_binary(), self.binary)
+
+    def test_get_payload(self):
+        """
+        """
+        payload_in = Payload(pack("BBH", 3, 1, 0))
+        self.msg.add_payload(payload_in)
+        payload_out = self.msg.get_payload()
+        self.assertEqual(payload_in, payload_out)
+
+    def test_ok(self):
+        """
+        """
+        self.assertTrue(self.msg.ok())
+
+    def test_seq_ok(self):
+        """
+        """
+        self.assertTrue(self.msg.seq_ok(self.seq))
+        # false result possible if random number == seq
+        self.assertFalse(self.msg.seq_ok(randint(0, pow(2, 31))))
+
+    def test_portid_ok(self):
+        """
+        """
+        self.assertTrue(self.msg.portid_ok(self.pid))
+        # false result possible if random number == portid
+        self.assertFalse(self.msg.portid_ok(randint(0, pow(2, 31))))
+
+    def tearDown(self):
+        """
+        """
+        self.msg = None
+
+    @staticmethod
+    def suite():
+        return unittest.TestLoader().loadTestsFromTestCase(TestMessage)
 
