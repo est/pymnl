@@ -86,7 +86,7 @@ class GenlMessageHeader:
 
             Implements genlmsghdr in a Pythonesque form.
         """
-        self._format = 'HHI'
+        self._format = 'BBH'
         self._command = command
         self._version = version
         self._reserved = 0
