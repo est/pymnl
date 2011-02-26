@@ -150,7 +150,7 @@ class GenlAttrParser(AttrParser):
 
             attr - Attr object
         """
-        self._attributes['name'] = attr.get_str()
+        self._attributes['name'] = attr.get_str_stripped()
 
     def ctrl_attr_version(self, attr):
         """ Save version.
