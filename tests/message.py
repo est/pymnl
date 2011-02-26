@@ -148,3 +148,25 @@ class TestMessage(unittest.TestCase):
     def suite():
         return unittest.TestLoader().loadTestsFromTestCase(TestMessage)
 
+
+class TestMessageList(unittest.TestCase):
+
+    def test_msglist(self):
+        """
+        """
+        self.payload = Payload(b'\x03\x01\x00\x00\x08\x00\x01\x00\x10\x00\x00\x00\x0c\x00\x02\x00nl80211\x00')
+        self.msg1 = Message()
+        self.msg1.add_payload(self.payload)
+        self.msg2 = Message()
+        self.msg2.add_payload(self.payload)
+        self.msg3 = Message()
+        self.msg3.add_payload(self.payload)
+        self.msg = (self.msg1.get_binary() + self.msg2.get_binary() +
+                        self.msg3.get_binary())
+        self.msglist = MessageList(self.msg)
+        self.assertEqual(len(self.msglist), 3)
+
+    @staticmethod
+    def suite():
+        return unittest.TestLoader().loadTestsFromTestCase(TestMessageList)
+
