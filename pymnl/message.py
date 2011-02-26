@@ -120,8 +120,11 @@ class Message:
                         returns a binary string/bytes with the netlink
                         data, like Payload or GenlMessageHeader.
         """
-        self._payload = Payload(header.get_binary() +
+        if (self._payload):
+            self._payload = Payload(header.get_binary() +
                                     self._payload.get_binary())
+        else:
+            self._payload = Payload(header.get_binary())
 
     def get_payload(self):
         """ Return the payload object contained in the message.
