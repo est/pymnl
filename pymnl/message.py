@@ -300,7 +300,7 @@ class MessageList(list):
         """
         while (msg):
             one_msg = Message(msg)
-            # is more data than message header calls for available
+            # Is more data than message header calls for available?
             if (len(one_msg) > one_msg._msg_length):
                 # make a Message from the right amount of data
                 self.append(Message(msg[:one_msg._msg_length]))
