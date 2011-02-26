@@ -74,7 +74,9 @@ class TestPayload(unittest.TestCase):
 class TestMessage(unittest.TestCase):
 
     def setUp(self):
-        """
+        """ Set up the initial conditions for each test.
+
+            Uses hypothetical genl protocol for tests.
         """
         self.msg = Message()
         self.msg._msg_type = 16  # GENL_ID_CTRL
@@ -92,7 +94,7 @@ class TestMessage(unittest.TestCase):
                                        self.seq, self.pid)
 
     def test_put_extra_header(self):
-        """
+        """ Test Message.put_extra_header().
         """
         # add a four byte header object
         extra_header = Payload(pack("BBH", 3, 1, 0))
@@ -103,7 +105,7 @@ class TestMessage(unittest.TestCase):
         self.assertEqual(self.msg.get_binary(), self.binary)
 
     def test_add_payload(self):
-        """
+        """ Test Message.add_payload().
         """
         payload = Payload(pack("BBH", 3, 1, 0))
         self.msg.add_payload(payload)
@@ -113,7 +115,11 @@ class TestMessage(unittest.TestCase):
         self.assertEqual(self.msg.get_binary(), self.binary)
 
     def test_get_payload(self):
-        """
+        """ Test Message.get_payload().
+
+            In reality, this justs tests that all the names for the same
+            object point to the same object.  I.E. this is not much of
+            a test.
         """
         payload_in = Payload(pack("BBH", 3, 1, 0))
         self.msg.add_payload(payload_in)
@@ -121,26 +127,34 @@ class TestMessage(unittest.TestCase):
         self.assertEqual(payload_in, payload_out)
 
     def test_ok(self):
-        """
+        """ Test Message.ok().
         """
         self.assertTrue(self.msg.ok())
 
     def test_seq_ok(self):
-        """
+        """ Test Message.seq_ok().
+
+            Check that initial sequence number is still used and that
+            a random integer does not match the sequence number.
         """
         self.assertTrue(self.msg.seq_ok(self.seq))
         # false result possible if random number == seq
         self.assertFalse(self.msg.seq_ok(randint(0, pow(2, 31))))
 
     def test_portid_ok(self):
-        """
+        """ Test Message.portid_ok().
+
+            Check that initial portid number is still used and that
+            a random integer does not match the portid number.  In
+            real-world use, generally, portid is sent as 0 and is
+            assigned another number by the kernel.
         """
         self.assertTrue(self.msg.portid_ok(self.pid))
         # false result possible if random number == portid
         self.assertFalse(self.msg.portid_ok(randint(0, pow(2, 31))))
 
     def tearDown(self):
-        """
+        """ Clean up after each test.
         """
         self.msg = None
 
