@@ -20,6 +20,8 @@
 #  USA
 #
 
+from struct import calcsize, pack
+
 import pymnl
 import pymnl.message
 from pymnl.attributes import AttrParser
