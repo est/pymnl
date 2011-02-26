@@ -136,10 +136,13 @@ class Message:
 
             data - Payload or string
         """
-        if (isinstance(data, Payload)):
-            self._payload = data
+        if (not isinstance(data, Payload)):
+            data = Payload(data)
+        if (self._payload):
+            self._payload = Payload(self._payload.get_binary() +
+                                        data.get_binary())
         else:
-            self._payload = Payload(data)
+            self._payload = data
 
     def ok(self):
         """ Check that Message is internally consistent. (i.e. verify that
