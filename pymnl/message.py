@@ -287,7 +287,7 @@ class MessageList(list):
                 raise TypeError("MessageList only accepts Messages " +
                                 "or a packed string")
 
-    def __len__(self):
+    def size(self):
         """ Return the length (in bytes) of the total MessageList.
         """
         length = 0
