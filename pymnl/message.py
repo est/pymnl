@@ -265,7 +265,8 @@ class MessageList(list):
         if (msg):
             if (isinstance(msg, Message)):
                 self.append(msg)
-            elif (isinstance(msg, str)):
+            elif (isinstance(msg, str) or isinstance(msg, bytes)):
+                # Py2, it's a str; Py3, it's a bytes
                 self.split(msg)
             else:
                 raise TypeError("MessageList only accepts Messages " +
