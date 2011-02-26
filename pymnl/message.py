@@ -193,7 +193,7 @@ class Message:
             netlink socket.
         """
         if (not self._payload):
-            raise UnboundLocalError("payload")
+            raise UnboundLocalError("There is no payload in this message")
 
         self._msg_length = NLMSG_ALIGN(MSG_HDRLEN + len(self._payload))
 
