@@ -215,6 +215,8 @@ class Payload:
         """
         if (contents):
             self.set(contents)
+        else:
+            self._contents = b''
 
     def __len__(self):
         """ Get the length of the payload (in bytes).
