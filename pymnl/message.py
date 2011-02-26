@@ -203,6 +203,10 @@ class Message:
 class Payload:
     def __init__(self, contents=None):
         """ The payload of a netlink message.
+
+            contents - string or object representing the payload
+                        When passing an object, it must implement the
+                        get_binary() method.
         """
         if (contents):
             self.set(contents)
@@ -225,9 +229,15 @@ class Payload:
     def set(self, contents):
         """ Set the payload contents.
 
-            contents - string representing the payload
+            contents - string or object representing the payload
+                        When passing an object, it must implement the
+                        get_binary() method.
         """
-        self._contents = contents
+        if (isinstance(contents, str) or isinstance(contents, bytes)):
+            # Py2, it's a str; Py3, it's a bytes
+            self._contents = contents
+        else:
+            self._contents = contents.get_binary()
         self._format = repr(NLMSG_ALIGN(len(self._contents))) + "s"
 
     def format(self):
