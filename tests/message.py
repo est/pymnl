@@ -97,6 +97,58 @@ class TestMessage(unittest.TestCase):
                                        self.msg._msg_flags,
                                        self.seq, self.pid)
 
+    def _test_valid_header_values(self, set_method_, get_method_,
+                                min_value_, max_value_):
+        """ Test a Message header accessor with valid values.
+        """
+        random_ = randint(min_value_ + 1, max_value_ - 1)
+        for value_ in (min_value_, random_, max_value_):
+            set_method_(self.msg, value_)
+            self.assertEqual(get_method_(self.msg), value_,
+                            "returned value does not match entered value")
+
+    def _test_invalid_header_values(self, set_method_, get_method_,
+                                        min_value_, max_value_):
+        """ Test a Message header accessor with invalid values.
+        """
+        random_ = randint(min_value_ + 1, max_value_ - 1)
+        for value_ in (min_value_, random_, max_value_):
+            self.assertRaises(ValueError, set_method_, self.msg, value_)
+
+    def test_type(self):
+        """ Test valid and invalid type values.
+        """
+        self._test_valid_header_values(Message.set_type, Message.get_type,
+                                        0, 0xffff)
+        self._test_invalid_header_values(Message.set_type, Message.get_type,
+                                            0xffff + 1, 0xffffffff)
+
+    def test_flags(self):
+        """ Test valid and invalid flags values.
+        """
+        self._test_valid_header_values(Message.set_flags, Message.get_flags,
+                                        0, 0xffff)
+        self._test_invalid_header_values(Message.set_flags, Message.get_flags,
+                                            0xffff + 1, 0xffffffff)
+
+    def test_seq(self):
+        """ Test valid and invalid sequence numbers.
+        """
+        self._test_valid_header_values(Message.set_seq, Message.get_seq,
+                                        0, 0xffffffff)
+        self._test_invalid_header_values(Message.set_seq, Message.get_seq,
+                                        0xffffffff + 1, 0xffffffffffffffff)
+
+    def test_portid(self):
+        """ Test valid and invalid portid values.
+        """
+        self._test_valid_header_values(Message.set_portid,
+                                        Message.get_portid,
+                                        0, 0xffffffff)
+        self._test_invalid_header_values(Message.set_portid,
+                                         Message.get_portid,
+                                         0xffffffff + 1, 0xffffffffffffffff)
+
     def test_put_extra_header(self):
         """ Test Message.put_extra_header().
         """
