@@ -141,6 +141,21 @@ class Message:
         """
         return self._msg_type
 
+    def set_flags(self, flags_):
+        """ Sets the message flags.
+
+            flags_ - 2-byte integer
+        """
+        if ((flags_ & 0xffff) != flags_):
+            raise ValueError("Message flags must be between 0 and " + \
+                                "65535, inclusive.")
+        self._msg_flags = flags_
+
+    def get_flags(self):
+        """ Returns the 2-byte flag.
+        """
+        return self._msg_flags
+
     def get_payload(self):
         """ Return the payload object contained in the message.
         """
