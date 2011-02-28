@@ -126,6 +126,21 @@ class Message:
         else:
             self._payload = Payload(header.get_binary())
 
+    def set_type(self, type_):
+        """ Sets the message type.
+
+            type_ - 2-byte integer
+        """
+        if ((type_ & 0xffff) != type_):
+            raise ValueError("Message type must be between 0 and " + \
+                                "65535, inclusive.")
+        self._msg_type = type_
+
+    def get_type(self):
+        """ Returns the 2-byte type.
+        """
+        return self._msg_type
+
     def get_payload(self):
         """ Return the payload object contained in the message.
         """
