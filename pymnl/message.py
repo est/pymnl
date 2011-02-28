@@ -156,6 +156,21 @@ class Message:
         """
         return self._msg_flags
 
+    def set_seq(self, seq_):
+        """ Sets the message sequence number.
+
+            seq_ - 4-byte integer
+        """
+        if ((seq_ & 0xffffffff) != seq_):
+            raise ValueError("Message sequence number must be " + \
+                                "between 0 and 4294967295, inclusive.")
+        self._msg_seq = seq_
+
+    def get_seq(self):
+        """ Returns the 4-byte sequence number.
+        """
+        return self._msg_seq
+
     def get_payload(self):
         """ Return the payload object contained in the message.
         """
