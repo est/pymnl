@@ -171,6 +171,21 @@ class Message:
         """
         return self._msg_seq
 
+    def set_portid(self, pid_):
+        """ Sets the message port id.
+
+            pid_ - 4-byte integer
+        """
+        if ((pid_ & 0xffffffff) != pid_):
+            raise ValueError("Message port id must be between 0 and " + \
+                                "4294967295, inclusive.")
+        self._pid = pid_
+
+    def get_portid(self):
+        """ Returns the 4-byte port id.
+        """
+        return self._pid
+
     def get_payload(self):
         """ Return the payload object contained in the message.
         """
