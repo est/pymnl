@@ -23,6 +23,7 @@
 #      Copyright 2008-2010 by Pablo Neira Ayuso <pablo@netfilter.org>
 #
 
+import os
 from struct import calcsize, pack, unpack
 
 import pymnl
@@ -280,6 +281,12 @@ class Message:
             if (errno_ < 0):
                 errno_ = -1 * errno_
         return errno_
+
+    def get_errstr(self):
+        """ Return the errno reported by Netlink as
+            interpretted by os.strerror.
+        """
+        return os.strerror(self.get_errno())
 
 
 class Payload:
