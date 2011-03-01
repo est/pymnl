@@ -267,6 +267,20 @@ class Message:
                     self._msg_seq,
                     self._pid) + self._payload.get_binary()
 
+    def get_errno(self):
+        """ Return the errno reported by Netlink.
+        """
+        errno_ = 0
+        if (self._msg_type == NLMSG_ERROR):
+            # The error code is a signed integer stored in the
+            #   first four bytes of the payload
+            errno_ = unpack("i", self._payload.get_data()[:4])[0]
+            # "Netlink subsystems returns the errno value
+            #   with different signess" -- libmnl/src/callback.c
+            if (errno_ < 0):
+                errno_ = -1 * errno_
+        return errno_
+
 
 class Payload:
     def __init__(self, contents=None):
