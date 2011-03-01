@@ -187,11 +187,6 @@ class Message:
         """
         return self._pid
 
-    def get_payload(self):
-        """ Return the payload object contained in the message.
-        """
-        return self._payload
-
     def add_payload(self, data):
         """ Add payload to the message.
 
@@ -204,6 +199,11 @@ class Message:
                                         data.get_binary())
         else:
             self._payload = data
+
+    def get_payload(self):
+        """ Return the payload object contained in the message.
+        """
+        return self._payload
 
     def ok(self):
         """ Check that Message is internally consistent. (i.e. verify that
