@@ -1,0 +1,27 @@
+ROADMAP
+=======
+
+There is no timeline associated with the following schedule.  Release
+dates are dependent on user feedback, bugs I find while trying to
+develop with pymnl, and the time I can find to implement fixes.  That said,
+I would like to have the 1.0 release out before the end of 2011.
+
+v0.1 - first release
+        Alpha version to get initial feedback from other developers.
+        Wild API changes allowed.
+
+v0.5 - second release
+        Beta version with more complete test cases and examples.  Include
+        fixes for bugs reported by users.  Minimal API changes allowed.
+
+v0.9 - third release
+        Beta version.  Mostly complete.  Only vital API changes allowed.
+        Mainly bug fixes between here and 1.0 release.
+
+v1.0 - fourth release
+        Stable version.  Fixed API.
+
+Beyond the 1.0 release should only be 1.0.x point releases for bug fixes.
+Unless some dramatic change is required for Python or Netlink changes,
+there will not be a 2.0 release.
+
