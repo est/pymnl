@@ -62,7 +62,7 @@ header_format = "ihhii"
 
 MSG_HDRLEN = NLMSG_ALIGN(calcsize(header_format))
 
-class Message:
+class Message(object):
     def __init__(self, buffer=None):
         """ A netlink message.
 
@@ -289,7 +289,7 @@ class Message:
         return os.strerror(self.get_errno())
 
 
-class Payload:
+class Payload(object):
     def __init__(self, contents=None):
         """ The payload of a netlink message.
 

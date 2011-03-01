@@ -80,7 +80,7 @@ _u32 = calcsize("I")
 _u64 = calcsize("Q")
 
 
-class Attr:
+class Attr(object):
     """ Netlink Length-Type-Value (LTV) attribute:
 
         |<-- 2 bytes -->|<-- 2 bytes -->|<-- variable -->|
@@ -296,7 +296,7 @@ class Attr:
         return self._type & NLA_F_NESTED
 
 
-class AttrParser:
+class AttrParser(object):
     """ Base class for attribute parsers.
 
         This class provides the most basic parsing capability.  In most

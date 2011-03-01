@@ -48,7 +48,7 @@ if (getpagesize() < 8192):
     SOCKET_BUFFER_SIZE = getpagesize()
 
 
-class Socket:
+class Socket(object):
     def __init__(self, bus):
         """ A netlink socket.
 

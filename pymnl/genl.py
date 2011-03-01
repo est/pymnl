@@ -78,7 +78,7 @@ CTRL_ATTR_MCAST_GRP_ID = 2
 CTRL_ATTR_MCAST_GRP_MAX = 3
 
 
-class GenlMessageHeader:
+class GenlMessageHeader(object):
     def __init__(self, command=None, version=None):
         """ An extra header for the message.
 
