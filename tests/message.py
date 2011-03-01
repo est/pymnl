@@ -215,6 +215,36 @@ class TestMessage(unittest.TestCase):
         # false result possible if random number == portid
         self.assertFalse(self.msg.portid_ok(randint(0, pow(2, 31))))
 
+    def test_get_errno(self):
+        """ Test Message.get_errno().
+        """
+        self._setUp()
+        # no error code
+        payload = Payload(pack("i", 0))
+        self.msg.add_payload(payload)
+        self.msg_length = self.msg_length + 4
+        self.assertEqual(self.msg.get_errno(), 0)
+        # ENOENT error
+        self.msg._msg_type = 0x2   # NLMSG_ERROR
+        payload = Payload(pack("i", -2))
+        self.msg._payload = payload
+        self.assertEqual(self.msg.get_errno(), 2)
+
+    def test_get_errstr(self):
+        """ Test Message.get_errstr().
+        """
+        self._setUp()
+        # no error code
+        payload = Payload(pack("i", 0))
+        self.msg.add_payload(payload)
+        self.msg_length = self.msg_length + 4
+        self.assertEqual(self.msg.get_errstr(), 'Success')
+        # ENOENT error
+        self.msg._msg_type = 0x2   # NLMSG_ERROR
+        payload = Payload(pack("i", -2))
+        self.msg._payload = payload
+        self.assertEqual(self.msg.get_errstr(), 'No such file or directory')
+
     def tearDown(self):
         """ Clean up after each test.
         """
