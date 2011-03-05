@@ -1,0 +1,47 @@
+#!/usr/bin/python
+
+from distutils.core import setup
+
+from tests.testcommand import test
+
+setup(
+    name = "pymnl",
+    version = "0.1",
+    author = "Sean Robinson",
+    author_email = "seankrobinson@gmail.com",
+    maintainer_email = "pymnl-dev@lists.tuxfamily.org",
+    description = """pymnl (rhymes with hymnal) is a pure Python
+re-implmentation of libmnl and provides a minimal interface to Linux
+Netlink.""",
+    url = "http://pymnl.wikispot.org/",
+    packages = ['pymnl'],
+    provides = ['pymnl'],
+    scripts = ['examples/genl/genl-family-get.py'],
+
+    data_files=[('', ['README',]),
+                ('docs', ['docs/AUTHORS', 'docs/BUGS', 'docs/LICENSE.GPL',
+                          'docs/LICENSE.LGPL', 'docs/NEWS', 'docs/ROADMAP',
+                          'docs/TODO', 'docs/VERSION',
+                          'docs/api-checklist.txt', 'docs/python2-dev.txt',
+                          'docs/python3-dev.txt',
+                          ]),
+               ],
+
+    platforms = "Linux",
+    license = "LGPL for module; GPL for example apps",
+    keywords = "Netlink genl socket",
+    download_url = "https://pymnl.tuxfamily.org",
+    classifiers = [
+        'Development Status :: 3 - Alpha',
+        'Environment :: Other Environment',
+        'Intended Audience :: Developers',
+        'License :: OSI Approved :: GNU General Public License (GPL)',
+        'License :: OSI Approved :: Lesser General Public License (LGPL)',
+        'Natural Language :: English',
+        'Operating System :: POSIX :: Linux',
+        'Programming Language :: Python',
+        'Topic :: System',
+    ],
+    cmdclass={'test': test},
+)
+
