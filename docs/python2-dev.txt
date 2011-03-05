@@ -1,0 +1,31 @@
+Using pymnl With Python 2
+-------------------------
+
+Recommend Using b'' For Strings
+-------------------------------
+To help you remember that strings are treated as 8-bit (non-unicode), use
+the b'' decoration on strings headed for Netlink.  If you want to hardcode
+the genl family name nl80211 in your script, using b'nl80211' should
+highlight the type of the string.  While this is not vital in Py2, it will
+make it easier to transfer your code to Py3 in the future.
+
+
+Attr Expects 8-bit Strings
+--------------------------
+Attr.new_strnz() and Attr.new_strz() expect an 8-bit (non-unicode) string.
+Because this is the default type for Py2 strings, no special considerations
+are required, but it is recommended to use the b'' decoration as shown
+above.
+
+
+Examples Use __future__ print()
+-------------------------------
+To be compatible with Py2 and Py3, the example scripts in ./examples/ use
+the new print function included starting in Python 2.6.  I.E.
+
+        from __future__ import print_function
+
+While the library should work with Python versions greater than 2.1, the
+examples, as written, require at least Python 2.6.
+
+
