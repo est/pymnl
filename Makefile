@@ -56,4 +56,5 @@ clean:
 	rm -fr tmp/ dist/
 
 distclean:	clean
+	find $(TOPDIR) -name "*.pyc" -exec rm -f {} \;
 
