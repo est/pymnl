@@ -14,7 +14,7 @@ setup(
 re-implmentation of libmnl and provides a minimal interface to Linux
 Netlink.""",
     url = "http://pymnl.wikispot.org/",
-    packages = ['pymnl'],
+    packages = ['pymnl', 'pymnl.tests'],
     provides = ['pymnl'],
     scripts = ['examples/genl/genl-family-get.py'],
 
