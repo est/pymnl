@@ -2,7 +2,7 @@
 
 from distutils.core import setup
 
-from tests.testcommand import test
+from pymnl.tests.testcommand import test
 
 setup(
     name = "pymnl",
