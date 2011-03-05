@@ -94,7 +94,7 @@ class test(distutils.core.Command):
             if (mod_specs[0]):
                 mod_specs[0].close()
         if (len(hierarchy) > 1):
-            module = self.load_module("".join(hierarchy[1:]),
+            module = self.load_module(".".join(hierarchy[1:]),
                                                         module.__path__)
         return module
 
