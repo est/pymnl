@@ -1,0 +1,67 @@
+README
+======
+
+pymnl (rhymes with hymnal) is a pure Python re-implmentation of libmnl
+and provides a minimal interface to Linux Netlink sockets and messages.
+The author and maintainer is Sean Robinson <seankrobinson@gmail.com>.
+
+pymnl should be compatible with Python > 2.1.  An effort has been made
+to allow pymnl to work with Py2 and Py3 from a single code base.  During
+development, pymnl, its test cases, and example scripts have been tested
+with Py2.6 and Py3.1; see ./docs/python2-dev.txt and ./docs/python3-dev.txt
+for version-specific caveats.
+
+More information is available at http://pymnl.wikispot.org.
+
+Check the ./docs/api-checklist.txt for a detailed list of which libmnl
+functions have been implemented.
+
+
+Example Applications
+--------------------
+The examples directory contains small examples of how to use pymnl with
+various Netlink protocols.  These are re-implementations of the examples
+provided in libmnl.
+
+
+Files and Directories
+---------------------
+./docs/ - supporting documentation
+./examples/ - sample uses of pymnl module
+./pymnl/ - the module source code
+./pymnl/tests/ - unittest test cases
+./pymnl/tests/testcommand.py - a setup.py test command to run unit tests
+./Makefile - convenience commands for developers
+./README - this file
+./setup.py - installation script
+
+
+Using pymnl Before Install
+--------------------------
+It is possible to run the included test cases and examples by adding the
+pymnl root directory to the PYTHONPATH environment variable.  Such as,
+
+PYTHONPATH=. python examples/genl/genl-family-get.py nl80211
+
+from the pymnl root directory.  Or, like,
+
+PYTHONPATH=.. python ../setup.py test --test-list pymnl.tests.nlsocket
+
+from within the ./pymnl/ directory.
+
+
+License
+-------
+
+pymnl is licensed under LGPLv2+, however, the examples are licensed
+under GPLv2+.
+
+
+Warranty
+--------
+There is none.  This is very new, untested code.  Do not rely on it for
+anything.  It could cause your computer to apply for a second mortgage on
+your home, take your underage children to R-rated movies, or run around
+your neighborhood in the middle of the night ringing doorbells.
+You. Have. Been. Warned.
+
