@@ -57,4 +57,5 @@ clean:
 
 distclean:	clean
 	find $(TOPDIR) -name "*.pyc" -exec rm -f {} \;
+	rm -f MANIFEST
 
