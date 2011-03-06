@@ -28,7 +28,7 @@ test:
 		--test-verbose
 
 sdist:
-	PYTHONPATH=. python ./setup.py sdist --formats=bztar
+	PYTHONPATH=. python ./setup.py sdist --force-manifest --formats=bztar
 
 tarball: $(TOPDIR)/tmp/${package}-$(VERSION).tar.bz2.sha256 $(TOPDIR)/tmp/${package}-$(VERSION).tar.bz2.sign
 
