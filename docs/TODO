@@ -1,0 +1,6 @@
+TODO
+====
+
+- add test cases for ./pymnl/genl.py
+- add examples for netfilter and rtnl
+
