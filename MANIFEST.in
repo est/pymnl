@@ -1,0 +1,4 @@
+include README
+recursive-include examples *.py
+recursive-include pymnl *.py
+recursive-include docs *
