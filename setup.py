@@ -4,9 +4,17 @@ from distutils.core import setup
 
 from pymnl.tests.testcommand import test
 
+def get_version():
+    version_file = open("docs/VERSION")
+    try:
+        version = version_file.readline()
+    finally:
+        version_file.close()
+    return version[:-1]
+
 setup(
     name = "pymnl",
-    version = "0.1",
+    version = get_version(),
     author = "Sean Robinson",
     author_email = "seankrobinson@gmail.com",
     maintainer_email = "pymnl-dev@lists.tuxfamily.org",
