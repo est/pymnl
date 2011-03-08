@@ -24,6 +24,7 @@
 
 from struct import calcsize, pack, unpack
 
+IFF_UP = 0x1          # interface is up
 IFF_RUNNING = 0x40
 
 class IfInfoMessage(object):
