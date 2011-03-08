@@ -55,3 +55,9 @@ class IfInfoMessage(object):
         """
         return calcsize(self._format)
 
+    def get_binary(self):
+        """
+        """
+        return pack(self._format, self.family, self.pad, self.type_,
+                        self.index, self.flags, self.change)
+
