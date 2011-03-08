@@ -119,6 +119,8 @@ class Socket(object):
                         buffer size ensures that your buffer is big enough
                         to store the netlink message without truncating it.
 
+            flags - see socket.recv()
+
             Raises an exception on error.  Otherwise, it returns a
             MessageList.
         """
