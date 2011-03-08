@@ -1,3 +1,5 @@
+#!/usr/bin/python
+#
 # attributes.py -- interface to netlink message payload attributes
 # Copyright 2011 Sean Robinson <seankrobinson@gmail.com>
 #

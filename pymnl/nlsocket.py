@@ -1,3 +1,5 @@
+#!/usr/bin/python
+#
 # nlsocket.py -- interface to netlink socket
 # Copyright 2011 Sean Robinson <seankrobinson@gmail.com>
 #

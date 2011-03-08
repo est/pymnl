@@ -1,3 +1,5 @@
+#!/usr/bin/python
+#
 # genl.py -- interface to netlink messages
 # Copyright 2011 Sean Robinson <seankrobinson@gmail.com>
 #
