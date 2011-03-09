@@ -307,6 +307,12 @@ class Message(object):
         print("|  %.010u  |\t|     port ID    |" % self._pid);
         print("----------------\t------------------");
 
+    def printf(self, extra_header_size=0):
+        """
+        """
+        self.printf_header()
+        self._payload.printf(self._msg_type, extra_header_size)
+
     def get_binary(self):
         """ Return a packed struct suitable for sending through a
             netlink socket.

@@ -34,7 +34,7 @@ accounted for every function in libmnl.
 11) mnl_nlmsg_portid_ok             11) Message.portid_ok
 12) mnl_nlmsg_fprintf_header        12) Message.printf_header
 13) mnl_nlmsg_fprintf_payload       13) Payload.printf
-14) mnl_nlmsg_fprintf               14) ** missing
+14) mnl_nlmsg_fprintf               14) Message.printf
 15) mnl_nlmsg_batch_start           15) not applicable
 16) mnl_nlmsg_batch_stop            16) not applicable
 17) mnl_nlmsg_batch_next            17) MessageList
