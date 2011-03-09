@@ -76,6 +76,8 @@ payload.add_attr(Attr.new_strnz(if_link.IFLA_IFNAME, sys.argv[1].encode()))
 sock = Socket(pymnl.NETLINK_ROUTE)
 sock.bind(pymnl.nlsocket.SOCKET_AUTOPID, 0)
 
+rtnlmsg.printf(len(ifm))
+
 # send message through socket
 sock.send(rtnlmsg)
 
