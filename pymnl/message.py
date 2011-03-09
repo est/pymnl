@@ -391,6 +391,86 @@ class Payload(object):
         """
         return self._format
 
+    def printf(self, msg_type, extra_header_size):
+        """
+        """
+        rem = 0
+        for index in range(0, len(self), 4):
+            # get four bytes of payload for later use
+            buf = self._contents[index:index+4]
+            try:
+                # works in Py3, Py2 raises TypeError
+                0xff & buf[0]
+            except TypeError:
+                # Convert buf to a list of integers for Py2 so that
+                # bitwise ops below will work in Py2 as well as Py3.
+                newbuf = []
+                for char in buf:
+                    newbuf.append(unpack("b", char)[0])
+                buf = newbuf
+
+            # make a stunted Attr so we can test its attribute-ness later
+            one_attr = Attr(packed_data=self._contents[index:index+4])
+
+            if (msg_type < NLMSG_MIN_TYPE):
+                # netlink control message
+                print("| %.2x %.2x %.2x %.2x  |\t|                |" %
+                    (0xff & buf[0],  0xff & buf[1],
+                     0xff & buf[2],  0xff & buf[3]))
+            elif (extra_header_size > 0):
+                # special handling for the extra header
+                extra_header_size = extra_header_size - 4
+                print("| %.2x %.2x %.2x %.2x  |\t|  extra header  |" %
+                    (0xff & buf[0],  0xff & buf[1],
+                     0xff & buf[2],  0xff & buf[3]))
+            elif ((rem == 0) and (one_attr.get_type() != 0)):
+                # this seems like an attribute header
+                # Since this looks like an attribute, make a full Attr
+                #   with which to work.
+                one_attr = Attr(packed_data=self._contents[index:index+one_attr._length])
+                line = "|%c[%d;%dm" % (27, 1, 31)
+                line = line + "%.5u" % (len(one_attr),)
+                line = line + "%c[%dm" % (27, 0)
+                line = line + "|"
+                line = line + "%c[%d;%dm" % (27, 1, 32)
+                nest = "-"
+                if (one_attr.is_nested()):
+                    nest = "N"
+                byteorder = "-"
+                if (one_attr.get_type() & pymnl.attributes.NLA_F_NET_BYTEORDER):
+                    byteorder = "B"
+                line = line + "%c%c" % (nest, byteorder)
+                line = line + "%c[%dm" % (27, 0)
+                line = line + "|"
+                line = line + "%c[%d;%dm" % (27, 1, 34)
+                line = line + "%.5u" % (one_attr.get_type(),)
+                line = line + "%c[%dm|\t" % (27, 0)
+                line = line + "|len |flags| type|"
+                print(line)
+                if (not one_attr.is_nested()):
+                    rem = len(one_attr) - calcsize(pymnl.attributes.header_format)
+            elif (rem > 0):
+                # this is the attribute payload
+                rem = rem - 4;
+                line = ("| %.2x %.2x %.2x %.2x  |\t" %
+                    (0xff & buf[0],  0xff & buf[1],
+                     0xff & buf[2],  0xff & buf[3]))
+                line = line + "|      data      |"
+                for bindex in range(0, 4):
+                    # Convert each value to a string for testing.
+                    # Yes, this is the same value we converted into an
+                    # integer above.  But that was for Py2 and this is
+                    # needed for Py3.  So, we convert and test the 4
+                    # buffer bytes for both Py2 and Py3.  This way, the
+                    # bitwise ops work above and the isalnum()
+                    # test works here.
+                    if (not (pack("b", buf[bindex])).isalnum()):
+                        buf[bindex] = 0
+                line = line + ("\t %c %c %c %c" %
+                    (buf[0], buf[1], buf[2], buf[3]))
+                print(line)
+        print("----------------\t------------------");
+
     def add_attr(self, attribute):
         """ Add an Attr object to the payload.
 
