@@ -127,3 +127,67 @@ RTA_DST = 1
 RTA_OIF = 4
 RTA_GATEWAY = 5
 
+class RtMessage(object):
+    """ A Netlink route message.
+    """
+    def __init__(self, family=0, dst_len=0, src_len=0, tos=0,
+                       table=0, protocol=0, scope=0, type_=0,
+                       flags=0, packed_data=None):
+        """ Create a Netlink route message.
+
+            Objects of this type can be used with
+            pymnl.message.put_extra_header().
+
+            family - unsigned char
+            dst_len - unsigned char
+            src_len - unsigned char
+            tos - unsigned char
+
+            table - unsigned char - Routing table id
+            protocol - unsigned char - Routing protocol
+            scope - unsigned char
+            type_ - unsigned char
+
+            flags - unsigned integer
+        """
+        self._format = "BBBBBBBBI"
+        self._family = family
+        self._dst_len = dst_len
+        self._src_len = src_len
+        self._tos = tos
+        self._table = table
+        self._protocol = protocol
+        self._scope = scope
+        self._type = type_
+        self._flags = flags
+        if (packed_data):
+            packed_data = packed_data[:calcsize(self._format)]
+            (self._family,
+             self._dst_len,
+             self._src_len,
+             self._tos,
+             self._table,
+             self._protocol,
+             self._scope,
+             self._type,
+             self._flags) = unpack(self._format, packed_data)
+
+    def __len__(self):
+        """
+        """
+        return calcsize(self._format)
+
+    def get_binary(self):
+        """ Returns a packed struct suitable for sending through a
+            netlink socket.
+        """
+        return pack(self._format, self._family,
+                                  self._dst_len,
+                                  self._src_len,
+                                  self._tos,
+                                  self._table,
+                                  self._protocol,
+                                  self._scope,
+                                  self._type,
+                                  self._flags)
+
