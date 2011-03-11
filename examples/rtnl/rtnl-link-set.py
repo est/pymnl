@@ -61,7 +61,7 @@ rtnlmsg.set_flags(pymnl.message.NLM_F_REQUEST | pymnl.message.NLM_F_ACK)
 sequence = randint(0, pow(2, 31))
 rtnlmsg.set_seq(sequence)
 
-# build rtgenmsg header and add it to the message
+# build ifm header and add it to the message
 ifm = if_.IfInfoMessage()
 ifm.family = socket.AF_UNSPEC
 ifm.change = change
