@@ -123,9 +123,23 @@ RT_TABLE_MAX = 0xFFFFFFFF
 # Synonimous attribute: RTA_TABLE.
 
 # Routing message attributes
+RTA_UNSPEC = 0
 RTA_DST = 1
+RTA_SRC = 2
+RTA_IIF = 3
 RTA_OIF = 4
 RTA_GATEWAY = 5
+RTA_PRIORITY = 6
+RTA_PREFSRC = 7
+RTA_METRICS = 8
+RTA_MULTIPATH = 9
+RTA_PROTOINFO = 10  # no longer used
+RTA_FLOW = 11
+RTA_CACHEINFO = 12
+RTA_SESSION = 13  # no longer used
+RTA_MP_ALGO = 14  # no longer used
+RTA_TABLE = 15
+RTA_MAX = 16
 
 class RtMessage(object):
     """ A Netlink route message.
