@@ -21,7 +21,7 @@
 #  USA
 #
 
-import cPickle
+import pickle
 import random
 from struct import pack
 import unittest
@@ -45,11 +45,11 @@ class TestGenl(unittest.TestCase):
         """
         # load pickled genetlink message
         f = open('pymnl/tests/genl-test_msg.pickled', 'r')
-        test_msg = cPickle.load(f)
+        test_msg = pickle.load(f)
         f.close()
         # load pickled processed genetlink payload
         f = open('pymnl/tests/genl-test_attrs.pickled', 'r')
-        test_attrs = cPickle.load(f)
+        test_attrs = pickle.load(f)
         f.close()
         # process the test message
         genl_parser = pymnl.genl.GenlAttrParser()
