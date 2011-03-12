@@ -1,5 +1,8 @@
 include README
 include Makefile
+include MANIFEST*
 recursive-include examples *.py
 recursive-include pymnl *.py
 recursive-include docs *
+include examples/netfilter/README
+include pymnl/tests/*.pickled
