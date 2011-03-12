@@ -24,7 +24,7 @@ install:
 
 test:
 	PYTHONPATH=. python ./setup.py test --test-list \
-		pymnl.tests.nlsocket,pymnl.tests.attributes,pymnl.tests.message \
+		pymnl.tests.nlsocket,pymnl.tests.attributes,pymnl.tests.message,pymnl.tests.genl \
 		--test-verbose
 
 sdist:
