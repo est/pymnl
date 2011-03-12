@@ -103,8 +103,6 @@ if (len(sys.argv) >= 5):
 sock = Socket(pymnl.NETLINK_ROUTE)
 sock.bind(pymnl.nlsocket.SOCKET_AUTOPID, 0)
 
-rtnlmsg.printf(len(rtm))
-
 # send message through socket
 sock.send(rtnlmsg)
 
