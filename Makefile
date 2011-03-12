@@ -22,7 +22,7 @@ all:
 install:
 	PYTHONPATH=. python ./setup.py install
 
-test:
+test2:
 	PYTHONPATH=. python ./setup.py test --test-list \
 		pymnl.tests.nlsocket,pymnl.tests.attributes,pymnl.tests.message,pymnl.tests.genl \
 		--test-verbose
