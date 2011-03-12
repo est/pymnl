@@ -39,8 +39,8 @@ import if_link
 import rtnetlink
 
 if (len(sys.argv) <= 3):
-    print("Usage: %s iface destination cidr [gateway]\n", sys.argv[0]);
-    print("Example: %s eth0 10.0.1.12 32 10.0.1.11\n", sys.argv[0]);
+    print("Usage: %s iface destination cidr [gateway]" % sys.argv[0]);
+    print("Example: %s eth0 10.0.1.12 32 10.0.1.11" % sys.argv[0]);
     sys.exit()
 
 libc = ctypes.CDLL("libc.so.6")
