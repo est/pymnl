@@ -1,6 +1,6 @@
 #!/usr/bin/python
 #
-# genl.py -- interface to netlink messages
+# genl.py -- generic netlink constants, header, and parsers
 # Copyright 2011 Sean Robinson <seankrobinson@gmail.com>
 #
 # This file is part of the pymnl package, a Python interface
