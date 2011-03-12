@@ -27,6 +27,11 @@ test2:
 		pymnl.tests.nlsocket,pymnl.tests.attributes,pymnl.tests.message,pymnl.tests.genl \
 		--test-verbose
 
+test3:
+	PYTHONPATH=. python3.1 ./setup.py test --test-list \
+		pymnl.tests.nlsocket,pymnl.tests.attributes,pymnl.tests.message,pymnl.tests.genl \
+		--test-verbose
+
 sdist:
 	PYTHONPATH=. python ./setup.py sdist --force-manifest --formats=bztar
 
