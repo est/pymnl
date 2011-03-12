@@ -1,0 +1,11 @@
+README
+
+As I do not use netfilter and do not have it in my kernel, I am unable to
+run libmnl's netfilter examples.  I have no plans to implement the
+netfilter examples using pymnl.
+
+If you, gentle reader, would care to write nf-log.py, nf-queue.py,
+nfct-create-batch.py, and/or nfct-event.py, and would like to distribute
+it under a FOSS license, I would be happy to include them in future
+releases of pymnl.
+
