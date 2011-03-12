@@ -403,17 +403,14 @@ class Payload(object):
         rem = 0
         for index in range(0, len(self), 4):
             # get four bytes of payload for later use
-            buf = self._contents[index:index+4]
-            try:
-                # works in Py3, Py2 raises TypeError
-                0xff & buf[0]
-            except TypeError:
-                # Convert buf to a list of integers for Py2 so that
-                # bitwise ops below will work in Py2 as well as Py3.
-                newbuf = []
-                for char in buf:
-                    newbuf.append(unpack("b", char)[0])
-                buf = newbuf
+            buf = []
+            for char in self._contents[index:index+4]:
+                try:
+                    # make sure we have a list of numbers, needed in Py2
+                    buf.append(ord(char))
+                except TypeError:
+                    # char is already a number, we're probably in Py3
+                    buf.append(char)
 
             # make a stunted Attr so we can test its attribute-ness later
             one_attr = Attr(packed_data=self._contents[index:index+4])
@@ -470,7 +467,7 @@ class Payload(object):
                     # buffer bytes for both Py2 and Py3.  This way, the
                     # bitwise ops work above and the isalnum()
                     # test works here.
-                    if (not (pack("b", buf[bindex])).isalnum()):
+                    if (not chr(buf[bindex]).isalnum()):
                         buf[bindex] = 0
                 line = line + ("\t %c %c %c %c" %
                     (buf[0], buf[1], buf[2], buf[3]))
