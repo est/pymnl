@@ -53,7 +53,7 @@ $(TOPDIR)/tmp/${package}-$(VERSION).tar.bz2:
 
 clean:
 	PYTHONPATH=. python ./setup.py clean
-	rm -fr tmp/ dist/
+	rm -fr tmp/ dist/ build/
 
 distclean:	clean
 	find $(TOPDIR) -name "*.pyc" -exec rm -f {} \;
