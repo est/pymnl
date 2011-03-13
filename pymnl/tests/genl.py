@@ -53,7 +53,22 @@ class TestGenl(unittest.TestCase):
         f.close()
         # process the test message
         genl_parser = pymnl.genl.GenlAttrParser()
-        attrs = genl_parser.parse(test_msg.get_payload())
+        try:
+            attrs = genl_parser.parse(test_msg.get_payload())
+        except TypeError:
+            # Unpickling a Py2 object with Py3 causes weirdness,
+            payload = test_msg.get_payload()
+            # so reach into the message payload and encode
+            # the string as a bytes.
+            payload._contents = payload._contents.encode()
+            # Now we can parse the message payload for attributes.
+            attrs = genl_parser.parse(payload)
+            # convert expected bytes values to string
+            attrs['name'] = attrs['name'].decode()
+            attrs['groups'][1] = attrs['groups'][1].decode()
+            attrs['groups'][2] = attrs['groups'][2].decode()
+            attrs['groups'][3] = attrs['groups'][3].decode()
+            attrs['groups'][4] = attrs['groups'][4].decode()
         # check that the pickled payload matches the processed payload
         self.assertEqual(test_attrs, attrs)
 
