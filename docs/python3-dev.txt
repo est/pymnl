@@ -1,13 +1,25 @@
 Using pymnl With Python 3
 =========================
 
-Use b'' For Byte Strings
-------------------------
+bytes Versus string
+-------------------
 pymnl uses 8-bit (non-unicode) strings.  Passing unicode strings into pymnl
 will cause problems, either immediately or once your data is passed to
 Netlink.  To ensure your strings are of the right type, use the b''
 decoration.  So, the hardcoded genl family name nl80211 in your script
 should be written as b'nl80211'.
+
+Conversely, the strings coming out of Netlink are 8-bit and will print like
+b'string'.  At some point, you may want to decode the bytes into a string.
+In Python 3.x, this code snippet (adapted from genl-family-get.py)
+
+    print("name=%s\tid=%u" % (attrs['name'], attrs['id']))
+    print("name=%s\tid=%u" % (attrs['name'].decode(), attrs['id']))
+
+would have an output similar to this
+
+    name=b'nl80211' id=17
+    name=nl80211    id=17
 
 
 Attr Expects 8-bit Strings
