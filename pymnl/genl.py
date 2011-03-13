@@ -213,7 +213,6 @@ class GenlAttrParser(AttrParser):
                 self._cb[one_attr.get_type()](one_attr)
             except KeyError:
                 self._attributes['unmatched'].append(one_attr)
-
         return self._attributes
 
 
@@ -244,5 +243,5 @@ class GenlAttrGroupParser(AttrParser):
         self._attributes.append(attr.get_u32())
 
     def ctrl_attr_mcast_group_name(self, attr):
-        self._attributes.append(attr.get_str())
+        self._attributes.append(attr.get_str_stripped())
 
