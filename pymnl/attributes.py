@@ -39,12 +39,12 @@ except NameError:
 
 # netlink attributes
 #
-#  nla_type(16bits)
+#  nla_type (16 bits)
 #  +---+---+-------------------------------+
-#  |N|O|AttributeType|
+#  | N | O | Attribute Type                |
 #  +---+---+-------------------------------+
-#  N:=Carriesnestedattributes
-#  O:=Payloadstoredinnetworkbyteorder
+#  N:=Carries nested attributes
+#  O:=Payload stored in network byte order
 #
 #  Note:The N and O flag are mutually exclusive.
 #
