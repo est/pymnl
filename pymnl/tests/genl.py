@@ -44,11 +44,11 @@ class TestGenl(unittest.TestCase):
         """ Test the various genetlink parsers.
         """
         # load pickled genetlink message
-        f = open('pymnl/tests/genl-test_msg.pickled', 'r')
+        f = open('pymnl/tests/genl-test_msg.pickled', 'rb')
         test_msg = pickle.load(f)
         f.close()
         # load pickled processed genetlink payload
-        f = open('pymnl/tests/genl-test_attrs.pickled', 'r')
+        f = open('pymnl/tests/genl-test_attrs.pickled', 'rb')
         test_attrs = pickle.load(f)
         f.close()
         # process the test message
