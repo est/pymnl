@@ -256,8 +256,10 @@ class Message(object):
 
     def printf_header(self):
         """ This method prints the netlink message header to stdout.
-            It may be useful for debugging purposes. One example of the
-            output is the following:
+            It may be useful for debugging purposes.  Use Message.printf()
+            to print out a full message.
+
+            One example of the output is the following:
 
             ----------------        ------------------
             |  0000000040  |        | message length |
@@ -265,19 +267,11 @@ class Message(object):
             |  1289148991  |        | sequence number|
             |  0000000000  |        |     port ID    |
             ----------------        ------------------
-            | 00 00 00 00  |        |  extra header  |
-            | 00 00 00 00  |        |  extra header  |
-            | 01 00 00 00  |        |  extra header  |
-            | 01 00 00 00  |        |  extra header  |
-            |00008|--|00003|        |len |flags| type|
-            | 65 74 68 30  |        |      data      |       e t h 0
-            ----------------        ------------------
 
-            This example above shows the netlink message that is send to
-            kernel-space to set up the link interface eth0. The netlink
-            and attribute header data are displayed in base 10 whereas the
-            extra header and the attribute payload are expressed in base
-            16. The possible flags in the netlink header are:
+            This example shows the header of the netlink message that
+            is sent to kernel-space to set up the link interface eth0.  The
+            netlink header data is displayed in base 10.   The possible
+            flags in the netlink header are:
 
                 - R, that indicates that NLM_F_REQUEST is set.
                 - M, that indicates that NLM_F_MULTI is set.
@@ -308,7 +302,11 @@ class Message(object):
         print("----------------\t------------------");
 
     def printf(self, extra_header_size=0):
-        """
+        """ This method prints the full netlink message to stdout.
+            It may be useful for debugging purposes.
+
+            It calls Message.printf_header() and Payload.printf() to do
+            the real work.
         """
         self.printf_header()
         self._payload.printf(self._msg_type, extra_header_size)
@@ -398,7 +396,32 @@ class Payload(object):
         return self._format
 
     def printf(self, msg_type, extra_header_size):
-        """
+        """ This method prints the netlink message payload to stdout.
+            It may be useful for debugging purposes.  Use Message.printf()
+            to print out a full message.
+
+            One example of the output is the following:
+
+            | 00 00 00 00  |        |  extra header  |
+            | 00 00 00 00  |        |  extra header  |
+            | 01 00 00 00  |        |  extra header  |
+            | 01 00 00 00  |        |  extra header  |
+            |00008|--|00003|        |len |flags| type|
+            | 65 74 68 30  |        |      data      |       e t h 0
+            ----------------        ------------------
+
+            This example shows the payload for the netlink message
+            that is send to kernel-space to set up the link interface eth0.
+            The extra header and the attribute payloads are expressed in
+            base 16.
+
+            The attribute header is shown in base 10. The possible flags in
+            the attribute header are:
+
+                - N, that indicates that NLA_F_NESTED is set.
+                - B, that indicates that NLA_F_NET_BYTEORDER is set.
+
+            The lack of one flag is displayed with '-'.
         """
         rem = 0
         for index in range(0, len(self), 4):
