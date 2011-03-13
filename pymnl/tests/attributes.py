@@ -202,7 +202,7 @@ class TestAttributes(unittest.TestCase):
                                 b'\x0c\x00\n\x00spam\x00\x00\x00\x00')
 
     def test_nested(self):
-        """
+        """ Test nested flag toggle and check.
         """
         one_attr = Attr.new_u8(TYPE_U8, 0)
         self.assertFalse(one_attr.is_nested(),

@@ -105,6 +105,10 @@ class Attr(object):
             type - attribute's type (see NLA_* constants in linux/netlink.h)
 
             value - string or number representing the payload
+
+            packed_data - This is the binary string containing the
+                attribute data.  This could be the output from another
+                object's get_binary() method or data directly from Netlink.
         """
         if (packed_data):
             # process packed struct into Attr's fields
