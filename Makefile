@@ -34,9 +34,25 @@ test3:
 		pymnl.tests.nlsocket,pymnl.tests.attributes,pymnl.tests.message,pymnl.tests.genl \
 		--test-verbose
 
-sdist:
+sdist:	$(TOPDIR)/dist/${package}-$(VERSION).tar.bz2.sha256 $(TOPDIR)/dist/${package}-$(VERSION).tar.bz2.sign
+
+$(TOPDIR)/dist/${package}-$(VERSION).tar.bz2:
 	PYTHONPATH=. python ./setup.py sdist --force-manifest --formats=bztar
 
+$(TOPDIR)/dist/${package}-$(VERSION).tar.bz2.sha256: $(TOPDIR)/dist/${package}-$(VERSION).tar.bz2
+	cd $(TOPDIR)/dist && \
+		sha256sum ${package}-$(VERSION).tar.bz2 \
+			> ${package}-$(VERSION).tar.bz2.sha256
+
+$(TOPDIR)/dist/${package}-$(VERSION).tar.bz2.sign: $(TOPDIR)/dist/${package}-$(VERSION).tar.bz2
+	cd $(TOPDIR)/dist && \
+		gpg --detach-sign -a --output \
+			${package}-$(VERSION).tar.bz2.asc \
+			${package}-$(VERSION).tar.bz2
+	cd $(TOPDIR)/dist && \
+		chmod 644 $(TOPDIR)/dist/${package}-$(VERSION).tar.bz2.asc
+	cd $(TOPDIR)/dist && \
+		gpg --verify $(TOPDIR)/dist/${package}-$(VERSION).tar.bz2.asc
 
 clean:
 	PYTHONPATH=. python ./setup.py clean
