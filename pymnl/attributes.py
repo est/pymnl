@@ -346,8 +346,9 @@ class AttrParser(object):
                 attr_length = unpack("h", data[index:index+2])[0]
             except:
                 break
-            one_attr = Attr(packed_data=data[index:index+attr_length])
-            index = index + NLA_ALIGN(attr_length)
+            end_index = index + attr_length
+            one_attr = Attr(packed_data=data[index:end_index])
+            index = NLA_ALIGN(end_index)
             yield one_attr
 
     def parse(self, data):
