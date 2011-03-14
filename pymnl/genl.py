@@ -208,7 +208,7 @@ class GenlAttrParser(AttrParser):
 
             data - object with attributes
         """
-        for one_attr in self.parse_string(data.get_binary()):
+        for one_attr in self.parse_string(data.get_binary(), offset=4):
             try:
                 self._cb[one_attr.get_type()](one_attr)
             except KeyError:
