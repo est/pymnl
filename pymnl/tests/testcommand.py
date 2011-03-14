@@ -62,7 +62,7 @@ class test(distutils.core.Command):
         """ Set the default values for command options.
         """
         self.test_list = None
-        self.test_verbose = None
+        self.test_verbose = 0
 
     def finalize_options(self):
         """ Ensure options are ready to be used during test set-up.
