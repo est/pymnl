@@ -370,18 +370,18 @@ class AttrParser(object):
             return attributes
 
     def parse_nested(self, data_obj):
-        """ Process nested attributes.
+        """ Returns a list of Attr processed from the binary string.
 
             data_obj - An object containing nested attributes and providing
                 the get_data() method.  get_data() must return the non-header
                 binary string to be parsed here.  See Payload and Attr
                 for examples of get_data().
         """
+        attributes = []
         for one_attr in self.parse_string(data_obj.get_data(), 0):
-            self._attributes.append(one_attr)
-
-        if (len(self._attributes) > 0):
-            return self._attributes
+            attributes.append(one_attr)
+        if (len(attributes) > 0):
+            return attributes
 
     def get_attrs(self):
         """ Return list of attributes parsed from data string.
@@ -391,6 +391,4 @@ class AttrParser(object):
               used to get the list of attributes.
         """
         return self._attributes
-
-
 
