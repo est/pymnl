@@ -356,7 +356,7 @@ class AttrParser(object):
 
             data - object with attributes
         """
-        for one_attr in self.parse_string(data.get_data()):
+        for one_attr in self.parse_string(data.get_binary()):
             try:
                 self._cb[one_attr.get_type()](one_attr)
             except KeyError:
