@@ -287,7 +287,8 @@ class Attr(object):
         return header + self._value + pad
 
     def get_data(self):
-        """ Return the non-header data string.
+        """ Return the non-header data string, a.k.a. the attribute's
+            payload (not it's Payload).
         """
         return self._value
 
