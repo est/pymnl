@@ -325,7 +325,7 @@ class AttrParser(object):
         # dict to hold attribute type to callback method mapping
         self._cb = {}
         if (data):
-            self.parse(data)
+            self._attributes = self.parse(data)
 
     def parse_string(self, data, offset=0):
         """ Process the attributes.
@@ -353,18 +353,18 @@ class AttrParser(object):
             yield one_attr
 
     def parse(self, data):
-        """ Process the attributes.
+        """ Returns a list of Attr processed from the binary string.
 
             data - object with attributes
         """
+        attributes = []
         for one_attr in self.parse_string(data.get_binary()):
             try:
                 self._cb[one_attr.get_type()](one_attr)
             except KeyError:
-                self._attributes.append(one_attr)
-
-        if (len(self._attributes) > 0):
-            return self._attributes
+                attributes.append(one_attr)
+        if (len(attributes) > 0):
+            return attributes
 
     def parse_nested(self, data):
         """ Process nested attributes.
