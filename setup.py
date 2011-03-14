@@ -24,11 +24,10 @@ Netlink.""",
     url = "http://pymnl.wikispot.org/",
     packages = ['pymnl', 'pymnl.tests'],
     provides = ['pymnl'],
-    scripts = ['examples/genl/genl-family-get.py'],
 
     platforms = "Linux",
-    license = "LGPL for module; GPL for example apps",
-    keywords = "Netlink genl socket",
+    license = "LGPL for module; GPL for example scripts",
+    keywords = "Netlink genl rtnl socket",
     download_url = "https://pymnl.tuxfamily.org",
     classifiers = [
         'Development Status :: 3 - Alpha',

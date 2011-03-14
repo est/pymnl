@@ -33,6 +33,7 @@ Files and Directories
 ./pymnl/tests/testcommand.py - a setup.py test command to run unit tests
 ./Makefile - convenience commands for developers
 ./README - this file
+./MANIFEST.in - instructions detailing files to include in distribution
 ./setup.py - installation script
 
 
@@ -54,7 +55,9 @@ License
 -------
 
 pymnl is licensed under LGPLv2+, however, the examples are licensed
-under GPLv2+.
+under GPLv2+.  The file ./pymnl/tests/testcommand.py is licensed under
+the expat license to make it available to other projects without
+requiring them to be L/GPL licensed.
 
 
 Warranty
