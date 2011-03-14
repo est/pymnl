@@ -218,3 +218,57 @@ class TestAttributes(unittest.TestCase):
     def suite():
         return unittest.TestLoader().loadTestsFromTestCase(TestAttributes)
 
+
+class TestAttrParser(unittest.TestCase):
+
+    def test_init_no_data(self):
+        """ Test AttrParser object creation without data.
+        """
+        attr_parser = AttrParser()
+        self.assertTrue(isinstance(attr_parser, AttrParser))
+
+    def test_init_with_data(self):
+        """ Test AttrParser object creation with data.
+        """
+        # manually create a TYPE_U16 attribute
+        one_attr = Attr.new_u16(TYPE_U16, 4881)
+        attr_parser = AttrParser(one_attr)
+        self.assertTrue(isinstance(attr_parser, AttrParser))
+
+    def test_parse_string(self):
+        """ Test AttrParser.parse_string().
+        """
+        # no test, yet
+        pass
+
+    def test_parse(self):
+        """ Test AttrParser.parse().
+        """
+        # manually create a TYPE_U16 attribute
+        one_attr = Attr.new_u16(TYPE_U16, 4881)
+        # create AttrParser without any data, yet
+        attr_parser = AttrParser()
+        # ask the parser to parse the test Attr
+        attr_list = attr_parser.parse(one_attr)
+        self.assertEqual(one_attr.get_binary(), attr_list[0].get_binary())
+
+    def test_parse_nested(self):
+        """ Test AttrParser.parse_nested().
+        """
+        # no test, yet
+        pass
+
+    def test_get_attrs(self):
+        """ Test AttrParser.get_attrs().
+        """
+        # manually create a TYPE_U16 attribute
+        one_attr = Attr.new_u16(TYPE_U16, 4881)
+        # create AttrParser object using the test Attr
+        attr_parser = AttrParser(one_attr)
+        attr_list = attr_parser.get_attrs()
+        self.assertEqual(one_attr.get_binary(), attr_list[0].get_binary())
+
+    @staticmethod
+    def suite():
+        return unittest.TestLoader().loadTestsFromTestCase(TestAttrParser)
+
