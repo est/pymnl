@@ -343,7 +343,7 @@ class AttrParser(object):
         index = offset
         while (index < len(data)):
             try:
-                attr_length = unpack("h", data[index:index+2])[0]
+                attr_length = unpack("H", data[index:index+2])[0]
             except:
                 break
             end_index = index + attr_length
