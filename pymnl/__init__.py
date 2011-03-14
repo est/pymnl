@@ -20,8 +20,6 @@
 # from Pablo Neira Ayuso <pablo@netfilter.org>.  However,
 # pymnl does not use libmnl.
 
-from ctypes import *
-
 def PYMNL_ALIGN(align_size):
     """ Return a function to calculate alignment.
     """
