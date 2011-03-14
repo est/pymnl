@@ -326,7 +326,7 @@ class AttrParser(object):
         if (data):
             self.parse(data)
 
-    def parse_string(self, data, offset=4):
+    def parse_string(self, data, offset=0):
         """ Process the attributes.
 
             data - raw data to parse
