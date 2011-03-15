@@ -25,7 +25,7 @@ the new print function included starting in Python 2.6.  I.E.
 
         from __future__ import print_function
 
-While the library should work with Python versions greater than 2.1, the
+While the library should work with Python versions greater than 2.4, the
 examples, as written, require at least Python 2.6.
 
 

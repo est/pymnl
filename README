@@ -5,7 +5,7 @@ pymnl (rhymes with hymnal) is a pure Python re-implmentation of libmnl
 and provides a minimal interface to Linux Netlink sockets and messages.
 The author and maintainer is Sean Robinson <seankrobinson@gmail.com>.
 
-pymnl should be compatible with Python > 2.1.  An effort has been made
+pymnl should be compatible with Python > 2.4.  An effort has been made
 to allow pymnl to work with Py2 and Py3 from a single code base.  During
 development, pymnl, its test cases, and example scripts have been tested
 with Py2.6 and Py3.1; see ./docs/python2-dev.txt and ./docs/python3-dev.txt
