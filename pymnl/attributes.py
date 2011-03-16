@@ -313,20 +313,22 @@ class AttrParser(object):
         However, AttrParser will handle simple attribute data.  And return
         a list of the attributes found.
     """
-    def __init__(self, data_obj=None):
+    def __init__(self, data_obj=None, offset=0):
         """ Parse a string for netlink attributes.
 
             data_obj - An optional object with attributes.  The data
                 object can be passed here and will be immediately parsed.
                 Or the object can be sent to the parse() method after
                 initialization.  See parse() for more details.
+
+            offset - offset into data at which to start
         """
         # list to hold attributes if no callbacks are assigned
         self._attributes = []
         # dict to hold attribute type to callback method mapping
         self._cb = {}
         if (data_obj):
-            self._attributes = self.parse(data_obj)
+            self._attributes = self.parse(data_obj, offset)
 
     def parse_string(self, data, offset=0):
         """ Process the attributes.
@@ -353,17 +355,19 @@ class AttrParser(object):
             index = NLA_ALIGN(end_index)
             yield one_attr
 
-    def parse(self, data_obj):
+    def parse(self, data_obj, offset=0):
         """ Returns a list of Attr processed from the binary string.
 
             data_obj - An object containing attributes and providing the
                 get_binary() method.  See Message and Payload for examples
                 of get_binary().
 
+            offset - offset into data at which to start
+
             Returns a list of the parsed attributes.
         """
         attributes = []
-        for one_attr in self.parse_string(data_obj.get_binary()):
+        for one_attr in self.parse_string(data_obj.get_binary(), offset):
             try:
                 self._cb[one_attr.get_type()](one_attr)
             except KeyError:
