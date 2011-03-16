@@ -128,7 +128,14 @@ class GenlMessageHeader(object):
 class GenlAttrParser(AttrParser):
     """ Parser for generic netlink attributes.
     """
-    def __init__(self):
+    def __init__(self, data_obj=None):
+        """ Parse a string for generic netlink attributes.
+
+            data_obj - An optional object with attributes.  The data
+                object can be passed here and will be immediately parsed.
+                Or the object can be sent to the parse() method after
+                initialization.  See parse() for more details.
+        """
         # dict to hold attributes without an assigned callback
         self._attributes = { 'unmatched': [] }
 
@@ -139,6 +146,8 @@ class GenlAttrParser(AttrParser):
                     CTRL_ATTR_MAXATTR : self.ctrl_attr_maxattr,
                     CTRL_ATTR_OPS : self.ctrl_attr_ops,
                     CTRL_ATTR_MCAST_GROUPS : self.ctrl_attr_mcast_groups}
+        if (data_obj):
+            self.parse(data_obj)
 
     def ctrl_attr_family_id(self, attr):
         """ Save family id.
