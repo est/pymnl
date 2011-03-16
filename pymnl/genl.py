@@ -203,12 +203,14 @@ class GenlAttrParser(AttrParser):
             self._attributes['groups'][nested_attrs[0].get_u32()] = \
                                         nested_attrs[1].get_str_stripped()
 
-    def parse(self, data):
+    def parse(self, data_obj):
         """ Process the attributes.
 
-            data - object with attributes
+            data_obj - An object containing attributes and providing the
+                get_binary() method.  See Message and Payload for examples
+                of get_binary().
         """
-        for one_attr in self.parse_string(data.get_binary(), offset=4):
+        for one_attr in self.parse_string(data_obj.get_binary(), offset=4):
             try:
                 self._cb[one_attr.get_type()](one_attr)
             except KeyError:
