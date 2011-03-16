@@ -359,6 +359,8 @@ class AttrParser(object):
             data_obj - An object containing attributes and providing the
                 get_binary() method.  See Message and Payload for examples
                 of get_binary().
+
+            Returns a list of the parsed attributes.
         """
         attributes = []
         for one_attr in self.parse_string(data_obj.get_binary()):
