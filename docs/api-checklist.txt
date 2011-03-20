@@ -87,9 +87,9 @@ accounted for every function in libmnl.
                         callback
                         --------
 01) mnl_cb_run                      01) AttrParser
-                                        ** missing for messages
+                                        MessageList
 02) mnl_cb_run2                     02) subclass AttrParser
-                                        ** missing for messages
+                                        MessageList
 
 
 
