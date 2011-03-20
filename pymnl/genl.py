@@ -221,7 +221,7 @@ class GenlAttrParser(AttrParser):
 
             offset - offset into data at which to start
         """
-        for one_attr in self.parse_string(data_obj.get_binary(), offset=4):
+        for one_attr in self.parse_string(data_obj.get_binary(), offset):
             try:
                 self._cb[one_attr.get_type()](one_attr)
             except KeyError:
