@@ -80,7 +80,8 @@ else:
         else:
             # setup and parse attributes in message payload
             genl_parser = pymnl.genl.GenlAttrParser()
-            attrs = genl_parser.parse(msg.get_payload())
+            attrs = genl_parser.parse(msg.get_payload(),
+                                    len(pymnl.genl.GenlMessageHeader()))
             print("name=%s\tid=%u\tversion=%u\thdrsize=%u\tmaxattr=%u" %
                     (attrs['name'], attrs['id'], attrs['version'],
                     attrs['hdrsize'], attrs['maxattr']))
