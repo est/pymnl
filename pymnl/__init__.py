@@ -22,6 +22,8 @@
 
 def PYMNL_ALIGN(align_size):
     """ Return a function to calculate alignment.
+
+        Only works with alignment on powers of 2.
     """
     return lambda len: (((len) + align_size - 1) & ~(align_size - 1))
 
