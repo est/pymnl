@@ -41,7 +41,7 @@ class TestGenl(unittest.TestCase):
         self.assertEqual(genlmh.get_binary(), binary)
 
     def test_parsers(self):
-        """ Test the various genetlink parsers.
+        """ Test the genetlink family attribute parsers.
         """
         # load pickled genetlink message
         f = open('pymnl/tests/genl-test_msg.pickled', 'rb')
@@ -52,9 +52,10 @@ class TestGenl(unittest.TestCase):
         test_attrs = pickle.load(f)
         f.close()
         # process the test message
-        genl_parser = pymnl.genl.GenlAttrParser()
+        genl_parser = pymnl.genl.GenlFamilyAttrParser()
         try:
-            attrs = genl_parser.parse(test_msg.get_payload())
+            attrs = genl_parser.parse(test_msg.get_payload(),
+                                    len(pymnl.genl.GenlMessageHeader()))
         except TypeError:
             # Unpickling a Py2 object with Py3 causes weirdness,
             payload = test_msg.get_payload()
@@ -62,7 +63,8 @@ class TestGenl(unittest.TestCase):
             # the string as a bytes.
             payload._contents = payload._contents.encode()
             # Now we can parse the message payload for attributes.
-            attrs = genl_parser.parse(payload)
+            attrs = genl_parser.parse(payload,
+                                    len(pymnl.genl.GenlMessageHeader()))
             # convert expected bytes values to string
             attrs['name'] = attrs['name'].decode()
             attrs['groups'][1] = attrs['groups'][1].decode()

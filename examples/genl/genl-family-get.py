@@ -79,7 +79,7 @@ else:
             print("error:", msg.get_errstr())
         else:
             # setup and parse attributes in message payload
-            genl_parser = pymnl.genl.GenlAttrParser()
+            genl_parser = pymnl.genl.GenlFamilyAttrParser()
             attrs = genl_parser.parse(msg.get_payload(),
                                     len(pymnl.genl.GenlMessageHeader()))
             print("name=%s\tid=%u\tversion=%u\thdrsize=%u\tmaxattr=%u" %

@@ -125,11 +125,13 @@ class GenlMessageHeader(object):
                         self._command, self._version, self._reserved)
 
 
-class GenlAttrParser(AttrParser):
-    """ Parser for generic netlink attributes.
+class GenlFamilyAttrParser(AttrParser):
+    """ Parser for generic netlink family attributes.
+
+        These are the attributes returned by CTRL_CMD_GETFAMILY.
     """
     def __init__(self, data_obj=None, offset=0):
-        """ Parse a string for generic netlink attributes.
+        """ Parse a string for generic netlink family attributes.
 
             data_obj - An optional object with attributes.  The data
                 object can be passed here and will be immediately parsed.
@@ -185,29 +187,31 @@ class GenlAttrParser(AttrParser):
         self._attributes['maxattr'] = attr.get_u32()
 
     def ctrl_attr_ops(self, attr):
-        """ Print attribute type and parse nested attributes.
+        """ Parse nested attributes with info about genl family operations
+            and save to dictionary.
 
             attr - Attr object
         """
         self._attributes['ops'] = {}
         # process a list of nested attributes
-        for one_attr in GenlAttrOpParser().parse_nested(attr):
+        for one_attr in GenlFamilyOpParser().parse_nested(attr):
             # get list of nested nested attributes  <-- not a typo
-            nested_attrs = GenlAttrOpParser().parse_nested(one_attr)
+            nested_attrs = GenlFamilyOpParser().parse_nested(one_attr)
             # save nested attributes to 'ops' dictionary
             self._attributes['ops'][nested_attrs[0].get_u32()] = \
                                                 nested_attrs[1].get_u32()
 
     def ctrl_attr_mcast_groups(self, attr):
-        """ Print attribute type and parse nested attributes.
+        """ Parse nested attributes with info about genl family multicast
+            groups and save to dictionary.
 
             attr - Attr object
         """
         self._attributes['groups'] = {}
         # process a list of nested attributes
-        for one_attr in GenlAttrGroupParser().parse_nested(attr):
+        for one_attr in GenlFamilyGroupParser().parse_nested(attr):
             # get list of nested nested attributes  <-- not a typo
-            nested_attrs = GenlAttrGroupParser().parse_nested(one_attr)
+            nested_attrs = GenlFamilyGroupParser().parse_nested(one_attr)
             # save nested attributes to 'groups' dictionary
             self._attributes['groups'][nested_attrs[0].get_u32()] = \
                                         nested_attrs[1].get_str_stripped()
@@ -229,8 +233,10 @@ class GenlAttrParser(AttrParser):
         return self._attributes
 
 
-class GenlAttrOpParser(AttrParser):
-    """ Parser for generic netlink nested op attributes.
+class GenlFamilyOpParser(AttrParser):
+    """ Parser for generic netlink family operations.
+
+        These are the operations returned by CTRL_CMD_GETFAMILY.
     """
     def __init__(self):
         # list to hold attributes without an assigned callback
@@ -242,8 +248,10 @@ class GenlAttrOpParser(AttrParser):
         self._attributes.append(attr.get_u32())
 
 
-class GenlAttrGroupParser(AttrParser):
-    """ Parser for generic netlink nested group attributes.
+class GenlFamilyGroupParser(AttrParser):
+    """ Parser for generic netlink family multicast groups.
+
+        These are the multicast groups returned by CTRL_CMD_GETFAMILY.
     """
     def __init__(self):
         # list to hold attributes without an assigned callback
