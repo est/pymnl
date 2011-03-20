@@ -128,7 +128,7 @@ class GenlMessageHeader(object):
 class GenlAttrParser(AttrParser):
     """ Parser for generic netlink attributes.
     """
-    def __init__(self, data_obj=None):
+    def __init__(self, data_obj=None, offset=0):
         """ Parse a string for generic netlink attributes.
 
             data_obj - An optional object with attributes.  The data
@@ -147,7 +147,7 @@ class GenlAttrParser(AttrParser):
                     CTRL_ATTR_OPS : self.ctrl_attr_ops,
                     CTRL_ATTR_MCAST_GROUPS : self.ctrl_attr_mcast_groups}
         if (data_obj):
-            self.parse(data_obj)
+            self.parse(data_obj, offset)
 
     def ctrl_attr_family_id(self, attr):
         """ Save family id.
