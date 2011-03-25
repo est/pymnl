@@ -25,6 +25,8 @@
 #      Copyright 2008-2010 by Pablo Neira Ayuso <pablo@netfilter.org>
 #
 
+from __future__ import print_function
+
 import os
 from struct import calcsize, pack, unpack
 
