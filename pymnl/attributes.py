@@ -135,7 +135,7 @@ class Attr(object):
         """
         if ((value < 0) or (value > pow(2, 8))):
             raise TypeError
-        return Attr(type=type, value=pack("B", value))
+        return cls(type=type, value=pack("B", value))
 
     @classmethod
     def new_u16(cls, type, value):
@@ -143,7 +143,7 @@ class Attr(object):
         """
         if ((value < 0) or (value > pow(2, 16))):
             raise TypeError
-        return Attr(type=type, value=pack("H", value))
+        return cls(type=type, value=pack("H", value))
 
     @classmethod
     def new_u32(cls, type, value):
@@ -151,7 +151,7 @@ class Attr(object):
         """
         if ((value < 0) or (value > pow(2, 32))):
             raise TypeError
-        return Attr(type=type, value=pack("I", value))
+        return cls(type=type, value=pack("I", value))
 
     @classmethod
     def new_u64(cls, type, value):
@@ -159,7 +159,7 @@ class Attr(object):
         """
         if ((value < 0) or (value > pow(2, 64))):
             raise TypeError
-        return Attr(type=type, value=pack("Q", value))
+        return cls(type=type, value=pack("Q", value))
 
     @classmethod
     def new_strnz(cls, type, value):
@@ -167,7 +167,7 @@ class Attr(object):
         """
         if (not isinstance(value, bytes)):
             raise TypeError
-        return Attr(type=type, value=pack(repr(len(value)) + "s", value))
+        return cls(type=type, value=pack(repr(len(value)) + "s", value))
 
     @classmethod
     def new_strz(cls, type, value):
@@ -179,7 +179,7 @@ class Attr(object):
         if (not isinstance(value, bytes)):
             raise TypeError
         value = value + b'\x00'
-        return Attr.new_strnz(type=type, value=value)
+        return cls.new_strnz(type=type, value=value)
 
     def set(self, type, value):
         """ Set the attribute type and value.
