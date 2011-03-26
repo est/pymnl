@@ -130,7 +130,7 @@ class Attr(object):
         return len(self._value)
 
     @classmethod
-    def new_u8(type, value):
+    def new_u8(cls, type, value):
         """ Return a new one byte long Attr object.
         """
         if ((value < 0) or (value > pow(2, 8))):
@@ -138,7 +138,7 @@ class Attr(object):
         return Attr(type=type, value=pack("B", value))
 
     @classmethod
-    def new_u16(type, value):
+    def new_u16(cls, type, value):
         """ Return a new two byte long Attr object.
         """
         if ((value < 0) or (value > pow(2, 16))):
@@ -146,7 +146,7 @@ class Attr(object):
         return Attr(type=type, value=pack("H", value))
 
     @classmethod
-    def new_u32(type, value):
+    def new_u32(cls, type, value):
         """ Return a new four byte long Attr object.
         """
         if ((value < 0) or (value > pow(2, 32))):
@@ -154,7 +154,7 @@ class Attr(object):
         return Attr(type=type, value=pack("I", value))
 
     @classmethod
-    def new_u64(type, value):
+    def new_u64(cls, type, value):
         """ Return a new eight byte long Attr object.
         """
         if ((value < 0) or (value > pow(2, 64))):
@@ -162,7 +162,7 @@ class Attr(object):
         return Attr(type=type, value=pack("Q", value))
 
     @classmethod
-    def new_strnz(type, value):
+    def new_strnz(cls, type, value):
         """ Return a new Attr object with a non-zero-terminated string.
         """
         if (not isinstance(value, bytes)):
@@ -170,7 +170,7 @@ class Attr(object):
         return Attr(type=type, value=pack(repr(len(value)) + "s", value))
 
     @classmethod
-    def new_strz(type, value):
+    def new_strz(cls, type, value):
         """ Return a new Attr object with a zero-terminated string.
 
             This method will add the null termination.  Pass this
