@@ -129,7 +129,7 @@ class Attr(object):
         """
         return len(self._value)
 
-    @staticmethod
+    @classmethod
     def new_u8(type, value):
         """ Return a new one byte long Attr object.
         """
@@ -137,7 +137,7 @@ class Attr(object):
             raise TypeError
         return Attr(type=type, value=pack("B", value))
 
-    @staticmethod
+    @classmethod
     def new_u16(type, value):
         """ Return a new two byte long Attr object.
         """
@@ -145,7 +145,7 @@ class Attr(object):
             raise TypeError
         return Attr(type=type, value=pack("H", value))
 
-    @staticmethod
+    @classmethod
     def new_u32(type, value):
         """ Return a new four byte long Attr object.
         """
@@ -153,7 +153,7 @@ class Attr(object):
             raise TypeError
         return Attr(type=type, value=pack("I", value))
 
-    @staticmethod
+    @classmethod
     def new_u64(type, value):
         """ Return a new eight byte long Attr object.
         """
@@ -161,7 +161,7 @@ class Attr(object):
             raise TypeError
         return Attr(type=type, value=pack("Q", value))
 
-    @staticmethod
+    @classmethod
     def new_strnz(type, value):
         """ Return a new Attr object with a non-zero-terminated string.
         """
@@ -169,7 +169,7 @@ class Attr(object):
             raise TypeError
         return Attr(type=type, value=pack(repr(len(value)) + "s", value))
 
-    @staticmethod
+    @classmethod
     def new_strz(type, value):
         """ Return a new Attr object with a zero-terminated string.
 
