@@ -296,10 +296,26 @@ class TestMessageList(unittest.TestCase):
                         self.msg3.get_binary())
         self.msglist = MessageList(self.msg)
 
+    def test_init_from_message(self):
+        """ Test MessageList creation from a Message instance.
+        """
+        msglist = MessageList(self.msg1)
+        self.assertTrue(isinstance(msglist, MessageList))
+
+    def test_init_from_binary_string(self):
+        """ Test MessageList creation from a binary string.
+        """
+        self.assertTrue(isinstance(self.msglist, MessageList))
+
     def test_length(self):
         """ Test the number of Message's in the MessageList.
         """
         self.assertEqual(len(self.msglist), 3)
+
+    def test_failed_init(self):
+        """
+        """
+        self.assertRaises(TypeError, MessageList, 2)
 
     @staticmethod
     def suite():
