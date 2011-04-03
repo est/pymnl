@@ -254,9 +254,9 @@ class Message(object):
             (that we do not track).
         """
         match = True
-        if (portid):
+        if ((self._pid > 0) and (portid > 0)):
             match = (self._pid == portid)
-        return (self._pid and match)
+        return match
 
     def printf_header(self):
         """ This method prints the netlink message header to stdout.

@@ -216,15 +216,16 @@ class TestMessage(unittest.TestCase):
     def test_portid_ok(self):
         """ Test Message.portid_ok().
 
-            Check that initial portid number is still used and that
-            a random integer does not match the portid number.  In
-            real-world use, generally, portid is sent as 0 and is
-            assigned another number by the kernel.
+            Check that the sent portid number and portid number 0 are
+            true and that a random integer does not match the portid number.
         """
         self._setUp()
+        # verify the port id tracked correctly
         self.assertTrue(self.msg.portid_ok(self.pid))
-        # false result possible if random number == portid
-        self.assertFalse(self.msg.portid_ok(randint(0, pow(2, 31))))
+        # verify that port id zero is always true
+        self.assertTrue(self.msg.portid_ok(0))
+        # false positive is (remotely) possible if random number == portid
+        self.assertFalse(self.msg.portid_ok(randint(1, pow(2, 31))))
 
     def test_get_errno(self):
         """ Test Message.get_errno().
