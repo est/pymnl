@@ -384,11 +384,6 @@ class Payload(object):
             self._contents = contents.get_binary()
         self._format = repr(NLMSG_ALIGN(len(self._contents))) + "s"
 
-    def format(self):
-        """ Get the payload's struct format.
-        """
-        return self._format
-
     def printf(self, msg_type, extra_header_size):
         """ This method prints the netlink message payload to stdout.
             It may be useful for debugging purposes.  Use Message.printf()
