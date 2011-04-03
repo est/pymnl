@@ -1,0 +1,16 @@
+= INSTALL =
+
+The pymnl distribution uses the Python stdlib distutils for packaging. To
+install pymnl with the rest of the Python packages on your system, type
+
+{{{
+    python ./setup.py install
+}}}
+
+If you are more comfortable with GNU make, the following command does the
+same as above:
+
+{{{
+    make install
+}}}
+
