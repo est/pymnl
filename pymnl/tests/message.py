@@ -154,11 +154,19 @@ class TestMessage(unittest.TestCase):
         """
         self._setUp()
         # add a four byte header object
-        extra_header = Payload(pack("BBH", 3, 1, 0))
-        self.msg.put_extra_header(extra_header)
+        first_extra_header = Payload(pack("BBH", 3, 1, 0))
+        self.msg.put_extra_header(first_extra_header)
         self.msg_length = self.msg_length + 4
         self.binary = (pack("I", self.msg_length) + self.msg_header +
-                        extra_header.get_binary())
+                        first_extra_header.get_binary())
+        self.assertEqual(self.msg.get_binary(), self.binary)
+        # add a second copy of this header
+        second_extra_header = Payload(pack("BBH", 3, 2, 0))
+        self.msg.put_extra_header(second_extra_header)
+        self.msg_length = self.msg_length + 4
+        self.binary = (pack("I", self.msg_length) + self.msg_header +
+                        first_extra_header.get_binary() +
+                        second_extra_header.get_binary())
         self.assertEqual(self.msg.get_binary(), self.binary)
 
     def test_add_payload(self):
