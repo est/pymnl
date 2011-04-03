@@ -14,6 +14,8 @@ BRANCH = "master"
 
 TOPDIR := $(CURDIR)
 
+TESTCASES = pymnl.tests.nlsocket,pymnl.tests.attributes,pymnl.tests.message,pymnl.tests.genl
+
 .PHONY: all install test sdist tarball clean distclean
 
 all:
@@ -26,13 +28,11 @@ test:	test2 test3
 
 test2:
 	PYTHONPATH=. python ./setup.py test --test-list \
-		pymnl.tests.nlsocket,pymnl.tests.attributes,pymnl.tests.message,pymnl.tests.genl \
-		--test-verbose
+		$(TESTCASES) --test-verbose
 
 test3:
 	PYTHONPATH=. python3.1 ./setup.py test --test-list \
-		pymnl.tests.nlsocket,pymnl.tests.attributes,pymnl.tests.message,pymnl.tests.genl \
-		--test-verbose
+		$(TESTCASES) --test-verbose
 
 sdist:	$(TOPDIR)/dist/${package}-$(VERSION).tar.bz2.sha256 $(TOPDIR)/dist/${package}-$(VERSION).tar.bz2.sign
 
