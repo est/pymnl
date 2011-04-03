@@ -34,6 +34,10 @@ test3:
 	PYTHONPATH=. python3.1 ./setup.py test --test-list \
 		$(TESTCASES) --test-verbose
 
+check_for_coverage:
+	@which coverage > /dev/null 2>&1 || \
+		(echo "Code coverage for Python not found" && exit 1)
+
 sdist:	$(TOPDIR)/dist/${package}-$(VERSION).tar.bz2.sha256 $(TOPDIR)/dist/${package}-$(VERSION).tar.bz2.sign
 
 $(TOPDIR)/dist/${package}-$(VERSION).tar.bz2:
