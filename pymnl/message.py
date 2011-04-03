@@ -118,18 +118,20 @@ class Message(object):
             return MSG_HDRLEN
 
     def put_extra_header(self, header):
-        """ Add a header before the Payload.
+        """ Add a protocol-specific header to the Payload.
+
+            Simply appends the header object to the message payload.  Users
+            must finish building their list of extra headers before
+            continuing with constructing the message payload.  Otherwise,
+            the next extra header will be after the payload contents.  This
+            is the same behavior as libmnl.
 
             header - The object which contains the extra header.  This
                         object must provide a get_binary() method which
                         returns a binary string/bytes with the netlink
                         data, like Payload or GenlMessageHeader.
         """
-        if (self._payload):
-            self._payload = Payload(header.get_binary() +
-                                    self._payload.get_binary())
-        else:
-            self._payload = Payload(header.get_binary())
+        self.add_payload(header.get_binary())
 
     def set_type(self, type_):
         """ Sets the message type.
