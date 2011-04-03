@@ -86,10 +86,10 @@ class TestMessage(unittest.TestCase):
         self.msg._msg_type = 16  # GENL_ID_CTRL
         self.msg._msg_flags = 5  # NLM_F_REQUEST | NLM_F_ACK
 
-        self.seq = randint(0, pow(2, 31))
+        self.seq = randint(1, pow(2, 31))
         self.msg._msg_seq = self.seq
 
-        self.pid = randint(0, pow(2, 31))
+        self.pid = randint(1, pow(2, 31))
         self.msg._pid = self.pid
 
         self.msg_length = 16
