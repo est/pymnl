@@ -202,13 +202,16 @@ class TestMessage(unittest.TestCase):
     def test_seq_ok(self):
         """ Test Message.seq_ok().
 
-            Check that initial sequence number is still used and that
-            a random integer does not match the sequence number.
+            Check that the sent sequence number and sequence number 0 are
+            true and that a random integer does not match the sequence number.
         """
         self._setUp()
+        # verify the sequence number tracked correctly
         self.assertTrue(self.msg.seq_ok(self.seq))
-        # false result possible if random number == seq
-        self.assertFalse(self.msg.seq_ok(randint(0, pow(2, 31))))
+        # verify that sequence number zero is always true
+        self.assertTrue(self.msg.seq_ok(0))
+        # false positive is (remotely) possible if random number == seq
+        self.assertFalse(self.msg.seq_ok(randint(1, pow(2, 31))))
 
     def test_portid_ok(self):
         """ Test Message.portid_ok().

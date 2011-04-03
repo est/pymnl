@@ -234,9 +234,9 @@ class Message(object):
             track).
         """
         match = True
-        if (seq):
+        if ((self._msg_seq > 0) and (seq > 0)):
             match = (self._msg_seq == seq)
-        return (self._msg_seq and match)
+        return match
 
     def portid_ok(self, portid):
         """ Perform portID origin check.
