@@ -246,6 +246,11 @@ class TestMessage(unittest.TestCase):
         payload = Payload(pack("i", -2))
         self.msg._payload = payload
         self.assertEqual(self.msg.get_errno(), 2)
+        # fake error to test all code branches, kinda pointless
+        self.msg._msg_type = 0x2   # NLMSG_ERROR
+        payload = Payload(pack("i", 2))
+        self.msg._payload = payload
+        self.assertEqual(self.msg.get_errno(), 2)
 
     def test_get_errstr(self):
         """ Test Message.get_errstr().
