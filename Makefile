@@ -67,7 +67,8 @@ $(TOPDIR)/dist/${package}-$(VERSION).tar.bz2.sign: $(TOPDIR)/dist/${package}-$(V
 
 clean:
 	PYTHONPATH=. python ./setup.py clean
-	rm -fr tmp/ dist/ build/
+	rm -fr tmp/ dist/ build/ htmlcov/
+	@which coverage > /dev/null 2>&1 && coverage erase
 
 distclean:	clean
 	find $(TOPDIR) -name "*.pyc" -exec rm -f {} \;
