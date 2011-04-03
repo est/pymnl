@@ -22,6 +22,7 @@
 #
 
 import random
+import socket
 import unittest
 
 import pymnl
@@ -51,6 +52,12 @@ class TestSocket(unittest.TestCase):
         """ Test that the requested groups is the actual groups.
         """
         self.assertEqual(self.nl_socket.get_groups(), self._groups)
+
+    def test_get_sock(self):
+        """ Test that the underlying socket can be retrieved.
+        """
+        self.assertTrue(isinstance(self.nl_socket.get_sock(), socket.socket),
+            "object returned by get_sock() was not a socket")
 
     def tearDown(self):
         """ Clean up after each test.
