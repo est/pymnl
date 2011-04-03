@@ -67,11 +67,6 @@ class TestPayload(unittest.TestCase):
         payload = Payload()
         self.assertEqual(payload.get_binary(), b'')
 
-    def tearDown(self):
-        """ Clean up after each test.
-        """
-        self.payload = None
-
     @staticmethod
     def suite():
         return unittest.TestLoader().loadTestsFromTestCase(TestPayload)
