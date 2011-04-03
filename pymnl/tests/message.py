@@ -296,6 +296,9 @@ class TestMessageList(unittest.TestCase):
                         self.msg3.get_binary())
         self.msglist = MessageList(self.msg)
 
+    def test_length(self):
+        """ Test the number of Message's in the MessageList.
+        """
         self.assertEqual(len(self.msglist), 3)
 
     @staticmethod
