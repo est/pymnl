@@ -38,7 +38,8 @@ check_for_coverage:
 	@which coverage > /dev/null 2>&1 || \
 		(echo "Code coverage for Python not found" && exit 1)
 
-testcover:	testcover2
+testcover:	check_for_coverage testcover2
+	coverage html
 
 testcover2:	check_for_coverage
 	PYTHONPATH=. coverage run --branch ./setup.py test --test-list \
