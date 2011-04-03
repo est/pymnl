@@ -312,6 +312,13 @@ class TestMessageList(unittest.TestCase):
         """
         self.assertEqual(len(self.msglist), 3)
 
+    def test_size(self):
+        """ Test the total size (in bytes) of the MessageList.
+        """
+        # should be three messages long
+        #   i.e. 3 * (header length + 24 byte payload)
+        self.assertEqual(self.msglist.size(), (MSG_HDRLEN * 3) + (24 * 3))
+
     def test_failed_init(self):
         """
         """
