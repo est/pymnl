@@ -282,8 +282,8 @@ class TestMessage(unittest.TestCase):
 
 class TestMessageList(unittest.TestCase):
 
-    def test_msglist(self):
-        """
+    def setUp(self):
+        """ Set up MessageList test.
         """
         self.payload = Payload(b'\x03\x01\x00\x00\x08\x00\x01\x00\x10\x00\x00\x00\x0c\x00\x02\x00nl80211\x00')
         self.msg1 = Message()
@@ -295,6 +295,7 @@ class TestMessageList(unittest.TestCase):
         self.msg = (self.msg1.get_binary() + self.msg2.get_binary() +
                         self.msg3.get_binary())
         self.msglist = MessageList(self.msg)
+
         self.assertEqual(len(self.msglist), 3)
 
     @staticmethod
