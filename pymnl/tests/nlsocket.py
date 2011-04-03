@@ -26,7 +26,7 @@ import socket
 import unittest
 
 import pymnl
-from pymnl.nlsocket import Socket
+from pymnl.nlsocket import *
 
 class TestSocket(unittest.TestCase):
 
@@ -61,6 +61,21 @@ class TestSocket(unittest.TestCase):
         """
         self.assertTrue(isinstance(self.nl_socket.get_sock(), socket.socket),
             "object returned by get_sock() was not a socket")
+
+    def test_sock_options(self):
+        """ Test that socket options can be set and retrieved.
+        """
+        initial_sock_opt = self.nl_socket.getsockopt(NETLINK_NO_ENOBUFS)
+        # set the socket option to its opposite
+        self.nl_socket.setsockopt(NETLINK_NO_ENOBUFS, initial_sock_opt ^ 1)
+        middle_sock_opt = self.nl_socket.getsockopt(NETLINK_NO_ENOBUFS)
+        self.assertNotEqual(initial_sock_opt, middle_sock_opt,
+            "Netlink socket option matched when it should NOT")
+        # set the socket option to its opposite (toggle to original value)
+        self.nl_socket.setsockopt(NETLINK_NO_ENOBUFS, middle_sock_opt ^ 1)
+        final_sock_opt = self.nl_socket.getsockopt(NETLINK_NO_ENOBUFS)
+        self.assertEqual(initial_sock_opt, final_sock_opt,
+            "Netlink socket option did not matched")
 
     def tearDown(self):
         """ Clean up after each test.
