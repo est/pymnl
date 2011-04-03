@@ -55,12 +55,6 @@ class TestPayload(unittest.TestCase):
                                             "2", "1", "1", "\x00")
         self.assertEqual(self.payload.get_binary(), self.binary)
 
-    def test_payload(self):
-        """ Call private test methods which build a Payload step-by-step.
-        """
-        self._test_init()
-        self._test_add_attr()
-
     def test_empty_payload(self):
         """ Test an empty payload.
         """
