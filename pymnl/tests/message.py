@@ -193,8 +193,8 @@ class TestMessage(unittest.TestCase):
         payload_out = self.msg.get_payload()
         self.assertEqual(payload_in, payload_out)
 
-    def test_empty_payload(self):
-        """ Test an empty Payload.
+    def test_missing_payload(self):
+        """ Test a message without a Payload.
         """
         self.assertRaises(UnboundLocalError, self.msg.get_binary)
 
