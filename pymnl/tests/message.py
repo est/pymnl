@@ -61,6 +61,12 @@ class TestPayload(unittest.TestCase):
         self._test_init()
         self._test_add_attr()
 
+    def test_empty_payload(self):
+        """ Test an empty payload.
+        """
+        payload = Payload()
+        self.assertEqual(payload.get_binary(), b'')
+
     def tearDown(self):
         """ Clean up after each test.
         """
