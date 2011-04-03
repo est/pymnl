@@ -27,21 +27,21 @@ install:
 test:	test2 test3
 
 test2:
-	PYTHONPATH=. python ./setup.py test --test-list \
-		$(TESTCASES) --test-verbose
+	PYTHONPATH=. python ./setup.py test \
+		--test-list $(TESTCASES) --test-verbose
 
 test3:
-	PYTHONPATH=. python3.1 ./setup.py test --test-list \
-		$(TESTCASES) --test-verbose
+	PYTHONPATH=. python3.1 ./setup.py test \
+		--test-list $(TESTCASES) --test-verbose
 
 check_for_coverage:
 	@which coverage > /dev/null 2>&1 || \
 		(echo "Code coverage for Python not found" && exit 1)
 
-testcover:	check_for_coverage testcover2
+testcoverage:	check_for_coverage testcoverage2
 	coverage html
 
-testcover2:	check_for_coverage
+testcoverage2:	check_for_coverage
 	PYTHONPATH=. coverage run --branch ./setup.py test --test-list \
 		$(TESTCASES) --test-verbose
 
