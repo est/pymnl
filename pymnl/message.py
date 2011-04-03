@@ -513,15 +513,14 @@ class MessageList(list):
     def __init__(self, msg):
         """ Holds the Message objects making up a multipart message.
         """
-        if (msg):
-            if (isinstance(msg, Message)):
-                self.append(msg)
-            elif (isinstance(msg, str) or isinstance(msg, bytes)):
-                # Py2, it's a str; Py3, it's a bytes
-                self.split(msg)
-            else:
-                raise TypeError("MessageList only accepts Messages " +
-                                "or a packed string")
+        if (isinstance(msg, Message)):
+            self.append(msg)
+        elif (isinstance(msg, str) or isinstance(msg, bytes)):
+            # Py2, it's a str; Py3, it's a bytes
+            self.split(msg)
+        else:
+            raise TypeError("MessageList only accepts Messages " +
+                            "or a packed string")
 
     def size(self):
         """ Return the length (in bytes) of the total MessageList.
