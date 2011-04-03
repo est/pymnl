@@ -164,7 +164,7 @@ class Socket(object):
         """
         self._socket.setsockopt(SOL_NETLINK, optname, value)
 
-    def getsockopt(self, optname, buflen=None):
+    def getsockopt(self, optname, buflen=0):
         """ Get a Netlink socket option.
 
             optname - the option to get
