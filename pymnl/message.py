@@ -370,11 +370,6 @@ class Payload(object):
         """
         return len(self._contents)
 
-    def __getitem__(self, index):
-        """ Return the value at index.
-        """
-        return self._contents[index]
-
     def __repr__(self):
         """ Return escaped data string.
         """
