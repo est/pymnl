@@ -30,12 +30,16 @@ from pymnl.message import *
 
 class TestPayload(unittest.TestCase):
 
-    def _test_init(self):
+    def test_init(self):
         """ Test init of a Payload.
         """
-        self.payload = Payload(pack("BBH", 3, 1, 0))
-        self.binary = pack("ssss", "\x03", "\x01", "\x00", "\x00")
-        self.assertEqual(self.payload.get_binary(), self.binary)
+        # make a Payload from a binary data string
+        payload1 = Payload(pack("BBH", 3, 1, 0))
+        binary = pack("ssss", "\x03", "\x01", "\x00", "\x00")
+        self.assertEqual(payload1.get_binary(), binary)
+        # make a Payload from an existing Payload
+        payload2 = Payload(payload1)
+        self.assertEqual(payload2.get_binary(), binary)
 
     def _test_add_attr(self):
         """ Test adding Attr objects to the Payload.
