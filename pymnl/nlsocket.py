@@ -171,5 +171,5 @@ class Socket(object):
 
             buflen - optional (see Python's socket module)
         """
-        self._socket.getsockopt(SOL_NETLINK, optname, buflen)
+        return self._socket.getsockopt(SOL_NETLINK, optname, buflen)
 
