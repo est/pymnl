@@ -253,7 +253,7 @@ class Attr(object):
         """
         if (self.get_value_len() == 0):
             raise TypeError("String attribute is too short")
-        if (type == TYPE_NUL_STRING):
+        if (self.get_type() == TYPE_NUL_STRING):
             if (self._value[-1:] != 0):
                 raise TypeError("This attribute is not null-terminated," +
                                 "as it claims to be")
