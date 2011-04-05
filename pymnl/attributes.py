@@ -209,8 +209,8 @@ class Attr(object):
             Raises TypeError if the data length does not match
             the length expected for the type.
         """
-        if (self.get_type() == TYPE_U8 and self.get_value_len() != _u8):
-            raise TypeError("Integer attribute is too short")
+        if (self.get_value_len() != _u8):
+            raise TypeError("The attribute is not an 8-bit value")
         return unpack("B", self._value)[0]
 
     def get_u16(self):
@@ -219,8 +219,8 @@ class Attr(object):
             Raises TypeError if the data length does not match
             the length expected for the type.
         """
-        if (self.get_type() == TYPE_U16 and self.get_value_len() != _u16):
-            raise TypeError("Integer attribute is too short")
+        if (self.get_value_len() != _u16):
+            raise TypeError("The attribute is not a 16-bit value")
         return unpack("H", self._value)[0]
 
     def get_u32(self):
@@ -229,8 +229,8 @@ class Attr(object):
             Raises TypeError if the data length does not match
             the length expected for the type.
         """
-        if (self.get_type() == TYPE_U32 and self.get_value_len() != _u32):
-            raise TypeError("Integer attribute is too short")
+        if (self.get_value_len() != _u32):
+            raise TypeError("The attribute is not a 32-bit value")
         return unpack("I", self._value)[0]
 
     def get_u64(self):
@@ -239,8 +239,8 @@ class Attr(object):
             Raises TypeError if the data length does not match
             the length expected for the type.
         """
-        if (self.get_type() == TYPE_U64 and self.get_value_len() != _u64):
-            raise TypeError("Integer attribute is too short")
+        if (self.get_value_len() != _u64):
+            raise TypeError("The attribute is not a 64-bit value")
         return unpack("Q", self._value)[0]
 
     def get_str(self):
