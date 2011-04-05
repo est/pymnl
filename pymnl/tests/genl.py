@@ -39,6 +39,10 @@ class TestGenl(unittest.TestCase):
                                 command=pymnl.genl.CTRL_CMD_GETFAMILY,
                                 version=1)
         self.assertEqual(binary, genlmh.get_binary())
+        genlmh = pymnl.genl.GenlMessageHeader()
+        genlmh.set_command(pymnl.genl.CTRL_CMD_GETFAMILY)
+        genlmh.set_version(1)
+        self.assertEqual(binary, genlmh.get_binary())
 
     def test_parsers(self):
         """ Test the genetlink family attribute parsers.
