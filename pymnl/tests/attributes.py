@@ -248,8 +248,18 @@ class TestAttrParser(unittest.TestCase):
     def test_parse_string(self):
         """ Test AttrParser.parse_string().
         """
-        # no test, yet
-        pass
+        # manually create a TYPE_U16 attribute
+        one_attr = Attr.new_u16(TYPE_U16, 4881)
+        # create AttrParser without any data, yet
+        attr_parser = AttrParser()
+        # send one_attr binary data to parse_string()
+        for other_attr in attr_parser.parse_string(one_attr.get_binary()):
+            self.assertEqual(one_attr.get_binary(), other_attr.get_binary(),
+                "Attr parsed from binary data does not match original Attr")
+        # send useless binary string to parse_string()
+        for other_attr in attr_parser.parse_string(b'\x01'):
+            self.assertTrue(False,
+                        "parse_string() should not have returned an Attr")
 
     def test_parse(self):
         """ Test AttrParser.parse().
