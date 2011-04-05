@@ -194,9 +194,9 @@ class GenlFamilyAttrParser(AttrParser):
         """
         self._attributes['ops'] = {}
         # process a list of nested attributes
-        for one_attr in GenlFamilyOpParser().parse_nested(attr):
+        for one_attr in self.parse_nested(attr):
             # get list of nested nested attributes  <-- not a typo
-            nested_attrs = GenlFamilyOpParser().parse_nested(one_attr)
+            nested_attrs = self.parse_nested(one_attr)
             # save nested attributes to 'ops' dictionary
             self._attributes['ops'][nested_attrs[0].get_u32()] = \
                                                 nested_attrs[1].get_u32()
@@ -209,9 +209,9 @@ class GenlFamilyAttrParser(AttrParser):
         """
         self._attributes['groups'] = {}
         # process a list of nested attributes
-        for one_attr in GenlFamilyGroupParser().parse_nested(attr):
+        for one_attr in self.parse_nested(attr):
             # get list of nested nested attributes  <-- not a typo
-            nested_attrs = GenlFamilyGroupParser().parse_nested(one_attr)
+            nested_attrs = self.parse_nested(one_attr)
             # save nested attributes to 'groups' dictionary
             self._attributes['groups'][nested_attrs[0].get_u32()] = \
                                         nested_attrs[1].get_str_stripped()
@@ -231,38 +231,4 @@ class GenlFamilyAttrParser(AttrParser):
             except KeyError:
                 self._attributes['unmatched'].append(one_attr)
         return self._attributes
-
-
-class GenlFamilyOpParser(AttrParser):
-    """ Parser for generic netlink family operations.
-
-        These are the operations returned by CTRL_CMD_GETFAMILY.
-    """
-    def __init__(self):
-        # list to hold attributes without an assigned callback
-        self._attributes = []
-
-        self._cb = {CTRL_ATTR_OP_ID : self.ctrl_attr_op_id}
-
-    def ctrl_attr_op_id(self, attr):
-        self._attributes.append(attr.get_u32())
-
-
-class GenlFamilyGroupParser(AttrParser):
-    """ Parser for generic netlink family multicast groups.
-
-        These are the multicast groups returned by CTRL_CMD_GETFAMILY.
-    """
-    def __init__(self):
-        # list to hold attributes without an assigned callback
-        self._attributes = []
-
-        self._cb = {CTRL_ATTR_MCAST_GRP_ID : self.ctrl_attr_mcast_group_id,
-                CTRL_ATTR_MCAST_GRP_NAME : self.ctrl_attr_mcast_group_name}
-
-    def ctrl_attr_mcast_group_id(self, attr):
-        self._attributes.append(attr.get_u32())
-
-    def ctrl_attr_mcast_group_name(self, attr):
-        self._attributes.append(attr.get_str_stripped())
 
