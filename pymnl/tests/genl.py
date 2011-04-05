@@ -34,11 +34,11 @@ class TestGenl(unittest.TestCase):
     def test_genlmsgheader(self):
         """ Test genetlink message header.
         """
+        binary = pack("BBH", 3, 1, 0)
         genlmh = pymnl.genl.GenlMessageHeader(
                                 command=pymnl.genl.CTRL_CMD_GETFAMILY,
                                 version=1)
-        binary = pack("BBH", 3, 1, 0)
-        self.assertEqual(genlmh.get_binary(), binary)
+        self.assertEqual(binary, genlmh.get_binary())
 
     def test_parsers(self):
         """ Test the genetlink family attribute parsers.
