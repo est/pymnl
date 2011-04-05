@@ -169,6 +169,8 @@ class TestAttributes(unittest.TestCase):
                 self.assertEqual(strnz_.get_str_stripped(), test_string_,
                             "returned value does not match entered value")
             # invalid values
+            strnz_ = Attr.new_strnz(TYPE_STRING, b'')
+            self.assertRaises(TypeError, strnz_.get_str)
             random_ints_ = []
             for i_ in range(3): random_ints_.append(randint(-1000, 1000))
             for value_ in (random_ints_):
@@ -192,9 +194,14 @@ class TestAttributes(unittest.TestCase):
                                         "test string is wrong length")
                 self.assertEqual(strz_.get_str(), test_string_ + b'\x00',
                             "returned value does not match entered value")
+                self.assertRaises(TypeError, strz_.get_str,
+                            "this string was unexpectedly null-terminated")
                 self.assertEqual(strz_.get_str_stripped(), test_string_,
                             "returned value does not match entered value")
             # invalid values
+            #  create a non-null-terminated string, but claim that it is one
+            strz_ = Attr.new_strnz(TYPE_NUL_STRING, b'eggs')
+            self.assertRaises(TypeError, strz_.get_str)
             random_ints_ = []
             for i_ in range(3): random_ints_.append(randint(-1000, 1000))
             for value_ in (random_ints_):
