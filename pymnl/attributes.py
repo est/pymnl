@@ -352,15 +352,14 @@ class AttrParser(object):
             yield one_attr
 
     def parse(self, data_obj, offset=0):
-        """ Returns a list of Attr processed from the binary string.
+        """ Returns a (possibly empty) list of Attr processed from the
+            binary string.
 
             data_obj - An object containing attributes and providing the
                 get_binary() method.  See Message and Payload for examples
                 of get_binary().
 
             offset - offset into data at which to start
-
-            Returns a list of the parsed attributes.
         """
         attributes = []
         for one_attr in self.parse_string(data_obj.get_binary(), offset):
@@ -368,11 +367,11 @@ class AttrParser(object):
                 self._cb[one_attr.get_type()](one_attr)
             except KeyError:
                 attributes.append(one_attr)
-        if (len(attributes) > 0):
-            return attributes
+        return attributes
 
     def parse_nested(self, data_obj):
-        """ Returns a list of Attr processed from the binary string.
+        """ Returns a (possibly empty) list of Attr processed from the
+            binary string.
 
             data_obj - An object containing nested attributes and providing
                 the get_data() method.  get_data() must return the non-header
@@ -382,8 +381,7 @@ class AttrParser(object):
         attributes = []
         for one_attr in self.parse_string(data_obj.get_data(), 0):
             attributes.append(one_attr)
-        if (len(attributes) > 0):
-            return attributes
+        return attributes
 
     def get_attrs(self):
         """ Return list of attributes parsed from data string.
