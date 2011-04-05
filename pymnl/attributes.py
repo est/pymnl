@@ -246,15 +246,16 @@ class Attr(object):
     def get_str(self):
         """ Return value as a string.
 
-            Raises TypeError if the data length is zero or is
-            not null-terminated.  A null-terminated string
-            should have a non-zero length and a null termination
-            or something went wrong.
+            Raises TypeError if the data length is zero.  Also raises
+            TypeError if type is TYPE_NUL_STRING and is not null-terminated.
+            A string should have a non-zero length and a null-terminated
+            string should have a null termination or something went wrong.
         """
         if (self.get_value_len() == 0):
             raise TypeError("String attribute is too short")
         if (self.get_type() == TYPE_NUL_STRING):
-            if (self._value[-1:] != 0):
+            if ((self._value[-1] != b'\x00') and (self._value[-1] != 0)):
+                # b'\x00' works in Py2, but 0 works in Py3
                 raise TypeError("This attribute is not null-terminated," +
                                 "as it claims to be")
         return unpack(repr(len(self._value)) + "s", self._value)[0]
