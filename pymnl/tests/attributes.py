@@ -97,6 +97,9 @@ class TestAttributes(unittest.TestCase):
                 one_attr = const_(type_, value_)
                 self.assertEqual(get_method_(one_attr), value_,
                             "returned value does not match entered value")
+                # reach in and break the Attr
+                one_attr._value = b'\x00' * 12
+                self.assertRaises(TypeError, get_method_, one_attr)
 
     def _test_get_binary(self, const_, type_, value_, expected_value_):
         """ Test Attr.get_binary() method.
