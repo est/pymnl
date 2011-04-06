@@ -23,6 +23,7 @@
 
 from random import randint
 from struct import pack
+import sys
 import unittest
 
 import pymnl
@@ -220,6 +221,26 @@ class TestMessage(unittest.TestCase):
         self.assertTrue(self.msg.seq_ok(0))
         # false positive is (remotely) possible if random number == seq
         self.assertFalse(self.msg.seq_ok(randint(1, pow(2, 31))))
+
+    def test_printf_header(self):
+        """ Test Message.printf_header().
+
+            Check that printf_header synthetic output matches synthetic
+            example.
+        """
+        self._setUp()
+        expected_output = ['----------------\t------------------',
+            '|  {0:0>10d}  |\t| message length |'.format(self.msg_length),
+            '| {0:0>5d} | R-A- |\t|  type | flags  |'.format(self.msg._msg_type),
+            '|  {0:0>10d}  |\t| sequence number|'.format(self.seq),
+            '|  {0:0>10d}  |\t|     port ID    |'.format(self.pid),
+            '----------------\t------------------']
+        capture = PrintInterrupter()
+        sys.stdout = capture
+        self.msg.printf_header()
+        sys.stdout = sys.__stdout__
+        for exp_line, cap_line in zip(expected_output, capture.read_buffer()):
+            self.assertEqual(exp_line, cap_line)
 
     def test_portid_ok(self):
         """ Test Message.portid_ok().
