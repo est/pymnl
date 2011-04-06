@@ -42,6 +42,23 @@ class TestPayload(unittest.TestCase):
         payload2 = Payload(payload1)
         self.assertEqual(payload2.get_binary(), binary)
 
+    def test_printf(self):
+        """ Test Payload.printf().
+
+            Check that printf synthetic output matches synthetic
+            example.
+        """
+        # make a Payload from a binary data string
+        payload = Payload(pack("BBH", 3, 1, 0))
+        expected_output = ['| 03 01 00 00  |\t|  extra header  |',
+                           '----------------\t------------------']
+        capture = PrintInterrupter()
+        sys.stdout = capture
+        payload.printf(16, 4)
+        sys.stdout = sys.__stdout__
+        for exp_line, cap_line in zip(expected_output, capture.read_buffer()):
+            self.assertEqual(exp_line, cap_line)
+
     def test_add_attr(self):
         """ Test adding Attr objects to the Payload.
         """
