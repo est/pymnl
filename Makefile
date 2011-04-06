@@ -42,8 +42,8 @@ testcoverage:	check_for_coverage testcoverage2
 	coverage html
 
 testcoverage2:	check_for_coverage
-	PYTHONPATH=. coverage run --branch ./setup.py test --test-list \
-		$(TESTCASES) --test-verbose
+	PYTHONPATH=. coverage run --branch --omit="*testcommand*" \
+		./setup.py test --test-list $(TESTCASES) --test-verbose
 
 sdist:	$(TOPDIR)/dist/${package}-$(VERSION).tar.bz2.sha256 $(TOPDIR)/dist/${package}-$(VERSION).tar.bz2.sign
 
