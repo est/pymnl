@@ -242,6 +242,14 @@ class TestMessage(unittest.TestCase):
         for exp_line, cap_line in zip(expected_output, capture.read_buffer()):
             self.assertEqual(exp_line, cap_line)
 
+    def test_printf(self):
+        """ Test Message.printf().
+
+            Check that printf synthetic output matches previous capture.
+        """
+        # Not tested, yet
+        pass
+
     def test_portid_ok(self):
         """ Test Message.portid_ok().
 
