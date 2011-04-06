@@ -328,3 +328,40 @@ class TestMessageList(unittest.TestCase):
     def suite():
         return unittest.TestLoader().loadTestsFromTestCase(TestMessageList)
 
+
+class PrintInterrupter(object):
+    """ PrintInterrupter implements a write() method which accepts a string
+        parameter.  Therefor, a PrintInterrupter object can be used in place
+        of sys.stdout.
+
+        The following doctest does not work because this class hacks stdout.
+
+        >>> print("test 1")
+        test 1
+        >>> capture = PrintInterrupter()
+        >>> sys.stdout = capture
+        >>> print("test 2")
+        >>> sys.stdout = sys.__stdout__
+        >>> print("test 3")
+        test 3
+        >>> for buf_ in capture.read_buffer():
+        ...    print(buf_)
+        test 2
+    """
+    def __init__(self):
+        """ Create a new, empty buffer to hold input. """
+        self._buffer = []
+
+    def write(self, str_):
+        """ Accept a string and if it is not just a newline character,
+            save it to our buffer.
+
+            str_ - the string to add to the buffer
+        """
+        if (str_ != "\n"):
+            self._buffer.append(str_)
+
+    def read_buffer(self):
+        """ Return the buffer contents as a list. """
+        return self._buffer
+
