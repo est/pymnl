@@ -29,69 +29,6 @@ import unittest
 import pymnl
 from pymnl.message import *
 
-class TestPayload(unittest.TestCase):
-
-    def test_init(self):
-        """ Test init of a Payload.
-        """
-        # make a Payload from a binary data string
-        payload1 = Payload(pack("BBH", 3, 1, 0))
-        binary = pack("ssss", "\x03", "\x01", "\x00", "\x00")
-        self.assertEqual(payload1.get_binary(), binary)
-        # make a Payload from an existing Payload
-        payload2 = Payload(payload1)
-        self.assertEqual(payload2.get_binary(), binary)
-
-    def test_printf(self):
-        """ Test Payload.printf().
-
-            Check that printf synthetic output matches synthetic
-            example.
-        """
-        # make a Payload from a binary data string
-        payload = Payload(pack("BBH", 3, 1, 0))
-        expected_output = ['| 03 01 00 00  |\t|  extra header  |',
-                           '----------------\t------------------']
-        capture = PrintInterrupter()
-        sys.stdout = capture
-        payload.printf(16, 4)
-        sys.stdout = sys.__stdout__
-        for exp_line, cap_line in zip(expected_output, capture.read_buffer()):
-            self.assertEqual(exp_line, cap_line)
-
-    def test_add_attr(self):
-        """ Test adding Attr objects to the Payload.
-        """
-        payload = Payload(pack("BBH", 3, 1, 0))
-        binary = pack("ssss", "\x03", "\x01", "\x00", "\x00")
-        self.assertEqual(payload.get_binary(), binary)
-
-        family_type = Attr.new_u32(1, 16)
-        payload.add_attr(family_type)
-        binary = binary + pack("ssssssss",
-                                            "\x08", "\x00", "\x01", "\x00",
-                                            "\x10", "\x00", "\x00", "\x00")
-        self.assertEqual(payload.get_binary(), binary)
-
-        family_name = Attr.new_strz(2, b'nl80211')
-        payload.add_attr(family_name)
-        binary = binary + pack("ssssssssssss",
-                                            "\x0c", "\x00", "\x02", "\x00",
-                                            "n", "l", "8", "0",
-                                            "2", "1", "1", "\x00")
-        self.assertEqual(payload.get_binary(), binary)
-
-    def test_empty_payload(self):
-        """ Test an empty payload.
-        """
-        payload = Payload()
-        self.assertEqual(payload.get_binary(), b'')
-
-    @staticmethod
-    def suite():
-        return unittest.TestLoader().loadTestsFromTestCase(TestPayload)
-
-
 class TestMessage(unittest.TestCase):
 
     def setUp(self):
@@ -324,6 +261,69 @@ class TestMessage(unittest.TestCase):
     @staticmethod
     def suite():
         return unittest.TestLoader().loadTestsFromTestCase(TestMessage)
+
+
+class TestPayload(unittest.TestCase):
+
+    def test_init(self):
+        """ Test init of a Payload.
+        """
+        # make a Payload from a binary data string
+        payload1 = Payload(pack("BBH", 3, 1, 0))
+        binary = pack("ssss", "\x03", "\x01", "\x00", "\x00")
+        self.assertEqual(payload1.get_binary(), binary)
+        # make a Payload from an existing Payload
+        payload2 = Payload(payload1)
+        self.assertEqual(payload2.get_binary(), binary)
+
+    def test_printf(self):
+        """ Test Payload.printf().
+
+            Check that printf synthetic output matches synthetic
+            example.
+        """
+        # make a Payload from a binary data string
+        payload = Payload(pack("BBH", 3, 1, 0))
+        expected_output = ['| 03 01 00 00  |\t|  extra header  |',
+                           '----------------\t------------------']
+        capture = PrintInterrupter()
+        sys.stdout = capture
+        payload.printf(16, 4)
+        sys.stdout = sys.__stdout__
+        for exp_line, cap_line in zip(expected_output, capture.read_buffer()):
+            self.assertEqual(exp_line, cap_line)
+
+    def test_add_attr(self):
+        """ Test adding Attr objects to the Payload.
+        """
+        payload = Payload(pack("BBH", 3, 1, 0))
+        binary = pack("ssss", "\x03", "\x01", "\x00", "\x00")
+        self.assertEqual(payload.get_binary(), binary)
+
+        family_type = Attr.new_u32(1, 16)
+        payload.add_attr(family_type)
+        binary = binary + pack("ssssssss",
+                                            "\x08", "\x00", "\x01", "\x00",
+                                            "\x10", "\x00", "\x00", "\x00")
+        self.assertEqual(payload.get_binary(), binary)
+
+        family_name = Attr.new_strz(2, b'nl80211')
+        payload.add_attr(family_name)
+        binary = binary + pack("ssssssssssss",
+                                            "\x0c", "\x00", "\x02", "\x00",
+                                            "n", "l", "8", "0",
+                                            "2", "1", "1", "\x00")
+        self.assertEqual(payload.get_binary(), binary)
+
+    def test_empty_payload(self):
+        """ Test an empty payload.
+        """
+        payload = Payload()
+        self.assertEqual(payload.get_binary(), b'')
+
+    @staticmethod
+    def suite():
+        return unittest.TestLoader().loadTestsFromTestCase(TestPayload)
 
 
 class TestMessageList(unittest.TestCase):
