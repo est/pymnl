@@ -34,7 +34,9 @@ class TestMessage(unittest.TestCase):
     def setUp(self):
         """ Set up the initial conditions for each test.
         """
-        self.msg = Message()
+        # message type is GENL_ID_CTRL (or 16)
+        # message flags is NLM_F_REQUEST | NLM_F_ACK (or 5)
+        self.msg, self.bin_str = self._build_message(16, 5)
 
     def _build_message(self, type_, flags_, seq_=None, pid_=None,
                                                             header_=None):
@@ -139,28 +141,25 @@ class TestMessage(unittest.TestCase):
         # add a four byte header object
         first_extra_header = Payload(pack("BBH", 3, 1, 0))
         self.msg.put_extra_header(first_extra_header)
-        self.msg_length = self.msg_length + 4
-        self.binary = (pack("I", self.msg_length) + self.msg_header +
-                        first_extra_header.get_binary())
-        self.assertEqual(self.msg.get_binary(), self.binary)
+        self.bin_str = self.bin_str + first_extra_header.get_binary()
+        self.bin_str = self._add_length(self.bin_str, 4)
+        self.assertEqual(self.msg.get_binary(), self.bin_str)
+
         # add a second copy of this header
         second_extra_header = Payload(pack("BBH", 3, 2, 0))
         self.msg.put_extra_header(second_extra_header)
-        self.msg_length = self.msg_length + 4
-        self.binary = (pack("I", self.msg_length) + self.msg_header +
-                        first_extra_header.get_binary() +
-                        second_extra_header.get_binary())
-        self.assertEqual(self.msg.get_binary(), self.binary)
+        self.bin_str = self.bin_str + second_extra_header.get_binary()
+        self.bin_str = self._add_length(self.bin_str, 4)
+        self.assertEqual(self.msg.get_binary(), self.bin_str)
 
     def test_add_payload(self):
         """ Test Message.add_payload().
         """
         payload = Payload(pack("BBH", 3, 1, 0))
         self.msg.add_payload(payload)
-        self.msg_length = self.msg_length + 4
-        self.binary = (pack("I", self.msg_length) + self.msg_header +
-                        payload.get_binary())
-        self.assertEqual(self.msg.get_binary(), self.binary)
+        self.bin_str = self.bin_str + payload.get_binary()
+        self.bin_str = self._add_length(self.bin_str, 4)
+        self.assertEqual(self.msg.get_binary(), self.bin_str)
 
     def test_get_payload(self):
         """ Test Message.get_payload().
@@ -243,7 +242,6 @@ class TestMessage(unittest.TestCase):
         # no error code
         payload = Payload(pack("i", 0))
         self.msg.add_payload(payload)
-        self.msg_length = self.msg_length + 4
         self.assertEqual(self.msg.get_errno(), 0)
         # ENOENT error
         self.msg._msg_type = 0x2   # NLMSG_ERROR
@@ -262,7 +260,6 @@ class TestMessage(unittest.TestCase):
         # no error code
         payload = Payload(pack("i", 0))
         self.msg.add_payload(payload)
-        self.msg_length = self.msg_length + 4
         self.assertEqual(self.msg.get_errstr(), 'Success')
         # ENOENT error
         self.msg._msg_type = 0x2   # NLMSG_ERROR
@@ -274,6 +271,7 @@ class TestMessage(unittest.TestCase):
         """ Clean up after each test.
         """
         self.msg = None
+        self.bin_str = None
 
     @staticmethod
     def suite():
