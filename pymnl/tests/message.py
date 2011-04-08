@@ -189,12 +189,14 @@ class TestMessage(unittest.TestCase):
             Check that the sent sequence number and sequence number 0 are
             true and that a random integer does not match the sequence number.
         """
+        seq = randint(1, pow(2, 31))
+        message, bs = self._build_message(16, 5, seq_=seq)
         # verify the sequence number tracked correctly
-        self.assertTrue(self.msg.seq_ok(self.seq))
+        self.assertTrue(message.seq_ok(seq))
         # verify that sequence number zero is always true
-        self.assertTrue(self.msg.seq_ok(0))
+        self.assertTrue(message.seq_ok(0))
         # false positive is (remotely) possible if random number == seq
-        self.assertFalse(self.msg.seq_ok(randint(1, pow(2, 31))))
+        self.assertFalse(message.seq_ok(randint(1, pow(2, 31))))
 
     def test_printf_header(self):
         """ Test Message.printf_header().
@@ -229,12 +231,14 @@ class TestMessage(unittest.TestCase):
             Check that the sent portid number and portid number 0 are
             true and that a random integer does not match the portid number.
         """
+        pid = randint(1, pow(2, 31))
+        message, bs = self._build_message(16, 5, pid_=pid)
         # verify the port id tracked correctly
-        self.assertTrue(self.msg.portid_ok(self.pid))
+        self.assertTrue(message.portid_ok(pid))
         # verify that port id zero is always true
-        self.assertTrue(self.msg.portid_ok(0))
+        self.assertTrue(message.portid_ok(0))
         # false positive is (remotely) possible if random number == portid
-        self.assertFalse(self.msg.portid_ok(randint(1, pow(2, 31))))
+        self.assertFalse(message.portid_ok(randint(1, pow(2, 31))))
 
     def test_get_errno(self):
         """ Test Message.get_errno().
