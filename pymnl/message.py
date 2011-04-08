@@ -452,7 +452,7 @@ class Payload(object):
                 if (one_attr.is_nested()):
                     nest = "N"
                 byteorder = "-"
-                if (one_attr.get_type() & pymnl.attributes.NLA_F_NET_BYTEORDER):
+                if (one_attr._type & pymnl.attributes.NLA_F_NET_BYTEORDER):
                     byteorder = "B"
                 line = line + "%c%c" % (nest, byteorder)
                 line = line + "%c[%dm" % (27, 0)
