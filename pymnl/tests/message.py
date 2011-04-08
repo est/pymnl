@@ -66,8 +66,20 @@ class TestMessage(unittest.TestCase):
         binary = pack("ihhii", length, type_, flags_, seq_, pid_)
         return (msg, binary)
 
+    def _add_length(self, binary, length):
+        """ Replace the encoded length in a binary string representing a
+            Message object.
 
+            binary - binary string - the representation to update
 
+            length - integer - the delta from the current length (4 means
+                add 4 bytes, -8 means subtract 8 bytes)
+        """
+        payload = binary[16:]
+        header = binary[:16]
+        header_list = list(unpack("ihhii", header))
+        header_list[0] += length
+        return pack("ihhii", *header_list) + payload
 
     def _test_valid_header_values(self, set_method_, get_method_,
                                 min_value_, max_value_):
