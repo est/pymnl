@@ -36,8 +36,35 @@ class TestMessage(unittest.TestCase):
         """
         self.msg = Message()
 
+    def _build_message(self, type_, flags_, seq_=None, pid_=None,
+                                                            header_=None):
+        """ Return a list with a Message object and a binary string
+            representation which can be used for testing.
 
+            type_ - integer - Netlink message type
+
+            flags_ - integer - Netlink message flags
+
+            seq_ - integer - Netlink message's sequence number
+
+            pid_ - integer - Netlink message's port id
+
+            header_ - binary string - an extra header to add to the Message
         """
+        msg = Message()
+        msg._msg_type = type_
+        msg._msg_flags = flags_
+        if (not seq_):
+            seq_ = randint(1, pow(2, 31))
+        msg._msg_seq = seq_
+        if (not pid_):
+            pid_ = randint(1, pow(2, 31))
+        msg._pid = pid_
+        length = 16
+        msg._msg_length = length
+
+        binary = pack("ihhii", length, type_, flags_, seq_, pid_)
+        return (msg, binary)
 
 
 
