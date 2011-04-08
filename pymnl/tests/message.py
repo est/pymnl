@@ -36,24 +36,11 @@ class TestMessage(unittest.TestCase):
         """
         self.msg = Message()
 
-    def _setUp(self):
-        """ Set up the initial conditions for some tests.
 
-            Creates hypothetical genl protocol for more complicated tests.
         """
-        self.msg._msg_type = 16  # GENL_ID_CTRL
-        self.msg._msg_flags = 5  # NLM_F_REQUEST | NLM_F_ACK
 
-        self.seq = randint(1, pow(2, 31))
-        self.msg._msg_seq = self.seq
 
-        self.pid = randint(1, pow(2, 31))
-        self.msg._pid = self.pid
 
-        self.msg_length = 16
-        self.msg_header = pack("HHII", self.msg._msg_type,
-                                       self.msg._msg_flags,
-                                       self.seq, self.pid)
 
     def _test_valid_header_values(self, set_method_, get_method_,
                                 min_value_, max_value_):
@@ -110,7 +97,6 @@ class TestMessage(unittest.TestCase):
     def test_put_extra_header(self):
         """ Test Message.put_extra_header().
         """
-        self._setUp()
         # add a four byte header object
         first_extra_header = Payload(pack("BBH", 3, 1, 0))
         self.msg.put_extra_header(first_extra_header)
@@ -130,7 +116,6 @@ class TestMessage(unittest.TestCase):
     def test_add_payload(self):
         """ Test Message.add_payload().
         """
-        self._setUp()
         payload = Payload(pack("BBH", 3, 1, 0))
         self.msg.add_payload(payload)
         self.msg_length = self.msg_length + 4
@@ -145,7 +130,6 @@ class TestMessage(unittest.TestCase):
             object point to the same object.  I.E. this is not much of
             a test.
         """
-        self._setUp()
         payload_in = Payload(pack("BBH", 3, 1, 0))
         self.msg.add_payload(payload_in)
         payload_out = self.msg.get_payload()
@@ -159,7 +143,6 @@ class TestMessage(unittest.TestCase):
     def test_ok(self):
         """ Test Message.ok().
         """
-        self._setUp()
         self.assertTrue(self.msg.ok())
 
     def test_seq_ok(self):
@@ -168,7 +151,6 @@ class TestMessage(unittest.TestCase):
             Check that the sent sequence number and sequence number 0 are
             true and that a random integer does not match the sequence number.
         """
-        self._setUp()
         # verify the sequence number tracked correctly
         self.assertTrue(self.msg.seq_ok(self.seq))
         # verify that sequence number zero is always true
@@ -182,7 +164,6 @@ class TestMessage(unittest.TestCase):
             Check that printf_header synthetic output matches synthetic
             example.
         """
-        self._setUp()
         expected_output = ['----------------\t------------------',
             '|  {0:0>10d}  |\t| message length |'.format(self.msg_length),
             '| {0:0>5d} | R-A- |\t|  type | flags  |'.format(self.msg._msg_type),
@@ -210,7 +191,6 @@ class TestMessage(unittest.TestCase):
             Check that the sent portid number and portid number 0 are
             true and that a random integer does not match the portid number.
         """
-        self._setUp()
         # verify the port id tracked correctly
         self.assertTrue(self.msg.portid_ok(self.pid))
         # verify that port id zero is always true
@@ -221,7 +201,6 @@ class TestMessage(unittest.TestCase):
     def test_get_errno(self):
         """ Test Message.get_errno().
         """
-        self._setUp()
         # no error code
         payload = Payload(pack("i", 0))
         self.msg.add_payload(payload)
@@ -241,7 +220,6 @@ class TestMessage(unittest.TestCase):
     def test_get_errstr(self):
         """ Test Message.get_errstr().
         """
-        self._setUp()
         # no error code
         payload = Payload(pack("i", 0))
         self.msg.add_payload(payload)
