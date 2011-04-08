@@ -355,6 +355,25 @@ class TestPayload(unittest.TestCase):
         for exp_line, cap_line in zip(expected_output, capture.read_buffer()):
             self.assertEqual(exp_line, cap_line)
 
+    def test_printf_with_attr(self):
+        """ Test Payload.printf() with an attribute.
+
+            Check that printf synthetic output matches synthetic
+            example.
+        """
+        # make a Payload from a binary data string
+        payload = Payload()
+        payload.add_attr(pymnl.attributes.Attr.new_u32(3, 42))
+        expected_output = ['|\x1b[1;31m00008\x1b[0m|\x1b[1;32m--\x1b[0m|\x1b[1;34m00003\x1b[0m|\t|len |flags| type|',
+                           '| 2a 00 00 00  |\t|      data      |\t \x00 \x00 \x00 \x00',
+                           '----------------\t------------------']
+        capture = PrintInterrupter()
+        sys.stdout = capture
+        payload.printf(16, 0)
+        sys.stdout = sys.__stdout__
+        for exp_line, cap_line in zip(expected_output, capture.read_buffer()):
+            self.assertEqual(exp_line, cap_line)
+
     def test_add_attr(self):
         """ Test adding Attr objects to the Payload.
         """
