@@ -198,6 +198,25 @@ class TestMessage(unittest.TestCase):
         # false positive is (remotely) possible if random number == seq
         self.assertFalse(message.seq_ok(randint(1, pow(2, 31))))
 
+    def _translate_flags(self, flags):
+        """ Translate message flags integer to 4 char string.
+
+            NLM_F_REQUEST = 1 = R
+            NLM_F_MULTI = 2 = M
+            NLM_F_ACK = 4 = A
+            NLM_F_ECHO = 8 = E
+        """
+        flags_list = ["-"] * 4
+        if (flags & 1):
+            flags_list[0] = "R"
+        if (flags & 2):
+            flags_list[1] = "M"
+        if (flags & 4):
+            flags_list[2] = "A"
+        if (flags & 8):
+            flags_list[3] = "E"
+        return ''.join(flags_list)
+
     def test_printf_header(self):
         """ Test Message.printf_header().
 
