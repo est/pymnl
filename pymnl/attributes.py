@@ -56,7 +56,7 @@ NLA_ALIGNTO = 4
 NLA_ALIGN = pymnl.PYMNL_ALIGN(NLA_ALIGNTO)
 
 # pack/unpack format for type and length
-header_format = "hh"
+header_format = "HH"
 
 ATTR_HDRLEN = NLA_ALIGN(calcsize(header_format))
 
