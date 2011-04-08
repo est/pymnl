@@ -320,6 +320,24 @@ class TestPayload(unittest.TestCase):
         payload2 = Payload(payload1)
         self.assertEqual(payload2.get_binary(), binary)
 
+    def test_printf_control_message(self):
+        """ Test Payload.printf() with a control message.
+
+            Check that printf synthetic output matches synthetic
+            example.
+        """
+        # make a Payload from a binary data string
+        payload = Payload(pack("BBH", 3, 1, 0))
+        expected_output = ['| 03 01 00 00  |\t|                |',
+                           '----------------\t------------------']
+        capture = PrintInterrupter()
+        sys.stdout = capture
+        # error message (control message 2 is an error returned for decoding)
+        payload.printf(2, 0)
+        sys.stdout = sys.__stdout__
+        for exp_line, cap_line in zip(expected_output, capture.read_buffer()):
+            self.assertEqual(exp_line, cap_line)
+
     def test_printf_extra_header(self):
         """ Test Payload.printf() with an extra header.
 
