@@ -223,18 +223,24 @@ class TestMessage(unittest.TestCase):
             Check that printf_header synthetic output matches synthetic
             example.
         """
-        expected_output = ['----------------\t------------------',
-            '|  {0:0>10d}  |\t| message length |'.format(self.msg_length),
-            '| {0:0>5d} | R-A- |\t|  type | flags  |'.format(self.msg._msg_type),
-            '|  {0:0>10d}  |\t| sequence number|'.format(self.seq),
-            '|  {0:0>10d}  |\t|     port ID    |'.format(self.pid),
-            '----------------\t------------------']
-        capture = PrintInterrupter()
-        sys.stdout = capture
-        self.msg.printf_header()
-        sys.stdout = sys.__stdout__
-        for exp_line, cap_line in zip(expected_output, capture.read_buffer()):
-            self.assertEqual(exp_line, cap_line)
+        for flags in [pow(2, x) for x in range(4)]:
+            type_ = 16
+            seq = randint(1, pow(2, 31))
+            pid = randint(1, pow(2, 31))
+            message, bs = self._build_message(type_, flags, seq_=seq, pid_=pid)
+            expected_output = ['----------------\t------------------',
+                '|  {0:0>10d}  |\t| message length |'.format(len(bs)),
+                '| {0:0>5d} | {1} |\t|  type | flags  |'.format(type_, self._translate_flags(flags)),
+                '|  {0:0>10d}  |\t| sequence number|'.format(seq),
+                '|  {0:0>10d}  |\t|     port ID    |'.format(pid),
+                '----------------\t------------------']
+            #XXX test flags
+            capture = PrintInterrupter()
+            sys.stdout = capture
+            message.printf_header()
+            sys.stdout = sys.__stdout__
+            for exp_line, cap_line in zip(expected_output, capture.read_buffer()):
+                self.assertEqual(exp_line, cap_line)
 
     def test_printf(self):
         """ Test Message.printf().
