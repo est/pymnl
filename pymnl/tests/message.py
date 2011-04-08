@@ -320,8 +320,8 @@ class TestPayload(unittest.TestCase):
         payload2 = Payload(payload1)
         self.assertEqual(payload2.get_binary(), binary)
 
-    def test_printf(self):
-        """ Test Payload.printf().
+    def test_printf_extra_header(self):
+        """ Test Payload.printf() with an extra header.
 
             Check that printf synthetic output matches synthetic
             example.
