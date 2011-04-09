@@ -70,7 +70,7 @@ ifm.flags = flags
 rtnlmsg.put_extra_header(ifm)
 
 payload = rtnlmsg.get_payload()
-payload.add_attr(Attr.new_strnz(if_link.IFLA_IFNAME, sys.argv[1].encode()))
+payload.add_attr(Attr.new_str(if_link.IFLA_IFNAME, sys.argv[1].encode()))
 
 # init and bind netlink socket
 sock = Socket(pymnl.NETLINK_ROUTE)

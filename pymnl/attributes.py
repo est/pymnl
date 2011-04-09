@@ -162,7 +162,7 @@ class Attr(object):
         return cls(type=type, value=pack("Q", value))
 
     @classmethod
-    def new_strnz(cls, type, value):
+    def new_str(cls, type, value):
         """ Return a new Attr object with a non-zero-terminated string.
         """
         if (not isinstance(value, bytes)):
@@ -179,7 +179,7 @@ class Attr(object):
         if (not isinstance(value, bytes)):
             raise TypeError
         value = value + b'\x00'
-        return cls.new_strnz(type=type, value=value)
+        return cls.new_str(type=type, value=value)
 
     def set(self, type, value):
         """ Set the attribute type and value.

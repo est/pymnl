@@ -70,7 +70,7 @@ accounted for every function in libmnl.
 20) mnl_attr_put_u16                20) Payload.add_attr(Attr.new_u16)
 21) mnl_attr_put_u32                21) Payload.add_attr(Attr.new_u32)
 22) mnl_attr_put_u64                22) Payload.add_attr(Attr.new_u64)
-23) mnl_attr_put_str                23) Payload.add_attr(Attr.new_strnz)
+23) mnl_attr_put_str                23) Payload.add_attr(Attr.new_str)
 24) mnl_attr_put_strz               24) Payload.add_attr(Attr.new_strz)
 25) mnl_attr_put_check              25) not applicable
 26) mnl_attr_put_u8_check           26) not applicable

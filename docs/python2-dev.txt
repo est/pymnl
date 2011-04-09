@@ -12,7 +12,7 @@ make it easier to transfer your code to Py3 in the future.
 
 Attr Expects 8-bit Strings
 --------------------------
-Attr.new_strnz() and Attr.new_strz() expect an 8-bit (non-unicode) string.
+Attr.new_str() and Attr.new_strz() expect an 8-bit (non-unicode) string.
 Because this is the default type for Py2 strings, no special considerations
 are required, but it is recommended to use the b'' decoration as shown
 above.

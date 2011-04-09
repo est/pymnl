@@ -152,32 +152,32 @@ class TestAttributes(unittest.TestCase):
         self._test_get_binary(Attr.new_u64, TYPE_U64, max_value_,
                         b'\x0c\x00\x04\x00\xff\xff\xff\xff\xff\xff\xff\xff')
 
-    def test_strnz(self):
+    def test_str(self):
         """ Test string value Attr objects.
         """
         for type_ in (TYPE_U8, TYPE_STRING):
             # valid values
             for test_string_ in (b'test string', b'nl80211', b'spam'):
                 aligned_len_ = NLA_ALIGN(len(test_string_))
-                strnz_ = Attr.new_strnz(type_, test_string_)
-                self.assertTrue(isinstance(strnz_, Attr),
+                str_ = Attr.new_str(type_, test_string_)
+                self.assertTrue(isinstance(str_, Attr),
                                         "test string did not make an Attr")
-                self.assertEqual(len(strnz_), (ATTR_HDRLEN + aligned_len_),
+                self.assertEqual(len(str_), (ATTR_HDRLEN + aligned_len_),
                                         "test string is wrong length")
-                self.assertEqual(strnz_.get_str(), test_string_,
+                self.assertEqual(str_.get_str(), test_string_,
                             "returned value does not match entered value")
-                self.assertEqual(strnz_.get_str_stripped(), test_string_,
+                self.assertEqual(str_.get_str_stripped(), test_string_,
                             "returned value does not match entered value")
             # invalid values
-            strnz_ = Attr.new_strnz(TYPE_STRING, b'')
-            self.assertRaises(TypeError, strnz_.get_str)
+            str_ = Attr.new_str(TYPE_STRING, b'')
+            self.assertRaises(TypeError, str_.get_str)
             random_ints_ = []
             for i_ in range(3): random_ints_.append(randint(-1000, 1000))
             for value_ in (random_ints_):
-                self.assertRaises(TypeError, Attr.new_strnz, type_, value_)
+                self.assertRaises(TypeError, Attr.new_str, type_, value_)
         # other tests
-        self._test_type(Attr.new_strnz, b'test')
-        self._test_get_binary(Attr.new_strnz, TYPE_STRING, b'spam',
+        self._test_type(Attr.new_str, b'test')
+        self._test_get_binary(Attr.new_str, TYPE_STRING, b'spam',
                                                 b'\x08\x00\x05\x00spam')
 
     def test_strz(self):
@@ -200,7 +200,7 @@ class TestAttributes(unittest.TestCase):
                             "returned value does not match entered value")
             # invalid values
             #  create a non-null-terminated string, but claim that it is one
-            strz_ = Attr.new_strnz(TYPE_NUL_STRING, b'eggs')
+            strz_ = Attr.new_str(TYPE_NUL_STRING, b'eggs')
             self.assertRaises(TypeError, strz_.get_str)
             random_ints_ = []
             for i_ in range(3): random_ints_.append(randint(-1000, 1000))

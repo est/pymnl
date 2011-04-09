@@ -24,7 +24,7 @@ would have an output similar to this
 
 Attr Expects 8-bit Strings
 --------------------------
-Attr.new_strnz() and Attr.new_strz() expect an 8-bit (non-unicode) string.
+Attr.new_str() and Attr.new_strz() expect an 8-bit (non-unicode) string.
 To ensure that you are passing the correct string type, use strings.encode().
 An example (adapted from genl-family-get.py):
 
