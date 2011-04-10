@@ -18,9 +18,10 @@ setup(
     author = "Sean Robinson",
     author_email = "seankrobinson@gmail.com",
     maintainer_email = "pymnl-dev@lists.tuxfamily.org",
-    description = """pymnl (rhymes with hymnal) is a pure Python
-re-implmentation of libmnl and provides a minimal interface to Linux
-Netlink.""",
+    description = """
+pymnl (rhymes with hymnal) is a pure Python re-implmentation of libmnl and
+provides a minimal, object-oriented interface to Linux Netlink sockets and
+messages.""",
     url = "http://pymnl.wikispot.org/",
     packages = ['pymnl', 'pymnl.tests'],
     provides = ['pymnl'],
@@ -38,9 +39,11 @@ Netlink.""",
         'Natural Language :: English',
         'Operating System :: POSIX :: Linux',
         'Programming Language :: Python',
+        'Programming Language :: Python :: 2',
         'Programming Language :: Python :: 2.5',
         'Programming Language :: Python :: 2.6',
         'Programming Language :: Python :: 2.7',
+        'Programming Language :: Python :: 3',
         'Programming Language :: Python :: 3.0',
         'Programming Language :: Python :: 3.1',
         'Programming Language :: Python :: 3.2',
