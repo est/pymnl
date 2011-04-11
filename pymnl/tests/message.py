@@ -28,6 +28,7 @@ import unittest
 
 import pymnl
 from pymnl.message import *
+from pymnl.tests.output_capture import OutputCapture
 
 class TestMessage(unittest.TestCase):
 
@@ -235,11 +236,9 @@ class TestMessage(unittest.TestCase):
                 '|  {0:0>10d}  |\t|     port ID    |'.format(pid),
                 '----------------\t------------------']
             #XXX test flags
-            capture = PrintInterrupter()
-            sys.stdout = capture
-            message.printf_header()
-            sys.stdout = sys.__stdout__
-            for exp_line, cap_line in zip(expected_output, capture.read_buffer()):
+            with OutputCapture(25) as capture:
+                message.printf_header()
+            for exp_line, cap_line in zip(expected_output, capture.readlines()):
                 self.assertEqual(exp_line, cap_line)
 
     def test_printf(self):
@@ -330,12 +329,10 @@ class TestPayload(unittest.TestCase):
         payload = Payload(pack("BBH", 3, 1, 0))
         expected_output = ['| 03 01 00 00  |\t|                |',
                            '----------------\t------------------']
-        capture = PrintInterrupter()
-        sys.stdout = capture
-        # error message (control message 2 is an error returned for decoding)
-        payload.printf(2, 0)
-        sys.stdout = sys.__stdout__
-        for exp_line, cap_line in zip(expected_output, capture.read_buffer()):
+        with OutputCapture(25) as capture:
+            # error message (control message 2 is an error returned for decoding)
+            payload.printf(2, 0)
+        for exp_line, cap_line in zip(expected_output, capture.readlines()):
             self.assertEqual(exp_line, cap_line)
 
     def test_printf_extra_header(self):
@@ -348,11 +345,9 @@ class TestPayload(unittest.TestCase):
         payload = Payload(pack("BBH", 3, 1, 0))
         expected_output = ['| 03 01 00 00  |\t|  extra header  |',
                            '----------------\t------------------']
-        capture = PrintInterrupter()
-        sys.stdout = capture
-        payload.printf(16, 4)
-        sys.stdout = sys.__stdout__
-        for exp_line, cap_line in zip(expected_output, capture.read_buffer()):
+        with OutputCapture(25) as capture:
+            payload.printf(16, 4)
+        for exp_line, cap_line in zip(expected_output, capture.readlines()):
             self.assertEqual(exp_line, cap_line)
 
     def test_printf_with_attr(self):
@@ -367,11 +362,9 @@ class TestPayload(unittest.TestCase):
         expected_output = ['|\x1b[1;31m00008\x1b[0m|\x1b[1;32m--\x1b[0m|\x1b[1;34m00003\x1b[0m|\t|len |flags| type|',
                            '| 2a 00 00 00  |\t|      data      |\t \x00 \x00 \x00 \x00',
                            '----------------\t------------------']
-        capture = PrintInterrupter()
-        sys.stdout = capture
-        payload.printf(16, 0)
-        sys.stdout = sys.__stdout__
-        for exp_line, cap_line in zip(expected_output, capture.read_buffer()):
+        with OutputCapture(25) as capture:
+            payload.printf(16, 0)
+        for exp_line, cap_line in zip(expected_output, capture.readlines()):
             self.assertEqual(exp_line, cap_line)
 
     def test_printf_with_nested_attr(self):
@@ -386,11 +379,9 @@ class TestPayload(unittest.TestCase):
         payload.add_attr(one_attr)
         expected_output = ['|\x1b[1;31m00008\x1b[0m|\x1b[1;32mN-\x1b[0m|\x1b[1;34m00003\x1b[0m|\t|len |flags| type|',
                            '----------------\t------------------']
-        capture = PrintInterrupter()
-        sys.stdout = capture
-        payload.printf(16, 0)
-        sys.stdout = sys.__stdout__
-        for exp_line, cap_line in zip(expected_output, capture.read_buffer()):
+        with OutputCapture(25) as capture:
+            payload.printf(16, 0)
+        for exp_line, cap_line in zip(expected_output, capture.readlines()):
             self.assertEqual(exp_line, cap_line)
 
     def test_printf_with_network_byteorder_attr(self):
@@ -406,11 +397,9 @@ class TestPayload(unittest.TestCase):
         expected_output = ['|\x1b[1;31m00008\x1b[0m|\x1b[1;32m-B\x1b[0m|\x1b[1;34m00003\x1b[0m|\t|len |flags| type|',
                            '| 2a 00 00 00  |\t|      data      |\t \x00 \x00 \x00 \x00',
                            '----------------\t------------------']
-        capture = PrintInterrupter()
-        sys.stdout = capture
-        payload.printf(16, 0)
-        sys.stdout = sys.__stdout__
-        for exp_line, cap_line in zip(expected_output, capture.read_buffer()):
+        with OutputCapture(25) as capture:
+            payload.printf(16, 0)
+        for exp_line, cap_line in zip(expected_output, capture.readlines()):
             self.assertEqual(exp_line, cap_line)
 
     def test_add_attr(self):
@@ -493,41 +482,4 @@ class TestMessageList(unittest.TestCase):
     @staticmethod
     def suite():
         return unittest.TestLoader().loadTestsFromTestCase(TestMessageList)
-
-
-class PrintInterrupter(object):
-    """ PrintInterrupter implements a write() method which accepts a string
-        parameter.  Therefor, a PrintInterrupter object can be used in place
-        of sys.stdout.
-
-        The following doctest does not work because this class hacks stdout.
-
-        >>> print("test 1")
-        test 1
-        >>> capture = PrintInterrupter()
-        >>> sys.stdout = capture
-        >>> print("test 2")
-        >>> sys.stdout = sys.__stdout__
-        >>> print("test 3")
-        test 3
-        >>> for buf_ in capture.read_buffer():
-        ...    print(buf_)
-        test 2
-    """
-    def __init__(self):
-        """ Create a new, empty buffer to hold input. """
-        self._buffer = []
-
-    def write(self, str_):
-        """ Accept a string and if it is not just a newline character,
-            save it to our buffer.
-
-            str_ - the string to add to the buffer
-        """
-        if (str_ != "\n"):
-            self._buffer.append(str_)
-
-    def read_buffer(self):
-        """ Return the buffer contents as a list. """
-        return self._buffer
 
