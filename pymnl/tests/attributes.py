@@ -225,7 +225,12 @@ class TestAttributes(unittest.TestCase):
                                         "nested flag should not be set")
 
     @staticmethod
-    def suite():
+    def load_tests(loader, tests, pattern):
+        """ Return tests from class.  Fake implementation of the load_tests
+            protocol from Michael Foord's discover.py.
+
+            loader, tests, and pattern do not do anything, yet
+        """
         return unittest.TestLoader().loadTestsFromTestCase(TestAttributes)
 
 
@@ -289,6 +294,11 @@ class TestAttrParser(unittest.TestCase):
         self.assertEqual(one_attr.get_binary(), attr_list[0].get_binary())
 
     @staticmethod
-    def suite():
+    def load_tests(loader, tests, pattern):
+        """ Return tests from class.  Fake implementation of the load_tests
+            protocol from Michael Foord's discover.py.
+
+            loader, tests, and pattern do not do anything, yet
+        """
         return unittest.TestLoader().loadTestsFromTestCase(TestAttrParser)
 

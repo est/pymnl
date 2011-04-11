@@ -83,7 +83,12 @@ class TestSocket(unittest.TestCase):
         self.nl_socket.close()
 
     @staticmethod
-    def suite():
+    def load_tests(loader, tests, pattern):
+        """ Return tests from class.  Fake implementation of the load_tests
+            protocol from Michael Foord's discover.py.
+
+            loader, tests, and pattern do not do anything, yet
+        """
         return unittest.TestLoader().loadTestsFromTestCase(TestSocket)
 
 

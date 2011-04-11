@@ -108,6 +108,6 @@ class test(distutils.core.Command):
                 result = test_class_pattern.match(module_attr)
                 if (result):
                     class_ = test_module.__getattribute__(module_attr)
-                    suite = class_.suite()
+                    suite = class_.load_tests(self, None, None)
                     unittest.TextTestRunner(verbosity=self.test_verbose).run(suite)
 

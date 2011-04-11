@@ -301,7 +301,12 @@ class TestMessage(unittest.TestCase):
         self.bin_str = None
 
     @staticmethod
-    def suite():
+    def load_tests(loader, tests, pattern):
+        """ Return tests from class.  Fake implementation of the load_tests
+            protocol from Michael Foord's discover.py.
+
+            loader, tests, and pattern do not do anything, yet
+        """
         return unittest.TestLoader().loadTestsFromTestCase(TestMessage)
 
 
@@ -430,7 +435,12 @@ class TestPayload(unittest.TestCase):
         self.assertEqual(payload.get_binary(), b'')
 
     @staticmethod
-    def suite():
+    def load_tests(loader, tests, pattern):
+        """ Return tests from class.  Fake implementation of the load_tests
+            protocol from Michael Foord's discover.py.
+
+            loader, tests, and pattern do not do anything, yet
+        """
         return unittest.TestLoader().loadTestsFromTestCase(TestPayload)
 
 
@@ -479,6 +489,11 @@ class TestMessageList(unittest.TestCase):
         self.assertRaises(TypeError, MessageList, 2)
 
     @staticmethod
-    def suite():
+    def load_tests(loader, tests, pattern):
+        """ Return tests from class.  Fake implementation of the load_tests
+            protocol from Michael Foord's discover.py.
+
+            loader, tests, and pattern do not do anything, yet
+        """
         return unittest.TestLoader().loadTestsFromTestCase(TestMessageList)
 
