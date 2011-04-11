@@ -235,7 +235,6 @@ class TestMessage(unittest.TestCase):
                 '|  {0:0>10d}  |\t| sequence number|'.format(seq),
                 '|  {0:0>10d}  |\t|     port ID    |'.format(pid),
                 '----------------\t------------------']
-            #XXX test flags
             with OutputCapture(25) as capture:
                 message.printf_header()
             for exp_line, cap_line in zip(expected_output, capture.readlines()):
