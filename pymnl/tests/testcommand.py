@@ -50,8 +50,7 @@ class test(distutils.core.Command):
     # List of option tuples: long name, short name (None if no short
     # name), and help string.
     user_options = [('test-list=', None,
-                     "list of test modules to run " +
-                     "(e.g. tests.message)"),
+                     "list of test modules to run (e.g. tests.message)"),
                     ('test-verbose', None,
                      "show additional output during tests"),
                    ]
