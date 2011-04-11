@@ -22,6 +22,7 @@
 # SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 import distutils.core
+from inspect import getmembers, isclass
 import imp
 import re
 import unittest
@@ -104,9 +105,12 @@ class test(distutils.core.Command):
         test_class_pattern = re.compile("Test")
         for test_module in self.test_list:
             test_module = self.load_module(test_module)
-            for module_attr in dir(test_module):
+            for obj in getmembers(test_module, lambda x: isclass(x)):
+                # obj is a tuple with meta-info about classes in test_module
+                module_attr = obj[0]
                 result = test_class_pattern.match(module_attr)
                 if (result):
+                    # class returned from getmembers matches "Test" pattern
                     class_ = test_module.__getattribute__(module_attr)
                     suite = class_.load_tests(self, None, None)
                     unittest.TextTestRunner(verbosity=self.test_verbose).run(suite)
