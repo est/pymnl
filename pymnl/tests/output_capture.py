@@ -26,7 +26,7 @@ import sys
 
 class OutputCapture(object):
     """ A context manager to capture stdout in memory, then provide a
-        generator (readline) to read the captured lines of output.  Internal
+        generator (readlines) to read the captured lines of output.  Internal
         storage of the captured line is handled by a collections.deque
         object.
 
