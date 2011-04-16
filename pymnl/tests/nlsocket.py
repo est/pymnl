@@ -21,7 +21,7 @@
 #  USA
 #
 
-import random
+from random import randint
 import socket
 import unittest
 
@@ -34,7 +34,7 @@ class TestSocket(unittest.TestCase):
         """ Set up conditions necessary for each test.
         """
         self.nl_socket = Socket(pymnl.NETLINK_GENERIC)
-        self._pid = random.randint(1024, 32768)
+        self._pid = randint(1, pow(2, 31))
         self._groups = 0
         self.nl_socket.bind(self._pid, self._groups)
 
