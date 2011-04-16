@@ -23,10 +23,14 @@
 
 from random import randint
 import socket
+from struct import pack
 import unittest
 
 import pymnl
 from pymnl.nlsocket import *
+
+from pymnl.message import Message, MessageList, Payload
+
 
 class TestSocket(unittest.TestCase):
 
@@ -55,6 +59,23 @@ class TestSocket(unittest.TestCase):
         """
         self.assertEqual(self.nl_socket.get_groups(), self._groups,
             "Netlink socket multicast groups did not match")
+
+    def test_send_recv(self):
+        """ Test sending and receiving a Netlink message.
+        """
+        # build a Message to send through the socket
+        msg = Message()
+        msg.set_type(16)
+        msg.set_flags(5)
+        msg.set_seq(randint(1, pow(2, 31)))
+        msg.set_portid(self._pid)
+        msg.add_payload(Payload(pack("BBH", 3, 1, 0)))
+        # send and receive Message through a fake socket
+        self.nl_socket._socket = MockSocket()
+        self.nl_socket.send(msg)
+        # save first Message from returned MessageList
+        recv_msg = self.nl_socket.recv()[0]
+        self.assertEqual(msg.get_binary(), recv_msg.get_binary())
 
     def test_get_sock(self):
         """ Test that the underlying socket can be retrieved.
