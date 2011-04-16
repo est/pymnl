@@ -106,7 +106,7 @@ class test(distutils.core.Command):
         for test_module in self.test_list:
             test_module = self.load_module(test_module)
             for obj in getmembers(test_module, lambda x: isclass(x)):
-                # obj is a tuple with meta-info about classes in test_module
+                # obj is a tuple with meta-info about a class in test_module
                 module_attr = obj[0]
                 result = test_class_pattern.match(module_attr)
                 if (result):
