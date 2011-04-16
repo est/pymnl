@@ -92,3 +92,19 @@ class TestSocket(unittest.TestCase):
         return unittest.TestLoader().loadTestsFromTestCase(TestSocket)
 
 
+class MockSocket(object):
+    def send(self, nl_message):
+        """ Pretend to send a message, instead, save it.
+        """
+        self._message = nl_message
+
+    def recv(self, bufsize, flags):
+        """ Return the saved message.
+        """
+        return self._message
+
+    def close(self):
+        """ Fake the closing of the socket.
+        """
+        pass
+
