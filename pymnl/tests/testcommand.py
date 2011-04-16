@@ -102,7 +102,7 @@ class test(distutils.core.Command):
         """ Find and load module(s) with test classes, ask those classes
             for a test suite, and run the returned tests.
         """
-        test_class_pattern = re.compile("Test")
+        test_class_pattern = re.compile("^Test")
         for test_module in self.test_list:
             test_module = self.load_module(test_module)
             for obj in getmembers(test_module, lambda x: isclass(x)):
@@ -110,7 +110,7 @@ class test(distutils.core.Command):
                 module_attr = obj[0]
                 result = test_class_pattern.match(module_attr)
                 if (result):
-                    # class returned from getmembers matches "Test" pattern
+                    # class returned from getmembers matches "^Test" pattern
                     class_ = test_module.__getattribute__(module_attr)
                     suite = class_.load_tests(self, None, None)
                     unittest.TextTestRunner(verbosity=self.test_verbose).run(suite)
