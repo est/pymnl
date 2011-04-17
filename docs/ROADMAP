@@ -6,13 +6,13 @@ dates are dependent on user feedback, bugs I find while trying to
 develop with pymnl, and the time I can find to implement fixes.  That said,
 I would like to have the 1.0 release out before the end of 2011.
 
-v0.1 - first release
+v0.1 - first release - released Mar 14, 2011
         Alpha version to get initial feedback from other developers.
         Wild API changes allowed.
 
-v0.5 - second release
+v0.5 - second release - released Apr 17, 2011
         Beta version with more complete test cases and examples.  Include
-        fixes for bugs reported by users.  Minimal API changes allowed.
+        fixes for bugs found by testing.  Minimal API changes allowed.
 
 v0.9 - third release
         Beta version.  Mostly complete.  Only vital API changes allowed.
