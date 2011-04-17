@@ -31,7 +31,7 @@ messages.""",
     keywords = "Netlink genl rtnl socket",
     download_url = "https://pymnl.tuxfamily.org",
     classifiers = [
-        'Development Status :: 3 - Alpha',
+        'Development Status :: 4 - Beta',
         'Environment :: Other Environment',
         'Intended Audience :: Developers',
         'License :: OSI Approved :: GNU General Public License (GPL)',
