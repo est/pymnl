@@ -139,15 +139,15 @@ class GenlFamilyAttrParser(AttrParser):
                 initialization.  See parse() for more details.
         """
         # dict to hold attributes without an assigned callback
-        self._attributes = { 'unmatched': [] }
+        self._attributes = {'unmatched': []}
 
-        self._cb = {CTRL_ATTR_FAMILY_ID : self.ctrl_attr_family_id,
-                    CTRL_ATTR_FAMILY_NAME : self.ctrl_attr_family_name,
-                    CTRL_ATTR_VERSION : self.ctrl_attr_version,
-                    CTRL_ATTR_HDRSIZE : self.ctrl_attr_hdrsize,
-                    CTRL_ATTR_MAXATTR : self.ctrl_attr_maxattr,
-                    CTRL_ATTR_OPS : self.ctrl_attr_ops,
-                    CTRL_ATTR_MCAST_GROUPS : self.ctrl_attr_mcast_groups}
+        self._cb = {CTRL_ATTR_FAMILY_ID: self.ctrl_attr_family_id,
+                    CTRL_ATTR_FAMILY_NAME: self.ctrl_attr_family_name,
+                    CTRL_ATTR_VERSION: self.ctrl_attr_version,
+                    CTRL_ATTR_HDRSIZE: self.ctrl_attr_hdrsize,
+                    CTRL_ATTR_MAXATTR: self.ctrl_attr_maxattr,
+                    CTRL_ATTR_OPS: self.ctrl_attr_ops,
+                    CTRL_ATTR_MCAST_GROUPS: self.ctrl_attr_mcast_groups}
         if (data_obj):
             self.parse(data_obj, offset)
 

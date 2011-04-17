@@ -118,7 +118,6 @@ class Attr(object):
         else:
             self.set(type, value)
 
-
     def __len__(self):
         """ Get the length of the packed attribute (in bytes).
         """
@@ -343,7 +342,7 @@ class AttrParser(object):
         index = offset
         while (index < len(data)):
             try:
-                attr_length = unpack("H", data[index:index+2])[0]
+                attr_length = unpack("H", data[index:index + 2])[0]
             except:
                 break
             end_index = index + attr_length

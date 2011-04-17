@@ -43,7 +43,7 @@ NLM_F_ECHO = 8          # Echo this request
 NLM_F_ROOT = 0x100      # specify tree root
 NLM_F_MATCH = 0x200     # return all matching
 NLM_F_ATOMIC = 0x400    # atomic GET
-NLM_F_DUMP = (NLM_F_ROOT|NLM_F_MATCH)
+NLM_F_DUMP = (NLM_F_ROOT | NLM_F_MATCH)
 
 # Modifiers to NEW request
 NLM_F_REPLACE = 0x100   # Override existing
@@ -65,6 +65,7 @@ NLMSG_MIN_TYPE = 0x10   # < 0x10: reserved control messages
 header_format = "ihhii"
 
 MSG_HDRLEN = NLMSG_ALIGN(calcsize(header_format))
+
 
 class Message(object):
     def __init__(self, buffer=None):
@@ -296,14 +297,14 @@ class Message(object):
         echo = "-"
         if (self._msg_flags & NLM_F_ECHO):
             echo = "E"
-        print("----------------\t------------------");
-        print("|  %.010u  |\t| message length |" % len(self));
+        print("----------------\t------------------")
+        print("|  %.010u  |\t| message length |" % len(self))
         print("| %.05u | %c%c%c%c |\t|  type | flags  |" %
             (self._msg_type,
             request, multi, ack, echo))
-        print("|  %.010u  |\t| sequence number|" % self._msg_seq);
-        print("|  %.010u  |\t|     port ID    |" % self._pid);
-        print("----------------\t------------------");
+        print("|  %.010u  |\t| sequence number|" % self._msg_seq)
+        print("|  %.010u  |\t|     port ID    |" % self._pid)
+        print("----------------\t------------------")
 
     def printf(self, extra_header_size=0):
         """ This method prints the full netlink message to stdout.
@@ -416,7 +417,7 @@ class Payload(object):
         for index in range(0, len(self), 4):
             # get four bytes of payload for later use
             buf = []
-            for char in self._contents[index:index+4]:
+            for char in self._contents[index:index + 4]:
                 try:
                     # make sure we have a list of numbers, needed in Py2
                     buf.append(ord(char))
@@ -425,7 +426,7 @@ class Payload(object):
                     buf.append(char)
 
             # make a stunted Attr so we can test its attribute-ness later
-            one_attr = Attr(packed_data=self._contents[index:index+4])
+            one_attr = Attr(packed_data=self._contents[index:index + 4])
 
             if (msg_type < NLMSG_MIN_TYPE):
                 # netlink control message
@@ -442,7 +443,8 @@ class Payload(object):
                 # this seems like an attribute header
                 # Since this looks like an attribute, make a full Attr
                 #   with which to work.
-                one_attr = Attr(packed_data=self._contents[index:index+one_attr._length])
+                one_attr = Attr(packed_data=self._contents[index:
+                                                index + one_attr._length])
                 line = "|%c[%d;%dm" % (27, 1, 31)
                 line = line + "%.5u" % (len(one_attr),)
                 line = line + "%c[%dm" % (27, 0)
@@ -463,10 +465,11 @@ class Payload(object):
                 line = line + "|len |flags| type|"
                 print(line)
                 if (not one_attr.is_nested()):
-                    rem = len(one_attr) - calcsize(pymnl.attributes.header_format)
+                    rem = (len(one_attr) -
+                                   calcsize(pymnl.attributes.header_format))
             elif (rem > 0):
                 # this is the attribute payload
-                rem = rem - 4;
+                rem = rem - 4
                 line = ("| %.2x %.2x %.2x %.2x  |\t" %
                     (0xff & buf[0],  0xff & buf[1],
                      0xff & buf[2],  0xff & buf[3]))
@@ -484,7 +487,7 @@ class Payload(object):
                 line = line + ("\t %c %c %c %c" %
                     (buf[0], buf[1], buf[2], buf[3]))
                 print(line)
-        print("----------------\t------------------");
+        print("----------------\t------------------")
 
     def add_attr(self, attribute):
         """ Add an Attr object to the payload.
@@ -544,10 +547,4 @@ class MessageList(list):
             else:
                 self.append(one_msg)
                 msg = None
-
-
-
-
-
-
 
