@@ -39,20 +39,22 @@ test3:
 		--test-list $(TESTCASES) --test-verbose
 
 testcoverage:	testcoverage2 testcoverage3
+	$(COVERAGE3) combine
+	$(COVERAGE3) html
 
 testcoverage2:
 	@which $(COVERAGE2) > /dev/null 2>&1 || \
 		(echo "Code coverage for Python 2 not found" && exit 1)
-	PYTHONPATH=. $(COVERAGE2) run --branch --omit="*testcommand*" \
+	PYTHONPATH=. $(COVERAGE2) run --parallel-mode --branch \
+		--omit="*testcommand*" \
 		./setup.py test --test-list $(TESTCASES) --test-verbose
-	$(COVERAGE2) html --directory=coverage2-html
 
 testcoverage3:
 	@which $(COVERAGE3) > /dev/null 2>&1 || \
 		(echo "Code coverage for Python 3 not found" && exit 1)
-	PYTHONPATH=. $(COVERAGE3) run --branch --omit="*testcommand*" \
+	PYTHONPATH=. $(COVERAGE3) run --parallel-mode --branch \
+		--omit="*testcommand*" \
 		./setup.py test --test-list $(TESTCASES) --test-verbose
-	$(COVERAGE3) html --directory=coverage3-html
 
 sdist:	$(TOPDIR)/dist/${package}-$(VERSION).tar.bz2.sha256 $(TOPDIR)/dist/${package}-$(VERSION).tar.bz2.sign
 
@@ -76,7 +78,7 @@ $(TOPDIR)/dist/${package}-$(VERSION).tar.bz2.sign: $(TOPDIR)/dist/${package}-$(V
 
 clean:
 	PYTHONPATH=. python ./setup.py clean
-	rm -fr tmp/ dist/ build/ coverage2-html/ coverage3-html/
+	rm -fr tmp/ dist/ build/ htmlcov/
 	@which $(COVERAGE2) > /dev/null 2>&1 && $(COVERAGE2) erase
 	@which $(COVERAGE3) > /dev/null 2>&1 && $(COVERAGE3) erase
 
